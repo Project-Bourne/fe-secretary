@@ -3,7 +3,7 @@ import Image from "next/image";
 
 function RightCompt() {
   return (
-    <div className="mr-10 bg-sirp-dashboardcola h-28 drop-shadow-md rounded-[1.5rem] flex items-center gap-[1.5rem] basis-1/2">
+    <div className="md:mr-10 bg-sirp-dashboardcola h-28 drop-shadow-md rounded-[1.5rem] flex items-center gap-[1.5rem] basis-1/2">
       <div>
         <div className="flex flex-row items-center gap-2">
           <div>
