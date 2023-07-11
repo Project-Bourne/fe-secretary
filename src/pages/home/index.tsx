@@ -1,5 +1,4 @@
 // home page
-import { useState } from 'react';
 import HomeLayout from '@/layout/HomeLayout'
 import { HomeSubData } from '@/utils/constants';
 import HomeHistory from './components/history'
@@ -14,8 +13,15 @@ function Home() {
   console.log(router, 'i am router')
   return (
     // eslint-disable-next-line react/jsx-filename-extension
-    <div className='m-10 py-5 rounded-lg bg-[#F9F9F9]'>
-      
+    <div className='mt-[8rem] h-[100%] rounded-[1rem] bg-[#F9F9F9]'>
+      <HomeLayout>
+        <h1 className='text-2xl pl-10 pt-5 font-bold'>Add Content</h1>
+        <FileUpload />
+      </HomeLayout>
+
+      <SettingsLayout showTitle={showTitle} data={HomeSubData}>
+        <HomeHistory />
+      </SettingsLayout>
     </div>
 
   )

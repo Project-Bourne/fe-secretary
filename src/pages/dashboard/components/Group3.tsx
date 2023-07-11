@@ -9,23 +9,23 @@ function Group3() {
           <div className="flex flex-row items-center gap-3 pt-5">
             <div>
               <Image
-                src={require("../../../assets/icons/Frame 11.svg")}
+                src={require("../../../assets/icons/Frame 011.svg")}
                 alt="documents"
-                className="pl-10 cursor-pointer"
-                width={130}
+                className="pl-5 cursor-pointer"
+                width={115}
               />
             </div>
-            <div>
+            <div className="flex flex-col mr-2">
               <p className="font-bold">4000</p>
               <span className="font-light text-sirp-grey">
-                Total content crawled
+                Total documents fact checked
               </span>
             </div>
           </div>
         </div>
-        <div className="ml-6 pt-8 ">
-          <button className="border border-sirp-primary w-[20rem] pb-2 pt-2 rounded-[1rem] hover:bg-sirp-primaryLess1 hover:text-white text-sirp-primary  font-bold">
-            Open SIRP
+        <div className="ml-6 pt-8">
+          <button className=" border border-sirp-dashboardcola w-[20rem] pb-2 pt-2 rounded-[1rem] hover:bg-sirp-dashboardcola hover:text-white text-sirp-dashboardcola font-bold">
+          Open Fact checker
           </button>
         </div>
       </div>
@@ -34,21 +34,23 @@ function Group3() {
           <div className="flex flex-row items-center gap-3 pt-5">
             <div>
               <Image
-                src={require("../../../assets/icons/Frame 12.svg")}
+                src={require("../../../assets/icons/Frame 012.svg")}
                 alt="documents"
-                className="pl-10 cursor-pointer"
-                width={130}
+                className="pl-5 cursor-pointer"
+                width={115}
               />
             </div>
-            <div>
+            <div className="flex flex-col mr-2">
               <p className="font-bold">4000</p>
-              <span className="font-light text-sirp-grey">Total users</span>
+              <span className="font-light text-sirp-grey">
+              Total documents summarized
+              </span>
             </div>
           </div>
         </div>
-        <div className="ml-6 pt-8 ">
-          <button className=" border border-sirp-dashbordb3 hover: w-[20rem] pb-2 pt-2 rounded-[1rem] text-sirp-dashbordb3a hover:bg-sirp-dashbordb3a hover:text-white font-bold ">
-            Invite collaborators
+        <div className="ml-6 pt-8">
+          <button className=" border border-sirp-dashboardcola w-[20rem] pb-2 pt-2 rounded-[1rem] hover:bg-sirp-dashboardcola hover:text-white text-sirp-dashboardcola font-bold">
+          Open Summarizer
           </button>
         </div>
       </div>
@@ -57,7 +59,7 @@ function Group3() {
           <div className="flex flex-row items-center gap-3 pt-5">
             <div>
               <Image
-                src={require("../../../assets/icons/Frame 13.svg")}
+                src={require("../../../assets/icons/Frame 013.svg")}
                 alt="documents"
                 className="pl-10 cursor-pointer"
                 width={130}
@@ -66,14 +68,14 @@ function Group3() {
             <div>
               <p className="font-bold">4000</p>
               <span className="font-light text-sirp-grey">
-                Total exportd to collab
+                Total documents
               </span>
             </div>
           </div>
         </div>
         <div className="ml-6 pt-8 ">
-          <button className="border border-sirp-primary w-[20rem] pb-2 pt-2 rounded-[1rem] hover:bg-sirp-primaryLess1 hover:text-white text-sirp-primary  font-bold">
-            Open collab workspace
+        <button className=" border border-sirp-dashboardcola w-[20rem] pb-2 pt-2 rounded-[1rem] hover:bg-sirp-dashboardcola hover:text-white text-sirp-dashboardcola font-bold">
+            Open Oracle
           </button>
         </div>
       </div>

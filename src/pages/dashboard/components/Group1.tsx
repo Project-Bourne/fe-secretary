@@ -9,7 +9,7 @@ function Group1() {
           <div className="flex flex-row items-center gap-3 pt-5">
             <div>
               <Image
-                src={require("../../../assets/icons/Frame 5.svg")}
+                src={require("../../../assets/icons/Frame 05.svg")}
                 alt="documents"
                 className="pl-10 cursor-pointer"
                 width={130}
@@ -24,8 +24,8 @@ function Group1() {
           </div>
         </div>
         <div className="ml-6 pt-8 ">
-          <button className=" border border-sirp-primary w-[20rem] pb-2 pt-2 rounded-[1rem] hover:bg-sirp-primaryLess1 hover:text-white text-sirp-primary  font-bold">
-            Open SIRP
+        <button className=" border border-sirp-dashboardcola w-[20rem] pb-2 pt-2 rounded-[1rem] hover:bg-sirp-dashboardcola hover:text-white text-sirp-dashboardcola font-bold">
+            Open IRP
           </button>
         </div>
       </div>
@@ -34,7 +34,7 @@ function Group1() {
           <div className="flex flex-row items-center gap-3 pt-5">
             <div>
               <Image
-                src={require("../../../assets/icons/Frame 6.svg")}
+                src={require("../../../assets/icons/Frame 06.svg")}
                 alt="documents"
                 className="pl-10 cursor-pointer"
                 width={115}
@@ -47,7 +47,7 @@ function Group1() {
           </div>
         </div>
         <div className="ml-6 pt-8 ">
-          <button className=" border border-sirp-dashbordb3 hover: w-[20rem] pb-2 pt-2 rounded-[1rem] text-sirp-dashbordb3a hover:bg-sirp-dashbordb3a hover:text-white font-bold ">
+        <button className=" border border-sirp-primary w-[20rem] pb-2 pt-2 rounded-[1rem] hover:bg-sirp-primary hover:text-white text-sirp-primary font-bold">
             Invite collaborators
           </button>
         </div>
@@ -57,7 +57,7 @@ function Group1() {
           <div className="flex flex-row items-center gap-3 pt-5">
             <div>
               <Image
-                src={require("../../../assets/icons/Frame 7.svg")}
+                src={require("../../../assets/icons/Frame 07.svg")}
                 alt="documents"
                 className="pl-10 cursor-pointer"
                 width={130}
@@ -72,7 +72,7 @@ function Group1() {
           </div>
         </div>
         <div className="ml-6 pt-8 ">
-          <button className=" border border-sirp-primary w-[20rem] pb-2 pt-2 rounded-[1rem] hover:bg-sirp-primaryLess1 hover:text-white text-sirp-primary  font-bold">
+        <button className=" border border-sirp-dashboardcola w-[20rem] pb-2 pt-2 rounded-[1rem] hover:bg-sirp-dashboardcola hover:text-white text-sirp-dashboardcola font-bold">
             Open collab workspace
           </button>
         </div>

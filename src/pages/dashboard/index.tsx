@@ -7,13 +7,13 @@ import Group3 from "./components/Group3";
 
 const index = () => {
   return (
-    <div className="h-full overflow-y-scroll">
+    <div className="h-full overflow-y-scroll mt-[10rem]">
       <h1 className="text-black text-2xl pl-10 font-bold">
         Welcome Oluanrawaju
       </h1>
 
       {/* the yellow navigation at the top of the dashboard page */}
-      <div className="flex items-center justify-between w-full gap-[20px] mt-5">
+      <div className="flex md:flex md:bo items-center justify-between w-full gap-[20px] mt-5">
         <Left />
         <Right />
       </div>
