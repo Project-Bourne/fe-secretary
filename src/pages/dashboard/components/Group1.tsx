@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+
 function Group1() {
   return (
     <div className="flex justify-start md:justify-evenly flex-row flex-wrap gap-x-5 md:gap-x-0">

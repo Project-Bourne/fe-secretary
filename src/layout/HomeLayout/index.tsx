@@ -8,7 +8,7 @@ type LayoutType = {
 const HomeLayout = ({ children }: LayoutType) => {
 
     return (
-        <div className="w-full h-full mt-[30rem]">
+        <div className="w-full h-full">
                 
             {children}
         </div>

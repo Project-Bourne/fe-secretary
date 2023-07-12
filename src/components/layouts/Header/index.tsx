@@ -5,12 +5,16 @@ import LeftComp from './LeftComp'
 
 function Header() {
   return (
-    <div className='w-[80vw] ml-[20vw] mb-[20vh] bg-white flex flex-row items-center justify-between py-8 px-8 border-b-[1.3px] fixed top-0 z-[100] right-0 border-sirp-lightGrey'>
+    <div className='w-full md:w-[80vw] z-[30] bg-white flex items-center sticky top-0 justify-between py-8 px-4 md:px-8 -mb-[90px] border-b-[1.3px] border-sirp-lightGrey'>
         {/* Left component */}
-        <LeftComp />
+        <div>
+          <LeftComp />
+        </div>
 
         {/* Right component */}
-        <RightComp />
+        <div>
+          <RightComp />
+        </div>
     </div>
   )
 }
