@@ -28,7 +28,7 @@ const View2 = () => {
     };
 
   return (
-    <div className='py-4 w-full mt-3 border-b-[1.5px]'>
+    <div className='py-4 md:w-full w-[70%]  mt-3 border-b-[1.5px]'>
         <div className='flex flex-col w-full'>
         <h2 className='font-semibold text-[13px] px-8'>Profile Picture</h2>
         <div className='flex flex-row w-full items-center my-4 border-b px-8 pb-2'>

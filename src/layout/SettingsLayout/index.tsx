@@ -8,7 +8,6 @@ type LayoutType = {
 }
 
 const SettingsLayout = ({ children, showTitle, data }: any) => {
-console.log(data)
     const route = useRouter().pathname;
     return (
         <div className='w-full h-full'>

@@ -11,7 +11,7 @@ const View1 = () => {
     const [email, setEmail] = useState("");
 
   return (
-    <div className='py-4 px-8 w-full mt-3 border-b-[1.5px]'>
+    <div className='py-4 px-8 md:w-full w-[90%] mt-3 border-b-[1.5px]'>
         <div className='flex flex-row w-full items-center justify-between'>
           <h2 className='font-semibold text-[13px]'>Personal Information</h2>
           <div className='flex flex-row items-center border border-sirp-primary rounded-md px-4 py-3 cursor-pointer'>
