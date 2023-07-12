@@ -3,7 +3,7 @@ import Image from 'next/image';
 function HomeHistory() {
   return (
     // eslint-disable-next-line react/jsx-filename-extension
-    <div className="m-5 grid grid-cols-2 gap-4">
+    <div className="m-5 grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="row-span-2 p-4 rounded-[20px] border-2 border-[#E5E7EB] bg-[#F3F5F6]">
         <div className="flex align-middle justify-end">
           <Image
@@ -97,7 +97,7 @@ function HomeHistory() {
           </div>
         </div>
       </div>
-      <div className="border flex items-center gap-2 cursor-pointer  bg-[#F3F5F6] justify-center py-2 border-gray-500 mt-5 w-[31rem]  h-[100%] rounded-[1rem] mx-5">
+      <div className="border flex items-center gap-2 cursor-pointer  bg-[#F3F5F6] justify-center py-2 border-gray-500 mt-5 md:w-[31rem] w-[20rem]  h-[100%] rounded-[1rem] mx-5">
         <h2>Show all</h2>
         <Image
           src={require('../../../../assets//icons/leftArro.svg')}

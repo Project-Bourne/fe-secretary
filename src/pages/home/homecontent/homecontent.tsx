@@ -4,6 +4,7 @@ import Image from 'next/image';
 import BreadCrum from '../components/BreadCrum';
 import Min_and_Max_icon from '../components/Min_Max_icon';
 import DummyText from '../components/dummyText';
+import Link from 'next/link';
 
 function homecontent() {
   const [hideMeta, setHideMeta] = useState(true);
@@ -14,15 +15,17 @@ function homecontent() {
     setHideMeta(false);
   };
   return (
-    <div className="bg-sirp-secondary2 h-[100%]">
-      <div className="flex md:justify-between flex-wrap px-5 py-2 ">
+    <div className="bg-sirp-secondary2 h-[100%] mx-5 rounded-[1rem]">
+      <div className="flex md:justify-between flex-wrap px-5 py-5 ">
         <div className="">
+          <Link href='../'>
           <Image
             src={require('../../../assets/icons/arrow-narrow-left 1.svg')}
             alt="documents"
             className="cursor-pointer pb-5"
             width={20}
           />
+          </Link>
           {/* the name goes here  */}
           <h1 className="text-2xl">Peter Duru</h1>
         </div>

@@ -11,7 +11,7 @@ const FileUploadSection = ({ file, handleDeleteFile, isLoading }) => {
   return (
     <>
       <div className="p-10 flex align-middle items-center w-full flex-col justify-center">
-        <div className="p-5 flex w-[50%] align-middle justify-between bg-[#F3F5F6] border-2 border-[E8EAEC] rounded-[15px]">
+        <div className="p-5 flex md:w-[50%] w-[100%] align-middle justify-between bg-[#F3F5F6] border-2 border-[E8EAEC] rounded-[15px]">
           <div className="flex align-middle items-center justify-center">
             <span className="rounded-full bg-[#E8F8FD] flex align-middle justify-center w-[40px] h-[40px]">
               <Image
@@ -41,9 +41,9 @@ const FileUploadSection = ({ file, handleDeleteFile, isLoading }) => {
             />
           </span>
         </div>
-        <div className="flex w-[50%] align-middle justify-end  mt-4">
+        <div className="flex md:w-[50%] w-[100%] align-middle justify-end  mt-4">
           {!isLoading && (
-            <div className="p-5 cursor-pointer flex w-[30%] align-middle justify-center bg-[#4582C4]  border-2 text-white rounded-[15px] font-extrabold">
+            <div className="p-5 cursor-pointer flex md:w-[30%] w-[50%] align-middle justify-center bg-[#4582C4]  border-2 text-white rounded-[15px] font-extrabold">
               <span className="ml-3" onClick={handleModal}>
                 Summarize
               </span>
@@ -53,7 +53,7 @@ const FileUploadSection = ({ file, handleDeleteFile, isLoading }) => {
       </div>
       {SummarizeSetting && (
         <CustomModal
-          style="bg-white md:w-[30%] w-[20%] relative top-[20%] rounded-xl mx-auto pt-3 px-3 pb-5"
+          style="bg-white md:w-[30%] w-[90%] relative top-[20%] rounded-xl mx-auto pt-3 px-3 pb-5"
           closeModal={() => setSummarizeSetting(false)}
         >
 
