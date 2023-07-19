@@ -4,10 +4,12 @@ import CustomModal from '@/components/ui/CustomModal';
 import SummarizeSettings from '../ModalPopUp/summarizeSettings';
 
 const FileUploadSection = ({ file, handleDeleteFile, isLoading }) => {
+
   const [SummarizeSetting, setSummarizeSetting] = useState(false);
   const handleModal = () => {
     setSummarizeSetting(true);
   };
+  
   return (
     <>
       <div className="p-10 flex align-middle items-center w-full flex-col justify-center">
@@ -44,7 +46,7 @@ const FileUploadSection = ({ file, handleDeleteFile, isLoading }) => {
         <div className="flex md:w-[50%] w-[100%] align-middle justify-end  mt-4">
           {!isLoading && (
             <div className="p-5 cursor-pointer flex md:w-[30%] w-[50%] align-middle justify-center bg-[#4582C4]  border-2 text-white rounded-[15px] font-extrabold">
-              <span className="ml-3" onClick={handleModal}>
+              <span className="" onClick={handleModal}>
                 Summarize
               </span>
             </div>

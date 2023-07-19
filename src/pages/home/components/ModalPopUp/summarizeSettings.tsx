@@ -27,21 +27,21 @@ function summarizeSettings() {
             <option value="4">4</option>
           </select>
           <label htmlFor="length" className="text-sm text-gray-500">
-            Content type
+            Content Type
           </label>
           <select
             name="cars"
             id="cars"
             className="border p-2 my-3 rounded-[.3rem]"
           >
-            <option value="sentence">sentence</option>
-            <option value="paragraph">paragraph</option>
+            <option value="sentence">Sentence(s)</option>
+            <option value="paragraph">Paragraph(s)</option>
           </select>
 
           <Link href="../../../home/homecontent/homecontent">
-          <button className="p-4 cursor-pointer flex w-[100%] align-middle justify-center bg-sirp-primary  text-white rounded-[1rem] text-[15px]">
-            Summarize content
-          </button>
+            <button className="p-4 cursor-pointer flex w-[100%] align-middle justify-center bg-sirp-primary  text-white rounded-[1rem] text-[15px]">
+              Summarize Content
+            </button>
           </Link>
         </form>
       </div>
