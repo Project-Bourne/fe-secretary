@@ -31,7 +31,7 @@ const View1 = () => {
         <div className='flex flex-row items-center my-[20px] w-full'>
           <label htmlFor='name' className='text-[12px] text-sirp-grey'>Name: </label>
           
-          <div className='flex flex-col gap-4 md:flex-row ml-[3vh] w-full'>
+          <div className='flex flex-col gap-4 md:flex-row ml-[3vh] w-full md:w-[50%]'>
             <input 
               name='name'
               type='text' 
@@ -49,7 +49,7 @@ const View1 = () => {
         </div>
 
         {/* Email */}
-        <div className='flex flex-row items-center my-[20px] w-full'>
+        <div className='flex flex-row items-center my-[20px] w-full md:w-[50%]'>
           <label htmlFor='email' className='text-[12px] text-sirp-grey'>Email: </label>
           
           <div className='ml-[3vh] w-full items-center flex flex-row relative'>
@@ -58,7 +58,7 @@ const View1 = () => {
               alt="mail"
               width={16}
               height={16}
-              className='absolute self-center item-center left-[3.3vh]'
+              className='absolute self-center item-center left-[7%]'
             />
 
             <input 
