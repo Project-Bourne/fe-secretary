@@ -75,32 +75,32 @@ const View2 = () => {
         </div>
 
         {/* Roles */}
-        <div className='flex flex-row items-center my-[20px] w-full px-8'>
-        <div className='w-[80px]'>
-            <label htmlFor='email' className='text-[12px] text-sirp-grey'>Role: </label>
-        </div>
-        
-        <Dropdown
-            data={UserRoles}
-            onChange={(e) => setRole(e.target.value)}
-            className='text-[12px] text-black border-[1.5px] rounded-md py-2 px-2 mx-4 w-[38%]'
-            style={{fontSize: 12}}
-        />
+        <div className='flex flex-row items-start my-[20px] w-full px-8'>
+            <div className='w-[80px]'>
+                <label htmlFor='email' className='text-[12px] text-sirp-grey'>Role: </label>
+            </div>
+            
+            <Dropdown
+                data={UserRoles}
+                onChange={(e) => setRole(e.target.value)}
+                className='text-[12px] text-black border-[1.5px] rounded-md py-2 px-2 mx-4 w-[38%]'
+                style={{fontSize: 12}}
+            />
         </div>
 
 
         {/* Countries */}
         <div className='flex flex-row items-center my-[20px] w-full px-8'>
-        <div className='w-[80px]'>
-            <label htmlFor='email' className='text-[12px] text-sirp-grey'>Country: </label>
-        </div>
+            <div className='w-[80px]'>
+                <label htmlFor='email' className='text-[12px] text-sirp-grey'>Country: </label>
+            </div>
 
-        <DropdownWithFlag
-            data={countries}
-            selectItem={setCountry}
-            className='text-[12px] text-black border-[1.5px] rounded-md py-2 px-7  w-[38%]'
-            style={"w-[38%] mx-4"}
-        />
+            <DropdownWithFlag
+                data={countries}
+                selectItem={setCountry}
+                className='text-[12px] text-black border-[1.5px] rounded-md py-2 px-7  w-[38%]'
+                style={"w-[38%] mx-4"}
+            />
         </div>
     </div>
   )
