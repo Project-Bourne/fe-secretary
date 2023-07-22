@@ -1,6 +1,6 @@
 import React from 'react';
 import CustomCard from '@/components/ui/CustomCard';
-import Data from './Contants';
+import Data from './data';
 
 function Card() {
   return Data.map((item, index) => (
