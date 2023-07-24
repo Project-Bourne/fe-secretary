@@ -1,5 +1,5 @@
 import { TabComp } from '@/pages/settings/components';
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode } from 'react'
 import { useRouter } from 'next/router';
 
 
