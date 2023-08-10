@@ -8,7 +8,7 @@ function TabLayout() {
   const [selectedTab, setSelectedTab] = useState(data[0].id); // Initially select the first tab
   const [showContent, setShowContent] = useState(false); // State to control showing additional content
 
-  const handleClick = (id) => {
+  const handleClick = id => {
     setSelectedTab(id);
     setShowContent(false); // Reset the additional content when changing the selected tab
   };
@@ -17,7 +17,11 @@ function TabLayout() {
     <div>
       <div className="flex flex-row gap-10 w-[100%] border-b-2">
         {data.map((item, index) => (
-          <div key={index} onClick={() => handleClick(item.id)} className="ml-10">
+          <div
+            key={index}
+            onClick={() => handleClick(item.id)}
+            className="ml-10"
+          >
             <div
               className={`${
                 item.id === selectedTab
@@ -39,7 +43,9 @@ function TabLayout() {
               />
               <h1
                 className={`${
-                  item.id === selectedTab ? 'font-bold text-1xl text-sirp-primary' : 'font-bold text-1xl'
+                  item.id === selectedTab
+                    ? 'font-bold text-1xl text-sirp-primary'
+                    : 'font-bold text-1xl'
                 }`}
               >
                 {item.name}
@@ -49,8 +55,9 @@ function TabLayout() {
         ))}
       </div>
       {/* Conditionally render additional content based on selectedTab */}
-      <div className='flex'>
-        {selectedTab === 1 && <Histroy/>}
+      <div className="flex ">
+        {selectedTab === 1 && <Histroy />}
+
         {selectedTab === 2 && <h1>Saved</h1>}
       </div>
     </div>

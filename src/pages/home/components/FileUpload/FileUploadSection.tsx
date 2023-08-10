@@ -42,7 +42,7 @@ const FileUploadSection = ({ file, handleDeleteFile, isLoading }) => {
             />
           </span>
         </div>
-        <div className="flex md:w-[50%] w-[100%] align-middle justify-end  mt-4">
+        <div className="flex md:w-[50%] w-[100%] align-middle justify-end mt-4">
           {!isLoading && (
             <div className="p-5 cursor-pointer flex md:w-[30%] w-[50%] align-middle justify-center bg-[#4582C4]  border-2 text-white rounded-[15px] font-extrabold">
               <span className="" onClick={handleModal}>
@@ -57,7 +57,7 @@ const FileUploadSection = ({ file, handleDeleteFile, isLoading }) => {
           style="bg-white md:w-[30%] w-[90%] relative top-[20%] rounded-xl mx-auto pt-3 px-3 pb-5"
           closeModal={() => setSummarizeSetting(false)}
         >
-          <SummarizeSettings />
+          <SummarizeSettings file={file} />
         </CustomModal>
       )}
     </>
