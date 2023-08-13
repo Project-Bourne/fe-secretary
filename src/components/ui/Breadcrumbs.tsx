@@ -28,7 +28,7 @@ function Breadcrumbs() {
             </>
           );
         } else {
-          return <span className="text-sm capitalize">{crumb}</span>;
+          return <span className="text-sm capitalize" key={i}>{crumb}</span>;
         }
       })}
     </div>

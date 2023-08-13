@@ -308,3 +308,16 @@ export const FAQS = [
     "How does fact checker work",
     "Exporting from fact checker"
 ]
+
+export interface ListItemModels {
+  uuid?: string | number;
+  isArchived? : any;
+  title?: string;
+  summary?: any[];
+  numberOfSummary?: string | number;
+  time?: string;
+  actionButtons?: React.ReactNode;
+  viewDeleteButtons?: React.ReactNode;
+  buttonType?: string;
+
+}

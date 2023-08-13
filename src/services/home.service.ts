@@ -82,6 +82,18 @@ class HomeService {
       }
     }
 
+    async getSummaryHistory() {
+      try {
+        const response = await request('/summary/', 'GET', {}, true, true, false);
+        if(response.status == false){
+            return false;
+        }
+        return JSON.parse(response);
+      } catch (error) {
+        throw error;
+      }
+    }
+
 
 
 

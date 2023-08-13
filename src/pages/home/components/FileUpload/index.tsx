@@ -3,15 +3,19 @@ import Image from 'next/image';
 import FileUploadSection from './FileUploadSection';
 import HomeService from '@/services/home.service';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { setSummaryLength } from '@/redux/reducer/summarySlice';
 
 const FileUpload = () => {
   const route = useRouter();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState('');
   const [file, setFile] = useState(null);
   const [isFileUploaded, setIsFileUploaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // New state for loading
   const [showReader, setShowReader] = useState(false);
   const homeService = new HomeService();
+  
 
   const handleChange = (e) => {
     setFormData(e.target.value);
@@ -19,11 +23,11 @@ const FileUpload = () => {
 
   const handleTextSummarySubmit = async (event) => {
     event.preventDefault();
+    dispatch(setSummaryLength('3'));
     try {
       setIsLoading(true); // Set loading to true before API call
       const dataObj = {
-        text: formData,
-        numberOfSentence: 5,
+        text: formData
       };
       const response = await homeService.summarizeText(dataObj);
       setIsLoading(false); // Set loading back to false after API call

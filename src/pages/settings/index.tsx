@@ -1,8 +1,4 @@
-import Image from 'next/image'
 import React, { useEffect } from 'react'
-import { TabComp } from './components'
-import { SettingsData } from '@/utils/constants'
-import ProfileSettings from './profile'
 import { useRouter } from 'next/router'
 
 function Settings() {
@@ -16,7 +12,7 @@ function Settings() {
       undefined,
       { shallow: true }
     )
-  }, []);
+  },);
 
   return (
     <></>

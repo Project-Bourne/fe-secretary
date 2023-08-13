@@ -1,6 +1,5 @@
 import TrainingLayout from '@/layout/TrainingLayout';
-import { ActivityCard } from '@/pages/users/components/ActivityCard';
-import { LogData } from '@/utils/constants';
+
 import React from 'react'
 
 const SummarizerTraining = () => {

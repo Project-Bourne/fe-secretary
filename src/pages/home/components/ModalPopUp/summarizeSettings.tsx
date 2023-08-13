@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import HomeService from '@/services/home.service';
+import { setSummaryLength } from '@/redux/reducer/summarySlice';
+import { useSelector, useDispatch } from 'react-redux';
 
 function SummarizeSettings({ file }) {
+  const { summaryLength } = useSelector((state: any) => state.summary);
+  const dispatch = useDispatch();
   const [selectedLength, setSelectedLength] = useState('1');
   const [selectedContentType, setSelectedContentType] = useState('sentence');
   const [isLoading, setIsLoading] = useState(false); // New state for loading
@@ -10,15 +14,15 @@ function SummarizeSettings({ file }) {
   const route = useRouter(); // Add this line to get access to the router
   const selelectedFile = file;
 
-  const handlePDFSumit = async (event) => {
+  const handlePDFSumit = async event => {
     event.preventDefault();
     try {
       setIsLoading(true); // Set loading to true before API call
+      dispatch(setSummaryLength(selectedLength));
       const dataObj = {
         pdf: selelectedFile,
         numberOfSentence: selectedLength,
-        contentType: selectedContentType,
-
+        contentType: selectedContentType
       };
       const response = await homeService.summarizePDF(dataObj);
       setIsLoading(false); // Set loading back to false after API call
@@ -28,8 +32,7 @@ function SummarizeSettings({ file }) {
       console.error(error);
     }
   };
-  
-
+  // console.log(summaryLength, 'summaryLength');
 
   return (
     <div>
@@ -37,10 +40,7 @@ function SummarizeSettings({ file }) {
         <h1 className="text-3xl font-bold ml-5 text-black">Summary Settings</h1>
         <div className="flex gap-5 mt-5 mx-5 items-center">
           <small className="text-sm text-gray-500  mb-5">Title:</small>
-          <p className="text-[14px] font-sm">
-            Redesigned Naira: CBN launches Cash Swap Programme for rural
-            Development
-          </p>
+          <p className="text-[14px] font-sm pb-[1.4rem]">{file.name}</p>
         </div>
         <form onSubmit={handlePDFSumit} className="flex flex-col mx-5">
           <label htmlFor="length" className="text-sm text-gray-500">
@@ -50,12 +50,13 @@ function SummarizeSettings({ file }) {
             name="cars"
             id="cars"
             className="border p-2 my-3 rounded-[.3rem]"
-            onChange={(e) => setSelectedLength(e.target.value)}
+            onChange={e => setSelectedLength(e.target.value)}
           >
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
+            <option value="5">5</option>
           </select>
           <label htmlFor="length" className="text-sm text-gray-500">
             Content Type
@@ -63,7 +64,7 @@ function SummarizeSettings({ file }) {
           <select
             name="cars"
             id="cars"
-            onChange={(e) => setSelectedContentType(e.target.value)}
+            onChange={e => setSelectedContentType(e.target.value)}
             className="border p-2 my-3 rounded-[.3rem]"
           >
             <option value="sentence">Sentence(s)</option>
