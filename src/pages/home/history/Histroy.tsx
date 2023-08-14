@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { setHistory } from '@/redux/reducer/summarySlice';
 
 interface SummaryData {
-  createdAt: string; // Assuming createdAt is of type string
+  createdAt: any; // Assuming createdAt is of type string
   // Add other properties if necessary
 }
 
