@@ -3,8 +3,12 @@ import { useRouter } from 'next/router';
 import { useTruncate } from '@/components/custom-hooks';
 import Image from 'next/image';
 import ListItemModels from '../../../utils/model/home.models';
-import { setSummaryLength, setToggleArchive } from '@/redux/reducer/summarySlice';
+import {
+  setSummaryLength,
+  setToggleArchive
+} from '@/redux/reducer/summarySlice';
 import { useDispatch } from 'react-redux';
+import { DateTime } from 'luxon';
 
 function ListItem({
   uuid,
@@ -12,13 +16,10 @@ function ListItem({
   summary,
   time,
   actionButtons,
-  isArchived, // Accept the isArchived prop
-  viewDeleteButtons,
-  buttonType
+  isArchived
 }: ListItemModels) {
-
   const [showaction, setShowAction] = useState(0);
-  const router = useRouter()
+  const router = useRouter();
   const dispatch = useDispatch();
 
   const handleHover = () => {
@@ -30,16 +31,13 @@ function ListItem({
   };
 
   const handleItemClick = () => {
-    dispatch(setSummaryLength('5'))
+    dispatch(setSummaryLength('5'));
     router.push(`/home/${uuid}`);
-
-    
   };
 
   const handleArchive = e => {
     e.stopPropagation();
-   dispatch(setToggleArchive())
-
+    dispatch(setToggleArchive());
   };
 
   const handleDelete = e => {
@@ -47,13 +45,15 @@ function ListItem({
     console.log('delete clicked', uuid);
   };
 
-  // Access the first and last summary objects
   const firstSummary = summary[0].summary;
   const lastSummary = summary[summary.length - 1].summary;
 
-  const truncatedSummary = useTruncate(lastSummary, 18); // Truncate the last summary text
-  const truncatedFirstSummary = useTruncate(firstSummary, 50); // Truncate the first summary text
-  const truncateTime = useTruncate(time, 10); // Truncate the time
+  const truncatedSummary = useTruncate(lastSummary, 18);
+  const truncatedFirstSummary = useTruncate(firstSummary, 50);
+
+  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; // Get user's time zone
+  const parsedDate = DateTime.fromISO(time, { zone: userTimeZone }); // Convert UTC date to user's local time zone
+  const formattedDate = parsedDate.toFormat('yyyy-MM-dd HH:mm'); // Format the parsed date
 
   return (
     <div
@@ -67,7 +67,11 @@ function ListItem({
       <div className="flex gap-3 items-center  hover:text-gray-400">
         {/* Save icon */}
         <Image
-          src={isArchived ? require(`../../../assets/icons/on.saved.svg`): require(`../../../assets/icons/saved.svg`)}
+          src={
+            isArchived
+              ? require(`../../../assets/icons/on.saved.svg`)
+              : require(`../../../assets/icons/saved.svg`)
+          }
           alt="documents"
           className="cursor-pointer w-4 h-4"
           width={10}
@@ -79,7 +83,7 @@ function ListItem({
           {useTruncate(title, 20)}
         </p>
       </div>
-      {/* decsription */}
+      {/* description */}
       <div className="hover:text-gray-400 hidden md:block">
         <p className="text-black-100 w-[23rem]">{truncatedFirstSummary}</p>
       </div>
@@ -90,15 +94,9 @@ function ListItem({
         </div>
       ) : null}
       {/* time */}
-      {showaction === 0 ? (
-        <div className="flex w-[6.5rem] mr-[3rem] md:mr-[5rem]">
-          <p>{truncateTime}</p>
-        </div>
-      ) : (
-        <div className="flex w-[6.5rem] mr-[3rem] md:mr-[5rem]">
-          <p>{truncateTime}</p>
-        </div>
-      )}
+      <div className="flex w-[8rem] mr-[3rem] md:mr-[5rem]">
+        <p>{formattedDate}</p>
+      </div>
       {/* overflow buttons */}
       {showaction === 1 && (
         <div className="border-l-2" onClick={handleDelete}>
