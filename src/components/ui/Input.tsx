@@ -32,7 +32,7 @@ function Input(props: InputModel) {
                         onClick={handleToggle}>
                         {!toggle ?
                             <Image
-                                src={require("../../assets/icons/Hide.svg")}
+                                src={require("../../assets/icons/hide.svg")}
                                 alt="Filter"
                                 width={20}
                                 height={20}
@@ -271,7 +271,7 @@ function LanguagesDropdown(props: DropdownModel) {
     }
 
     return (
-        <div className={`relative flex cursor-pointer flex-row flex-wrap items-center border-b-2 border-sirp-primary mb-[-2px] cursor-pointer ${style}`}>
+        <div className={`relative flex flex-row flex-wrap items-center border-b-2 border-sirp-primary mb-[-2px] cursor-pointer ${style}`}>
             <div
                 className={`flex justify-between items-center my-2 w-[150px] px-1 rounded-md border-gray-100 hover:cursor-pointer`}
                 onClick={handleDropdown}>
