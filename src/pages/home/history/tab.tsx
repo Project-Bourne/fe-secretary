@@ -41,10 +41,10 @@ function BasicTabs() {
           }
         />
       </Tabs>
-      <div role="tabpanel" hidden={activeTab !== 0}>
+      <div role="tabpanel" hidden={activeTab !== 0} className="py-2">
         <History />
       </div>
-      <div role="tabpanel" hidden={activeTab !== 1}>
+      <div role="tabpanel" hidden={activeTab !== 1} className="py-2">
         <BookMark />
       </div>
     </div>

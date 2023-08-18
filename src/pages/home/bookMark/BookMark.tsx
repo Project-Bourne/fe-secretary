@@ -30,7 +30,7 @@ function BookMark() {
   }, []);
 
   return (
-    <div className="bg-sirp-listBg border h-[100%] w-[100%] my-2 md:mx-2 mx-2 pt-5 pb-5 rounded-[1rem]">
+    <div className="bg-sirp-listBg border h-[100%] w-100full my-2 md:mx-5 mx-2 pt-5 pb-5 rounded-[1rem]">
       <BookMarkContent data={bookMarkData} />
     </div>
   );
