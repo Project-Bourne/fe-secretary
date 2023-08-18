@@ -10,7 +10,6 @@ import { useDispatch } from 'react-redux';
 import { DateTime } from 'luxon';
 import HomeService from '@/services/home.service';
 
-
 function ListItem({
   uuid,
   summaryUuid,
@@ -18,56 +17,52 @@ function ListItem({
   summary,
   time,
   actionButtons,
-  isBookmarked
 }: ListItemModels) {
   const [showaction, setShowAction] = useState(0);
   const router = useRouter();
   const dispatch = useDispatch();
 
+
+  //hover effect in
   const handleHover = () => {
     setShowAction(1);
   };
 
+  //hover effect out
   const handleHoverOut = () => {
     setShowAction(0);
   };
 
+  //handle item click to open the summary from history
   const handleItemClick = () => {
     dispatch(setSummaryLength('5'));
     router.push(`/home/${summaryUuid}`);
   };
 
+  //handle bookmark
   const handleBookMark = (e, uuid) => {
     e.stopPropagation();
-   
     try {
       const request = HomeService.bookMarkSummary(uuid);
       console.log(request, 'request', uuid);
       window.location.reload();
     } catch (error) {
       console.error('Error archiving summary:', error);
-
     }
   };
 
+
+  //handle delete
   const handleDelete = async (e, uuid) => {
     e.stopPropagation();
-    
-    // Assuming HomeService.deleteSummary returns a promise
     try {
       const request = await HomeService.deleteSummary(uuid);
       console.log(request, 'request', uuid);
-      // Reload the page after successful deletion
       window.location.reload();
     } catch (error) {
       console.error('Error deleting summary:', error);
     }
   };
-  
-
-  console.log(isBookmarked, 'isBookmarked')
-
-  // console.log(summary);
 
   // Parse the JSON string into an array of objects
   const parsedSummary = JSON.parse(summary);
@@ -76,11 +71,11 @@ function ListItem({
   const firstSummary = parsedSummary[0].summary;
   const lastSummary = parsedSummary[parsedSummary.length - 1].summary;
 
-  console.log(firstSummary);
-
+  // Truncate the summary
   const truncatedSummary = useTruncate(firstSummary, 18);
   const truncatedFirstSummary = useTruncate(lastSummary, 45);
 
+  // Format the date
   const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; // Get user's time zone
   const parsedDate = DateTime.fromISO(time, { zone: userTimeZone }); // Convert UTC date to user's local time zone
   const formattedDate = parsedDate.toFormat('yyyy-MM-dd HH:mm'); // Format the parsed date
@@ -97,11 +92,7 @@ function ListItem({
       <div className="flex gap-3 items-center  hover:text-gray-400">
         {/* Save icon */}
         <Image
-          src={
-            isBookmarked
-              ? require(`../../../assets/icons/on.saved.svg`)
-              : require(`../../../assets/icons/saved.svg`)
-          }
+          src={require(`../../../assets/icons/on.saved.svg`)}
           alt="documents"
           className="cursor-pointer w-4 h-4"
           width={10}
@@ -115,17 +106,12 @@ function ListItem({
       </div>
       {/* description */}
       <div className="hover:text-gray-400 hidden md:block">
-        <p className="text-black-100 w-[25rem]">
-          {truncatedFirstSummary}
-          
-        </p>
+        <p className="text-black-100 w-[25rem]">{truncatedFirstSummary}</p>
       </div>
       {/* message */}
       {showaction === 0 ? (
         <div className="md:w-[15%] hidden md:block">
-          <p className="text-gray-400 border-l-2 pl-2 ">
-            {truncatedSummary}
-          </p>
+          <p className="text-gray-400 border-l-2 pl-2 ">{truncatedSummary}</p>
         </div>
       ) : null}
       {/* time */}
@@ -134,7 +120,7 @@ function ListItem({
       </div>
       {/* overflow buttons */}
       {showaction === 1 && (
-        <div className="border-l-2" onClick={(e)=>handleDelete(e, uuid)}>
+        <div className="border-l-2" onClick={e => handleDelete(e, uuid)}>
           {actionButtons}
         </div>
       )}
