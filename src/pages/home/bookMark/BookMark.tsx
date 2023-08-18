@@ -27,7 +27,7 @@ function BookMark() {
     }
 
     fetchData();
-  }, []);
+  }, );
 
   return (
     <div className="bg-sirp-listBg border h-[100%] w-100full my-2 md:mx-5 mx-2 pt-5 pb-5 rounded-[1rem]">
