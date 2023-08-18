@@ -8,7 +8,7 @@ const summarySlice = createSlice({
     summaryTitle: "", // Added summaryTitle field
     summaryLength: 0,
     history: [],
-    isArchived: false,
+    isBookMark: false,
   },
   reducers: {
     setSummaryId: (state, action) => {
@@ -25,9 +25,6 @@ const summarySlice = createSlice({
     },
     setSummaryLength: (state, action) => {
       state.summaryLength = action.payload;
-    },
-    setHistory: (state, action) => {
-      state.history = action.payload;
     },
     setToggleArchive: (state) => {
       state.isArchived = !state.isArchived;

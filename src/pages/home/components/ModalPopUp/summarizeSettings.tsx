@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import HomeService from '@/services/home.service';
 import { setSummaryLength } from '@/redux/reducer/summarySlice';
 import { useSelector, useDispatch } from 'react-redux';
+import LoadingModal from '../FileUpload/LoadingModal';
 
 function SummarizeSettings({ file }) {
   const { summaryLength } = useSelector((state: any) => state.summary);

@@ -5,6 +5,7 @@ import HomeService from '@/services/home.service';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { setSummaryLength } from '@/redux/reducer/summarySlice';
+import LoadingModal from './LoadingModal';
 
 const FileUpload = () => {
   const route = useRouter();
@@ -15,6 +16,7 @@ const FileUpload = () => {
   const [isLoading, setIsLoading] = useState(false); // New state for loading
   const [showReader, setShowReader] = useState(false);
   const homeService = new HomeService();
+  const [showLoader, setShowLoader] = useState(false)
   
 
   const handleChange = (e) => {
@@ -25,17 +27,23 @@ const FileUpload = () => {
     event.preventDefault();
     dispatch(setSummaryLength('3'));
     try {
+      setShowLoader(true)
       setIsLoading(true); // Set loading to true before API call
       const dataObj = {
         text: formData
       };
       const response = await homeService.summarizeText(dataObj);
-      setIsLoading(false); // Set loading back to false after API call
-      route.push(`/home/${response.data.uuid}`);
+      setTimeout(() => {
+        setShowLoader(false);
+        route.push(`/home/${response.data.uuid}`);
+    }, 2000);
+     // Set loading back to false after API call
     } catch (error) {
       setIsLoading(false); // Set loading back to false if there's an error
       console.error(error);
     }
+ 
+    
   };
 
   const handleDeleteFile = () => {
@@ -65,9 +73,17 @@ const FileUpload = () => {
       setIsFileUploaded(true);
     }
   };
+  const closeModal = () => {
+    setShowLoader(false)
+  }
+
+  const handleClear = () => {
+    setFormData('');
+  };
 
   return (
     <div className="m-5">
+      {showLoader && <LoadingModal closeModal={closeModal} formData={formData}/>}
       {isFileUploaded && !showReader ? (
         <FileUploadSection
           file={file}
@@ -90,9 +106,10 @@ const FileUpload = () => {
               </span>
               <input
                 type="text"
-                placeholder="Copy and paste link here"
-                className="w-[95%] bg-sirp-secondary2 h-[4rem] outline-none focus:ring-0"
+                placeholder="Copy and paste content text here"
+                className="w-[95%] h-[4rem] outline-none focus:ring-0"
                 onChange={handleChange}
+                value={formData}
               />
               <span className="flex align-middle justify-center mx-3">
                 <Image
@@ -101,6 +118,7 @@ const FileUpload = () => {
                   alt="upload image"
                   width={20}
                   height={20}
+                  onClick={handleClear}
                 />
               </span>
             </div>
@@ -136,7 +154,7 @@ const FileUpload = () => {
                   htmlFor="file-upload"
                 >
                   Upload a file
-                </label>{' '}
+                </label>
                 or drag and drop
               </span>
               <span className="font-light text-[#383E42]">
