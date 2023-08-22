@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useTruncate } from '@/components/custom-hooks';
 import Image from 'next/image';
-import ListItemModels from '../../../utils/model/home.models';
-import {
-  setSummaryLength,
-} from '@/redux/reducer/summarySlice';
-import { useDispatch } from 'react-redux';
+import ListItemModels from '../../../../utils/model/home.models';
+import { setSummaryLength, setShouldFetchData } from '@/redux/reducer/summarySlice';
+import { useDispatch, useSelector } from 'react-redux';
 import { DateTime } from 'luxon';
 import HomeService from '@/services/home.service';
+import { fetchData } from '@/hooks/FetchData';
+import NotificationService from '@/services/notification.service';
 
 
 function ListItem({
@@ -28,46 +28,49 @@ function ListItem({
     setShowAction(1);
   };
 
-  const handleHoverOut = () => {
+  const handleHoverOut = () => {  // Handle the hover out event
     setShowAction(0);
   };
 
-  const handleItemClick = () => {
+  const handleItemClick = () => {  // Handle the item click event to
     dispatch(setSummaryLength('5'));
     router.push(`/home/${summaryUuid}`);
   };
 
-  const handleBookMark = (e, uuid) => {
+  const handleBookMark = async (e, uuid) => {
     e.stopPropagation();
-   
-    try {
-      const request = HomeService.bookMarkSummary(uuid);
-      console.log(request, 'request', uuid);
-      window.location.reload();
-    } catch (error) {
-      console.error('Error archiving summary:', error);
-
-    }
-  };
-
-  const handleDelete = async (e, uuid) => {
-    e.stopPropagation();
-    
-    // Assuming HomeService.deleteSummary returns a promise
-    try {
-      const request = await HomeService.deleteSummary(uuid);
-      console.log(request, 'request', uuid);
-      // Reload the page after successful deletion
-      window.location.reload();
-    } catch (error) {
-      console.error('Error deleting summary:', error);
-    }
+   HomeService.bookMarkSummary(uuid)
+   .then((res: any) => {
+    fetchData(dispatch); // Pass the fetch the updated data
+   })
+   .catch((err) => {
+      NotificationService.error({
+        message: "Error!",
+        addedText: <p>{err?.message}. Please try again</p> // Add a closing </p> tag
+      });
+   })
+      
   };
   
+  const handleDelete = async (e, uuid) => {
+    e.stopPropagation();
+    HomeService.deleteSummary(uuid)
+   .then((res: any) => {
+    fetchData(dispatch); // Pass the fetch the updated data
+    NotificationService.success({
+      message: "success!",
+      addedText: <p>{res?.message} History deleted</p> // Add a closing </p> tag
+    });
+   })
+   .catch((err) => {
+      NotificationService.error({
+        message: "Error!",
+        addedText: <p>{err?.message} Please try again</p> // Add a closing </p> tag
+      });
+   })
+  }
 
-  console.log(isBookmarked, 'isBookmarked')
 
-  // console.log(summary);
 
   // Parse the JSON string into an array of objects
   const parsedSummary = JSON.parse(summary);
@@ -99,14 +102,14 @@ function ListItem({
         <Image
           src={
             isBookmarked
-              ? require(`../../../assets/icons/on.saved.svg`)
-              : require(`../../../assets/icons/saved.svg`)
+              ? require(`../../../../assets/icons/on.saved.svg`)
+              : require(`../../../../assets/icons/saved.svg`)
           }
           alt="documents"
           className="cursor-pointer w-4 h-4"
           width={10}
           height={10}
-          onClick={(e) => handleBookMark(e, uuid)}
+          onClick={e => handleBookMark(e, uuid)}
         />
         {/* name */}
         <p className="text-sirp-black-500 ml-2 md:w-[12rem] hover:text-gray-400">
@@ -115,17 +118,12 @@ function ListItem({
       </div>
       {/* description */}
       <div className="hover:text-gray-400 hidden md:block">
-        <p className="text-black-100 w-[25rem]">
-          {truncatedFirstSummary}
-          
-        </p>
+        <p className="text-black-100 w-[25rem]">{truncatedFirstSummary}</p>
       </div>
       {/* message */}
       {showaction === 0 ? (
         <div className="md:w-[15%] hidden md:block">
-          <p className="text-gray-400 border-l-2 pl-2 ">
-            {truncatedSummary}
-          </p>
+          <p className="text-gray-400 border-l-2 pl-2 ">{truncatedSummary}</p>
         </div>
       ) : null}
       {/* time */}
@@ -134,7 +132,7 @@ function ListItem({
       </div>
       {/* overflow buttons */}
       {showaction === 1 && (
-        <div className="border-l-2" onClick={(e)=>handleDelete(e, uuid)}>
+        <div className="border-l-2" onClick={e => handleDelete(e, uuid)}>
           {actionButtons}
         </div>
       )}

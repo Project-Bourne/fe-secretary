@@ -1,14 +1,15 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const summarySlice = createSlice({
-  name: "Summary",
+  name: 'Summary',
   initialState: {
-    summaryId: "",
-    summaryContent: "",
-    summaryTitle: "", // Added summaryTitle field
+    summaryId: '',
+    summaryContent: '',
+    summaryTitle: '', // Added summaryTitle field
     summaryLength: 0,
     history: [],
-    isBookMark: false,
+    bookMark: [],
+    shouldFetchData: true,
   },
   reducers: {
     setSummaryId: (state, action) => {
@@ -23,13 +24,16 @@ const summarySlice = createSlice({
     setHistory: (state, action) => {
       state.history = action.payload;
     },
+    setBookMark: state => {
+      state.bookMark = state.history.filter(item => item.bookmark);
+    },
     setSummaryLength: (state, action) => {
       state.summaryLength = action.payload;
     },
-    setToggleArchive: (state) => {
-      state.isArchived = !state.isArchived;
+    setShouldFetchData: (state, action) => {
+      state.shouldFetchData = action.payload;
     },
-  },
+  }
 });
 
 export const {
@@ -38,8 +42,9 @@ export const {
   setSummaryTitle, // Export the new action
   setHistory,
   setSummaryLength,
-  setToggleArchive
-  
+  setToggleArchive,
+  setBookMark,
+  setShouldFetchData
 } = summarySlice.actions;
 
 export default summarySlice.reducer;

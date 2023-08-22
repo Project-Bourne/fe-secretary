@@ -22,7 +22,7 @@ function BasicTabs() {
       <Tabs
         value={activeTab}
         onChange={handleChange}
-        aria-label="basic tabs example"
+        aria-label="tab"
       >
         <Tab
           label={

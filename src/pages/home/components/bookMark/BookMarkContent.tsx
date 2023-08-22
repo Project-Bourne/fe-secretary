@@ -2,15 +2,15 @@ import React from 'react';
 import DeleteIcon from './deleteIcon';
 import ListItem from './BookMarkListItem';
 import NoBookMark from './NoBookMark';
+import { useSelector } from 'react-redux';
 
-function HistoryContent({ data }) {
-  const bookmarkedItems = data.filter(item => item.bookmark);
-
+function HistoryContent() {
+  const { bookMark } = useSelector((store: any) => store.summary); // Get the data from Redux store
   return (
     <>
-      {bookmarkedItems.length > 0 ? (
+      {bookMark.length > 0 ? (
         <>
-          {bookmarkedItems.map(item => (
+          {bookMark?.map(item => (
             <div key={item.uuid}>
               <ListItem
                 uuid={item.uuid}

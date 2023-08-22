@@ -2,15 +2,17 @@ import React from 'react';
 import DeleteIcon from './deleteIcon';
 import ListItem from './HistoryListItem';
 import NoHistory from './NoHistroy';
+import { useSelector } from 'react-redux';
 
-function HistoryContent({ data }) {
+function HistoryContent() {
+  const {history} = useSelector((store:any) => store.summary); // Get the data from Redux store
   
 
   return (
     <>
-      {data.length > 0 ? (
+      {history.length > 0 ? (
         <>
-          {data?.map(item => {
+          {history?.map(item => {
             return (
               <div key={item.uuid}>
                 <ListItem

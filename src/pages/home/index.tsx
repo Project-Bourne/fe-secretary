@@ -1,7 +1,7 @@
 import React from 'react'
 import FileUploadSection from './components/FileUpload/index'
-import TabLayout from './history/TabLayout'
-import BasicTabs from './history/tab'
+import TabLayout from './components/history/TabLayout'
+import BasicTabs from './components/history/tab'
 
 const index = () => {
   return (

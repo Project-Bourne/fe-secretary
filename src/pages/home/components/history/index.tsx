@@ -1,6 +1,6 @@
 import HomeLayout from '@/layout/HomeLayout';
 import { useRouter } from 'next/router';
-import FileUpload from '../components/FileUpload';
+import FileUpload from '../FileUpload';
 import TabLayout from './TabLayout';
 
 function HomeHistory() {
