@@ -1,31 +1,26 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import HomeService from '@/services/home.service';
-import { setSummaryLength } from '@/redux/reducer/summarySlice';
+import { setSummaryLength, setSummaryContentType } from '@/redux/reducer/summarySlice';
 import { useSelector, useDispatch } from 'react-redux';
-import LoadingModal from '../FileUpload/LoadingModal';
 
 function SummarizeSettings({ file }) {
-  const { summaryLength } = useSelector((state: any) => state.summary);
+  const { summaryLength, summaryContentType } = useSelector((state: any) => state.summary);
   const dispatch = useDispatch();
-  const [selectedLength, setSelectedLength] = useState('1');
-  const [selectedContentType, setSelectedContentType] = useState('sentence');
   const [isLoading, setIsLoading] = useState(false); // New state for loading
   const homeService = new HomeService();
   const route = useRouter(); // Add this line to get access to the router
-  const selelectedFile = file;
 
   const handlePDFSumit = async event => {
     event.preventDefault();
     try {
       setIsLoading(true); // Set loading to true before API call
-      dispatch(setSummaryLength(selectedLength));
       const dataObj = {
-        pdf: selelectedFile,
-        numberOfSentence: selectedLength,
-        contentType: selectedContentType
+        file
       };
+      console.log(file, 'file')
       const response = await homeService.summarizePDF(dataObj);
+      console.log(response, 'response');
       setIsLoading(false); // Set loading back to false after API call
       route.push(`/home/${response.data.uuid}`);
     } catch (error) {
@@ -33,7 +28,6 @@ function SummarizeSettings({ file }) {
       console.error(error);
     }
   };
-  // console.log(summaryLength, 'summaryLength');
 
   return (
     <div>
@@ -50,8 +44,9 @@ function SummarizeSettings({ file }) {
           <select
             name="cars"
             id="cars"
+            value={summaryLength}
             className="border p-2 my-3 rounded-[.3rem]"
-            onChange={e => setSelectedLength(e.target.value)}
+            onChange={e => dispatch(setSummaryLength(e.target.value))}
           >
             <option value="1">1</option>
             <option value="2">2</option>
@@ -65,7 +60,8 @@ function SummarizeSettings({ file }) {
           <select
             name="cars"
             id="cars"
-            onChange={e => setSelectedContentType(e.target.value)}
+            value={summaryContentType}
+            onChange={e => dispatch(setSummaryContentType(e.target.value))}
             className="border p-2 my-3 rounded-[.3rem]"
           >
             <option value="sentence">Sentence(s)</option>

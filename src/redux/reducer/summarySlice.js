@@ -7,13 +7,23 @@ const summarySlice = createSlice({
     summaryContent: '',
     summaryTitle: '', // Added summaryTitle field
     summaryLength: 0,
+    summaryContentType: 'sentence', // Added summaryContentType field
+    copyText: '',
+    summaryLengthRange: ['1', '2', '3', '4', '5'],
     history: [],
     bookMark: [],
     shouldFetchData: true,
+
   },
   reducers: {
+    setCopyText: (state, action) => {
+      state.copyText = action.payload;
+    },
     setSummaryId: (state, action) => {
       state.summaryId = action.payload;
+    },
+    setSummaryLengthRange: (state, action) => {
+      state.summaryLengthRange = action.payload;
     },
     setSummaryContent: (state, action) => {
       state.summaryContent = action.payload;
@@ -30,6 +40,9 @@ const summarySlice = createSlice({
     setSummaryLength: (state, action) => {
       state.summaryLength = action.payload;
     },
+    setSummaryContentType: (state, action) => {
+      state.summaryContentType = action.payload;
+    },
     setShouldFetchData: (state, action) => {
       state.shouldFetchData = action.payload;
     },
@@ -37,14 +50,17 @@ const summarySlice = createSlice({
 });
 
 export const {
+  setCopyText,
   setSummaryId,
   setSummaryContent,
   setSummaryTitle, // Export the new action
   setHistory,
   setSummaryLength,
+  setSummaryContentType,
   setToggleArchive,
   setBookMark,
-  setShouldFetchData
+  setShouldFetchData,
+  setSummaryLengthRange
 } = summarySlice.actions;
 
 export default summarySlice.reducer;

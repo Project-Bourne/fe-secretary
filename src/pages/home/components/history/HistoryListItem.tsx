@@ -73,11 +73,11 @@ function ListItem({
 
 
   // Parse the JSON string into an array of objects
-  const parsedSummary = JSON.parse(summary);
+  // const parsedSummary = JSON.parse(summary);
 
   // Access the first summary
-  const firstSummary = parsedSummary[0].summary;
-  const lastSummary = parsedSummary[parsedSummary.length - 1].summary;
+  const firstSummary = summary[0].summary;
+  const lastSummary = summary[summary.length - 1].summary;
 
   console.log(firstSummary);
 
@@ -107,8 +107,8 @@ function ListItem({
           }
           alt="documents"
           className="cursor-pointer w-4 h-4"
-          width={10}
-          height={10}
+          width={30}
+          height={30}
           onClick={e => handleBookMark(e, uuid)}
         />
         {/* name */}

@@ -4,14 +4,17 @@ import FileUploadSection from './FileUploadSection';
 import HomeService from '@/services/home.service';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { setSummaryLength } from '@/redux/reducer/summarySlice';
+import { setCopyText } from '@/redux/reducer/summarySlice';
 import LoadingModal from './LoadingModal';
+import SummarizeCopyPasteSetting from '../ModalPopUp/summarizeCopyPasteSetting';
+import CustomModal from '@/components/ui/CustomModal';
 
 const FileUpload = () => {
   const route = useRouter();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState('');
   const [file, setFile] = useState(null);
+  const [SummarizeSetting, setSummarizeSetting] = useState(false);
   const [isFileUploaded, setIsFileUploaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // New state for loading
   const [showReader, setShowReader] = useState(false);
@@ -23,27 +26,10 @@ const FileUpload = () => {
     setFormData(e.target.value);
   };
 
-  const handleTextSummarySubmit = async (event) => {
+  const handleTextSummarySubmit = (event) => {
     event.preventDefault();
-    dispatch(setSummaryLength('3'));
-    try {
-      setShowLoader(true)
-      setIsLoading(true); // Set loading to true before API call
-      const dataObj = {
-        text: formData
-      };
-      const response = await homeService.summarizeText(dataObj);
-      setTimeout(() => {
-        setShowLoader(false);
-        route.push(`/home/${response.data.uuid}`);
-    }, 2000);
-     // Set loading back to false after API call
-    } catch (error) {
-      setIsLoading(false); // Set loading back to false if there's an error
-      console.error(error);
-    }
- 
-    
+    dispatch(setCopyText(formData));
+    setSummarizeSetting(true)
   };
 
   const handleDeleteFile = () => {
@@ -51,15 +37,40 @@ const FileUpload = () => {
     setIsFileUploaded(false);
   };
 
-  const handleFileUpload = (e) => {
-    e.preventDefault();
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
+  // const handleFileUpload = (e) => {
+  //   e.preventDefault();
+  //   const selectedFile = e.target.files[0];
+  //   setFile(selectedFile);
+  //   if (selectedFile) {
+  //     setIsFileUploaded(true);
+  //     console.log(selectedFile, 'selectedFile');
+  //   }
+  // };
+
+  const handleFileUpload = async (event) => {
+    event.preventDefault();
+    const selectedFile = event.target.files[0];
     if (selectedFile) {
-      setIsFileUploaded(true);
-      console.log(selectedFile, 'selectedFile');
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+
+      try {
+        const response:any = await fetch('http://192.81.213.226:89/api/v1/upload', {
+          method: 'POST',
+          body: formData,
+        });
+        console.log(response);
+        if (response.status) {
+        } else {
+          console.error('File upload failed.');
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
-  };
+  }
+
+
 
   const handleDragOver = (event) => {
     event.preventDefault();
@@ -73,9 +84,7 @@ const FileUpload = () => {
       setIsFileUploaded(true);
     }
   };
-  const closeModal = () => {
-    setShowLoader(false)
-  }
+ 
 
   const handleClear = () => {
     setFormData('');
@@ -83,7 +92,6 @@ const FileUpload = () => {
 
   return (
     <div className="m-5">
-      {showLoader && <LoadingModal closeModal={closeModal} formData={formData}/>}
       {isFileUploaded && !showReader ? (
         <FileUploadSection
           file={file}
@@ -145,7 +153,7 @@ const FileUpload = () => {
                 <input
                   id="file-upload"
                   type="file"
-                  accept=".txt,.rtf,.doc,.docx,.pdf,.ppt,.pptx"
+                  accept=".txt,.rtf,.doc,.png,.docx,.pdf,.ppt,.pptx"
                   className="hidden"
                   onChange={handleFileUpload}
                 />
@@ -164,7 +172,17 @@ const FileUpload = () => {
           </div>
         </div>
       )}
+
+{SummarizeSetting && (
+        <CustomModal
+          style="bg-white md:w-[30%] w-[90%] relative top-[20%] rounded-xl mx-auto pt-3 px-3 pb-5"
+          closeModal={() => setSummarizeSetting(false)}
+        >
+          <SummarizeCopyPasteSetting/>
+        </CustomModal>
+      )}
     </div>
+
   );
 };
 
