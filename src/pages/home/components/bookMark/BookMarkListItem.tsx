@@ -69,11 +69,11 @@ function ListItem({
 
 
   // Parse the JSON string into an array of objects
-  const parsedSummary = JSON.parse(summary);
+  // const parsedSummary = JSON.parse(summary);
 
   // Access the first summary
-  const firstSummary = parsedSummary[0].summary;
-  const lastSummary = parsedSummary[parsedSummary.length - 1].summary;
+  const firstSummary = summary[0].summary;
+  const lastSummary = summary[summary.length - 1].summary;
 
   // Truncate the summary
   const truncatedSummary = useTruncate(firstSummary, 18);
