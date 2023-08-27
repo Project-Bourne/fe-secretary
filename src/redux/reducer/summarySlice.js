@@ -9,15 +9,24 @@ const summarySlice = createSlice({
     summaryLength: 0,
     summaryContentType: 'sentence', // Added summaryContentType field
     copyText: '',
+    uploadedText: '',
+    uploloadedUri: '',
     summaryLengthRange: ['1', '2', '3', '4', '5'],
     history: [],
     bookMark: [],
-    shouldFetchData: true,
+    fileName: '',
+    summarizeSetting: false,
+    summarizeSettingUpload: false,
+    showLoader: false,
+    showLoaderUpload: false
 
   },
   reducers: {
     setCopyText: (state, action) => {
       state.copyText = action.payload;
+    },
+    setFileUpLoadName: (state, action) => {
+      state.fileName = action.payload;
     },
     setSummaryId: (state, action) => {
       state.summaryId = action.payload;
@@ -31,6 +40,18 @@ const summarySlice = createSlice({
     setSummaryTitle: (state, action) => {
       state.summaryTitle = action.payload;
     },
+    setSummarizeSetting: (state, action) => {
+      state.summarizeSetting = action.payload;
+    },
+    setSummarizeSettingUpload: (state, action) => {
+      state.summarizeSettingUpload = action.payload;
+    },
+    setShowLoader: (state, action) => {
+      state.showLoader = action.payload;
+    },
+    setShowLoaderUpload: (state, action) => {
+      state.showLoaderUpload = action.payload;
+    },
     setHistory: (state, action) => {
       state.history = action.payload;
     },
@@ -43,24 +64,33 @@ const summarySlice = createSlice({
     setSummaryContentType: (state, action) => {
       state.summaryContentType = action.payload;
     },
-    setShouldFetchData: (state, action) => {
-      state.shouldFetchData = action.payload;
+    setuploadedText: (state, action) => {
+      state.uploadedText = action.payload;
     },
+    setuploloadedUri: (state, action) => {
+      state.uploloadedUri = action.payload;
+    }
+
   }
 });
 
 export const {
+  setuploadedText,
+  setuploloadedUri,
   setCopyText,
   setSummaryId,
   setSummaryContent,
   setSummaryTitle, // Export the new action
+  setSummarizeSetting,
   setHistory,
   setSummaryLength,
   setSummaryContentType,
-  setToggleArchive,
   setBookMark,
-  setShouldFetchData,
-  setSummaryLengthRange
+  setFileUpLoadName,
+  setSummaryLengthRange,
+  setShowLoader,
+  setShowLoaderUpload,
+  setSummarizeSettingUpload
 } = summarySlice.actions;
 
 export default summarySlice.reducer;

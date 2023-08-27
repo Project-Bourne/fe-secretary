@@ -23,18 +23,23 @@ class HomeService {
     }
   }
 
-  async summarizePDF(summaryPDF) {
+  /**
+   * summarising text contents.
+   * @param {Object} summaryUpload - The data of the sumarry.
+   * @returns {Promise<Object>} - The response data from the server.
+   */
+ 
+  async summarizeUpload(uploadData) {
     try {
-      const formData = new FormData();
-      for (const key in summaryPDF) {
-        formData.append(key, summaryPDF[key]);
-      }
-      const response = await fetch('http://localhost:4070/summary/file/', {
-        method: 'POST',
-        body: formData
-      });
-      const data = await response.json(); // Assuming the server responds with JSON
-      return data;
+      const response = await request(
+        '/summary/file',
+        'POST',
+        uploadData,
+        true,
+        false,
+        false
+      );
+      return response;
     } catch (error) {
       throw error;
     }

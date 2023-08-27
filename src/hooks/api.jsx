@@ -6,14 +6,14 @@ export const requestHeader = {
   'Cache-Control': 'no-cache',
   'Content-Type': 'application/json',
   'deep-token':
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGE5ZmIxLTRlMzktNDRiNC1hZjM2LTc2MDNkMjJlMDMzMCIsInJvbGUiOiIxIiwiaWF0IjoxNjkyODk4NzQwLCJleHAiOjE2OTI5ODUxNDB9.QfIvNbUpOUs1Vlg_8Q4kLN_Yewp3dZQNtsGciMpJCzc'
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGE5ZmIxLTRlMzktNDRiNC1hZjM2LTc2MDNkMjJlMDMzMCIsInJvbGUiOiIxIiwiaWF0IjoxNjkzMDU4NDc3LCJleHAiOjE2OTMxNDQ4Nzd9._JnS8J7U1mLUQSHRppoE3lIoceTWOwbmvs4LrriTH9c'
 };
 
 /**
  *
  * @param {string} url
  * @param {string, [GET, POST, PATCH, PUT...]} method
- * @param {payload} payload
+ * @param {payload} payload (body)
  * @param {boolean} token
  * @param {boolean} text
  * @param {boolean} form

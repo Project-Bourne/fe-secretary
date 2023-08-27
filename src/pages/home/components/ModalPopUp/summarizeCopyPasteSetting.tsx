@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
 import HomeService from '@/services/home.service';
 import {
   setSummaryLength,
   setSummaryContentType,
-  setSummaryLengthRange
+  setSummaryLengthRange,
+  setSummarizeSetting,
+  setShowLoader
 } from '@/redux/reducer/summarySlice';
 import { useTruncate } from '@/components/custom-hooks';
-import LoadingModal from '../FileUpload/LoadingModal';
+import { useRouter } from 'next/router';
 
 function SummarizeCopyPasteSetting() {
-  const { summaryLength, summaryContentType, copyText, summaryLengthRange } = useSelector(
-    (store:any) => store.summary
-  );
+  const { summaryLength, summaryContentType, copyText, summaryLengthRange,} =
+    useSelector((store:any) => store.summary);
+    const route = useRouter();
   const dispatch = useDispatch();
-  const [showLoader, setShowLoader] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const homeService = new HomeService();
-  const route = useRouter();
+
+  const summaryNumber = `${summaryLength} ${summaryContentType}`;
 
   const handleContentTypeChange = (e) => {
     const newContentType = e.target.value;
@@ -34,45 +34,38 @@ function SummarizeCopyPasteSetting() {
       newSummaryLength = '5';
       newSummaryLengthRange = ['1', '2', '3', '4', '5'];
     }
-
     dispatch(setSummaryLength(newSummaryLength));
-    setSummaryLengthRange(newSummaryLengthRange); // Assuming you have a state for length range
+    dispatch(setSummaryLengthRange(newSummaryLengthRange));
   };
 
   const handleCopyText = async (event) => {
     event.preventDefault();
+    dispatch(setShowLoader(true));
+    dispatch(setSummarizeSetting(false));
     try {
-      setShowLoader(true);
-      setIsLoading(true);
       const dataObj = {
         text: copyText,
-        index: summaryLength
+        number: summaryNumber
       };
       const response = await homeService.summarizeText(dataObj);
-      setTimeout(() => {
-        setShowLoader(false);
-        route.push(`/home/${response.data.uuid}`);
-      }, 2000);
+      dispatch(setShowLoader(false));
+      route.push(`/home/${response.data.uuid}`);
     } catch (error) {
-      setIsLoading(false);
+      dispatch(setShowLoader(false));
       console.error(error);
     }
   };
 
   const closeModal = () => {
-    setShowLoader(false);
+    dispatch(setShowLoader(false));
   };
 
   return (
     <div>
-      {showLoader && (
-        <LoadingModal closeModal={closeModal} formData={copyText} />
-      )}
-
       <div className="my-5">
         <h1 className="text-3xl font-bold ml-5 text-black">Summary Settings</h1>
         <div className="flex gap-5 mt-5 mx-5 items-center">
-          <small className="text-sm text-gray-500  mb-5">Title:</small>
+          <small className="text-sm text-gray-500 mb-5">Title:</small>
           <p className="text-[14px] font-sm pb-[1.4rem]">
             {useTruncate(copyText, 35)}
           </p>
@@ -109,7 +102,7 @@ function SummarizeCopyPasteSetting() {
           </select>
 
           <div>
-            <button className="p-4 cursor-pointer flex w-[100%] align-middle justify-center bg-sirp-primary  text-white rounded-[1rem] text-[15px]">
+            <button className="p-4 cursor-pointer flex w-[100%] align-middle justify-center bg-sirp-primary text-white rounded-[1rem] text-[15px]">
               Summarize Content
             </button>
           </div>

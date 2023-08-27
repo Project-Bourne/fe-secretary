@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useTruncate } from '@/components/custom-hooks';
 import Image from 'next/image';
 import ListItemModels from '../../../../utils/model/home.models';
-import { setSummaryLength, setShouldFetchData } from '@/redux/reducer/summarySlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { DateTime } from 'luxon';
 import HomeService from '@/services/home.service';
@@ -33,7 +32,6 @@ function ListItem({
   };
 
   const handleItemClick = () => {  // Handle the item click event to
-    dispatch(setSummaryLength('5'));
     router.push(`/home/${summaryUuid}`);
   };
 
@@ -71,15 +69,9 @@ function ListItem({
   }
 
 
-
-  // Parse the JSON string into an array of objects
-  // const parsedSummary = JSON.parse(summary);
-
   // Access the first summary
   const firstSummary = summary[0].summary;
   const lastSummary = summary[summary.length - 1].summary;
-
-  console.log(firstSummary);
 
   const truncatedSummary = useTruncate(firstSummary, 18);
   const truncatedFirstSummary = useTruncate(lastSummary, 45);
