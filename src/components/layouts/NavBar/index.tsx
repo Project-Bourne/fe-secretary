@@ -8,7 +8,7 @@ function NavBar() {
     <div className='w-[15vw] md:w-[20vw] h-full border-3 border-r bg-white px-3 py-10 md:p-10 fixed z-[20]'>
         <div className='flex flex-row items-center cursor-pointer mb-20'>
             <Image
-                src={require("../../../assets/svg/logo.svg")}
+                src={require("../../../../public/svg/logo.svg")}
                 alt="SIRP Logo"
                 width={50}
                 height={50}
@@ -17,7 +17,6 @@ function NavBar() {
             />
             <h1 className='text-sirp-primary font-semibold text-[30px] hidden md:block'>Summarizer</h1>
         </div>
-        {/* items-center justify-center py-4 md:px-5 w-[100%] flex flex-row self-center */}
 
         <div className='w-full mt-10'>
             {

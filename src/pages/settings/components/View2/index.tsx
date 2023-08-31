@@ -2,14 +2,14 @@ import { Dropdown, DropdownWithFlag } from '@/components/ui';
 import Image from 'next/image';
 import React, { useState } from 'react'
 import { UserRoles } from '@/utils/constants';
-import { useCountries } from 'use-react-countries';
 import { useRouter } from 'next/router';
+
+const countries = require("../../../../utils/countries.json");
 
 const View2 = () => {
 
 
     const router = useRouter();
-    const { countries } = useCountries()
 
     const [country, setCountry] = useState(null);
     const [role, setRole] = useState("");
@@ -41,7 +41,7 @@ const View2 = () => {
             {/* Profile Image */}
             <div className='flex flex-row items-center'>
                 <Image
-                src={require(`../../../../assets/icons/userIcon.svg`)}
+                src={require(`../../../../../public/icons/userIcon.svg`)}
                 alt="user"
                 width={30}
                 height={30}
@@ -60,7 +60,7 @@ const View2 = () => {
                 </div>
 
                 <Image
-                src={require(`../../../../assets/icons/delete.svg`)}
+                src={require(`../../../../../public/icons/delete.svg`)}
                 alt="delete"
                 width={17}
                 height={17}

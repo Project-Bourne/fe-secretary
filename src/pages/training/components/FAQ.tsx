@@ -11,7 +11,7 @@ const FAQComp = ({text, index}: FAQtype) => {
   return (
     <div className='items-center flex flex-row my-2 cursor-pointer'>
         <Image
-            src={require("../../../assets/icons/report-search.svg")}
+            src={require("../../../../public/icons/report-search.svg")}
             alt="search"
             width={13}
             height={13}

@@ -58,7 +58,7 @@ function HomeContent() {
       <div className="flex md:justify-between flex-wrap px-5 py-5 ">
         <div>
           <Image
-            src={require('../../assets/icons/arrow-narrow-left_1.svg')}
+            src={require('../../../public/icons/arrow-narrow-left_1.svg')}
             alt="documents"
             className="cursor-pointer pb-5"
             width={20}
