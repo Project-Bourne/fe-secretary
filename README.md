@@ -4,7 +4,7 @@
 
 ## Getting started
 
-To make it easy for you to get started with GitHub, here's a list of recommended next steps.
+To make it easy for you to get started with GitHub, here's a list of recommended next 
 
 ## How to render on DEV MODE
 
