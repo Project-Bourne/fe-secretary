@@ -18,7 +18,8 @@ const summarySlice = createSlice({
     summarizeSetting: false,
     summarizeSettingUpload: false,
     showLoader: false,
-    showLoaderUpload: false
+    showLoaderUpload: false,
+    showSummary: false
 
   },
   reducers: {

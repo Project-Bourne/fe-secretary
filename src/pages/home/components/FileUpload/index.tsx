@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
+import Button from "@/components/ui/Button";
 import FileUploadSection from "./FileUploadSection";
 import {
   setCopyText,
@@ -14,11 +15,15 @@ import LoadingModal from "./LoadingModal";
 import SummarizeCopyPasteSetting from "../ModalPopUp/summarizeCopyPasteSetting";
 import CustomModal from "@/components/ui/CustomModal";
 import NotificationService from "@/services/notification.service";
+import HomeContent from "../../[homecontent]";
+import { useRouter } from "next/router";
 
 function FileUpload() {
   const { summarizeSetting, copyText, showLoader } = useSelector(
     (store: any) => store.summary
   );
+  const router = useRouter();
+  const { summaryTitle } = useSelector((store: any) => store.summary);
 
   const dispatch = useDispatch();
   const [formData, setFormData] = useState("");
@@ -85,6 +90,43 @@ function FileUpload() {
         <FileUploadSection file={file} handleDeleteFile={handleDeleteFile} />
       ) : (
         <div>
+          {formData?.length == 0 ? (
+            <section className="flex justify-end wi-full mr-[2rem] mb-[1rem]">
+              <span className="font-normal text-[#383E42]">
+                <input
+                  id="file-upload"
+                  type="file"
+                  accept=".txt,.doc,.docx,.pdf"
+                  className="hidden"
+                  onChange={handleFileUpload}
+                />
+                <label
+                  className="text-blue-400 cursor-pointer"
+                  htmlFor="file-upload"
+                >
+                  <div className="border px-5 py-5 rounded-[1rem] bg-sirp-primary text-white">
+                    Upload File
+                  </div>
+                </label>
+              </span>
+            </section>
+          ) : (
+            <section className="flex justify-end wi-full mr-[2rem] mb-[1rem]">
+              <span className="font-normal text-[#383E42]">
+                <label
+                  className="text-blue-400 cursor-pointer"
+                  htmlFor="file-upload"
+                >
+                  <div
+                    onClick={handleTextSummarySubmit}
+                    className="border px-5 py-5 rounded-[1rem] bg-sirp-primary text-white"
+                  >
+                    Summarize
+                  </div>
+                </label>
+              </span>
+            </section>
+          )}
           <form onSubmit={handleTextSummarySubmit}>
             {/* Text Summary Form */}
             <div className="flex align-middle w-full border-2 rounded-full border-[#E5E7EB]-500 border-dotted">
@@ -117,40 +159,14 @@ function FileUpload() {
               </span>
             </div>
           </form>
-          {/* File Upload */}
-          <div className="h-[30vh] mt-5 flex align-middle w-full justify-center border rounded-[30px] border-[#E5E7EB]">
-            <div className="flex flex-col align-middle justify-center">
-              <span className="flex align-middle justify-center mx-3">
-                <Image
-                  className="flex align-middle justify-center"
-                  src={require("../../../../../public/icons/cloud.svg")}
-                  alt="upload image"
-                  width={25}
-                  height={25}
-                  priority
-                />
-              </span>
-              <span className="font-normal text-[#383E42]">
-                <input
-                  id="file-upload"
-                  type="file"
-                  accept=".txt,.rtf,.doc,.docx,.pdf,.ppt,.pptx"
-                  className="hidden"
-                  onChange={handleFileUpload}
-                />
-                <label
-                  className="text-blue-400 cursor-pointer"
-                  htmlFor="file-upload"
-                >
-                  Upload a file
-                </label>
-                <span> </span>or drag and drop
-              </span>
-              <span className="font-light text-[#383E42]">
-                TXT, RFT, DOC, PDF up to 5MB
-              </span>
-            </div>
-          </div>
+        </div>
+      )}
+
+      {summaryTitle?.length == 0 ? (
+        ""
+      ) : (
+        <div className="mt-5">
+          <HomeContent />
         </div>
       )}
 

@@ -1,15 +1,12 @@
 /**
  * Object Request Header
  */
-let access = "";
-if (typeof window !== "undefined") {
-  access = localStorage.getItem("deep-access") || "";
-}
 export const requestHeader = {
   Accept: "application/json",
   "Cache-Control": "no-cache",
   "Content-Type": "application/json",
-  "deep-token": access,
+  "deep-token":
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGE5ZmIxLTRlMzktNDRiNC1hZjM2LTc2MDNkMjJlMDMzMCIsInJvbGUiOiIxIiwiaWF0IjoxNjkzOTEyMjU3LCJleHAiOjE2OTM5OTg2NTd9.KCYRtNWtq9Q-fa4C__JaMwBNeyQzD3fK91baxTV1Vk0",
 };
 
 /**

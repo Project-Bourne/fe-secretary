@@ -1,10 +1,10 @@
 import React from 'react'
-import FileUploadSection from './components/FileUpload/index'
+import HistoryTab from './tab'
 
 const index = () => {
   return (
     <div>
-      <FileUploadSection />
+        <HistoryTab />
     </div>
   )
 }

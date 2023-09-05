@@ -1,26 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-import BreadCrum from '../../components/ui/Breadcrumbs';
-import Min_and_Max_icon from './components/Min_Max_icon';
-import ActionIcons from './components/actionIcons/ActionIcon';
-import HomeService from '../../services/home.service';
-import {
-  setSummaryContent,
-  setSummaryTitle,
-  setShowLoader,
-  setSummarizeSetting
-} from '@/redux/reducer/summarySlice';
-import { useDispatch, useSelector } from 'react-redux';
-import NotificationService from '@/services/notification.service';
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import Min_and_Max_icon from "./components/Min_Max_icon";
+import ActionIcons from "./components/actionIcons/ActionIcon";
+
+import { useDispatch, useSelector } from "react-redux";
 
 function HomeContent() {
-  const router = useRouter();
   const [hideMeta, setHideMeta] = useState(true);
-  const { homecontent } = router.query;
-  const dispatch = useDispatch();
   const { summaryContent, summaryTitle } = useSelector(
-    (store:any) => store.summary
+    (store: any) => store.summary
   );
 
   const handleMax = () => {
@@ -31,53 +19,11 @@ function HomeContent() {
     setHideMeta(false);
   };
 
-  useEffect(() => {
-    dispatch(setShowLoader(false))
-    dispatch(setSummarizeSetting(false)); // Open summarize setting modal
-    async function fetchSummary() {
-      const homeService = new HomeService();
-      try {
-        const response = await homeService.getSummaryText(homecontent as string);
-        if (response.status) {
-          const { title, summaryArray } = response.data;
-          dispatch(setSummaryTitle(title));
-          dispatch(setSummaryContent(summaryArray[0]?.summary));
-        } else {
-          NotificationService.error({
-            message: "Error!",
-            addedText: <p>something happend.  please try again</p>,
-            position: 'bottom-right'
-        });
-          dispatch(setSummaryTitle(''));
-          dispatch(setSummaryContent(''));
-        }
-      } catch (err) {
-        NotificationService.error({
-          message: "Error!",
-          addedText: <p>something happend.  please try again</p>,
-          position: 'bottom-right'
-      });      }
-    }
-
-    fetchSummary();
-  }, [homecontent, dispatch]);
-
   return (
     <div className="bg-sirp-secondary2 h-[100%] mx-5 rounded-[1rem]">
-      <div className="flex md:justify-between flex-wrap px-5 py-5 ">
-        <div>
-          <Image
-            src={require('../../../public/icons/arrow-narrow-left_1.svg')}
-            alt="documents"
-            className="cursor-pointer pb-5"
-            width={20}
-            onClick={() => router.back()}
-          />
-          <h1 className="text-2xl">Peter Duru</h1>
-        </div>
+      <div className="flex justify-end w-full pr-5 pt-5 ">
         <ActionIcons />
       </div>
-      <BreadCrum />
       <div className="bg-white border my-10 mx-10 rounded-[1rem]">
         <Min_and_Max_icon maxOnClick={handleMax} minOnClick={handleMin} />
         {hideMeta ? (
@@ -95,11 +41,13 @@ function HomeContent() {
       </div>
       <div className="my-10 mx-5">
         <div className="text-justify pr-10">
-          <p className="py-5 text-[14px]">
+          <p className="py-5 text-[14px] mb-10">
             <p className="text-md text-gray-500 py-5">Content</p>
             {summaryContent ? (
-              summaryContent.split('\n').map((paragraph, index) => (
-                <p key={index} className='py-1 text-[1rem] leading-8'>{paragraph}</p>
+              summaryContent.split("\n").map((paragraph, index) => (
+                <p key={index} className="py-1 text-[1rem] leading-8 mb-10">
+                  {paragraph}
+                </p>
               ))
             ) : (
               <p className="py-20 text-center font-bold text-[1.5rem]">

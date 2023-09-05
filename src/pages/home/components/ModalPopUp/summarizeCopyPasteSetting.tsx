@@ -1,21 +1,23 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import HomeService from '@/services/home.service';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import HomeService from "@/services/home.service";
 import {
   setSummaryLength,
   setSummaryContentType,
   setSummaryLengthRange,
   setSummarizeSetting,
-  setShowLoader
-} from '@/redux/reducer/summarySlice';
-import { useTruncate } from '@/components/custom-hooks';
-import { useRouter } from 'next/router';
-import NotificationService from '@/services/notification.service';
+  setShowLoader,
+  setSummaryTitle,
+  setSummaryContent,
+} from "@/redux/reducer/summarySlice";
+import { useTruncate } from "@/components/custom-hooks";
+import { useRouter } from "next/router";
+import NotificationService from "@/services/notification.service";
 
 function SummarizeCopyPasteSetting() {
-  const { summaryLength, summaryContentType, copyText, summaryLengthRange,} =
-    useSelector((store:any) => store.summary);
-    const route = useRouter();
+  const { summaryLength, summaryContentType, copyText, summaryLengthRange } =
+    useSelector((store: any) => store.summary);
+  const route = useRouter();
   const dispatch = useDispatch();
   const homeService = new HomeService();
 
@@ -28,12 +30,12 @@ function SummarizeCopyPasteSetting() {
     let newSummaryLength;
     let newSummaryLengthRange;
 
-    if (newContentType === 'paragraph') {
-      newSummaryLength = '3';
-      newSummaryLengthRange = ['1', '2', '3'];
-    } else if (newContentType === 'sentence') {
-      newSummaryLength = '5';
-      newSummaryLengthRange = ['1', '2', '3', '4', '5'];
+    if (newContentType === "paragraph") {
+      newSummaryLength = "3";
+      newSummaryLengthRange = ["1", "2", "3"];
+    } else if (newContentType === "sentence") {
+      newSummaryLength = "5";
+      newSummaryLengthRange = ["1", "2", "3", "4", "5"];
     }
     dispatch(setSummaryLength(newSummaryLength));
     dispatch(setSummaryLengthRange(newSummaryLengthRange));
@@ -46,18 +48,20 @@ function SummarizeCopyPasteSetting() {
     try {
       const dataObj = {
         text: copyText,
-        number: summaryNumber
+        number: summaryNumber,
       };
       const response = await homeService.summarizeText(dataObj);
-      if(response.status) {
+      if (response.status) {
         dispatch(setShowLoader(false));
-        route.push(`/home/${response.data.uuid}`);
+        const { title, summaryArray } = response.data;
+        dispatch(setSummaryTitle(title));
+        dispatch(setSummaryContent(summaryArray[0]?.summary));
       } else {
         NotificationService.error({
           message: "Error!",
-          addedText: <p>something happend.  please try again</p>,
-          position: 'bottom-right'
-      });
+          addedText: <p>something happened. please try again</p>,
+          position: "bottom-right",
+        });
       }
     } catch (error) {
       dispatch(setShowLoader(false));
