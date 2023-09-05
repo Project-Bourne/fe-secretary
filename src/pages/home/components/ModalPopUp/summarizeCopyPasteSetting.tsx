@@ -10,6 +10,7 @@ import {
 } from '@/redux/reducer/summarySlice';
 import { useTruncate } from '@/components/custom-hooks';
 import { useRouter } from 'next/router';
+import NotificationService from '@/services/notification.service';
 
 function SummarizeCopyPasteSetting() {
   const { summaryLength, summaryContentType, copyText, summaryLengthRange,} =
@@ -48,8 +49,16 @@ function SummarizeCopyPasteSetting() {
         number: summaryNumber
       };
       const response = await homeService.summarizeText(dataObj);
-      dispatch(setShowLoader(false));
-      route.push(`/home/${response.data.uuid}`);
+      if(response.status) {
+        dispatch(setShowLoader(false));
+        route.push(`/home/${response.data.uuid}`);
+      } else {
+        NotificationService.error({
+          message: "Error!",
+          addedText: <p>something happend.  please try again</p>,
+          position: 'bottom-right'
+      });
+      }
     } catch (error) {
       dispatch(setShowLoader(false));
       console.error(error);

@@ -12,6 +12,7 @@ import {
   setSummarizeSetting
 } from '@/redux/reducer/summarySlice';
 import { useDispatch, useSelector } from 'react-redux';
+import NotificationService from '@/services/notification.service';
 
 function HomeContent() {
   const router = useRouter();
@@ -42,12 +43,20 @@ function HomeContent() {
           dispatch(setSummaryTitle(title));
           dispatch(setSummaryContent(summaryArray[0]?.summary));
         } else {
+          NotificationService.error({
+            message: "Error!",
+            addedText: <p>something happend.  please try again</p>,
+            position: 'bottom-right'
+        });
           dispatch(setSummaryTitle(''));
           dispatch(setSummaryContent(''));
         }
       } catch (err) {
-        console.log(err);
-      }
+        NotificationService.error({
+          message: "Error!",
+          addedText: <p>something happend.  please try again</p>,
+          position: 'bottom-right'
+      });      }
     }
 
     fetchSummary();

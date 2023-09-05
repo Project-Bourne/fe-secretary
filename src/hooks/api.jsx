@@ -1,12 +1,15 @@
 /**
  * Object Request Header
  */
+let access = "";
+if (typeof window !== "undefined") {
+  access = localStorage.getItem("deep-access") || "";
+}
 export const requestHeader = {
-  Accept: 'application/json',
-  'Cache-Control': 'no-cache',
-  'Content-Type': 'application/json',
-  'deep-token':
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGE5ZmIxLTRlMzktNDRiNC1hZjM2LTc2MDNkMjJlMDMzMCIsInJvbGUiOiIxIiwiaWF0IjoxNjkzMDU4NDc3LCJleHAiOjE2OTMxNDQ4Nzd9._JnS8J7U1mLUQSHRppoE3lIoceTWOwbmvs4LrriTH9c'
+  Accept: "application/json",
+  "Cache-Control": "no-cache",
+  "Content-Type": "application/json",
+  "deep-token": access,
 };
 
 /**
@@ -20,21 +23,21 @@ export const requestHeader = {
  * @returns Response Data;
  */
 
-let API_USER_URL = 'http://192.81.213.226:82';
+let API_USER_URL = "http://192.81.213.226:82";
 
 export async function request(url, method, payload, token, text, form) {
   if (form === true) {
-    requestHeader['Content-Type'] = 'multipart/form-data';
+    requestHeader["Content-Type"] = "multipart/form-data";
   } else {
-    requestHeader['Content-Type'] = 'application/json';
+    requestHeader["Content-Type"] = "application/json";
   }
 
-  if (method === 'GET') {
+  if (method === "GET") {
     return fetch(API_USER_URL + url, {
       method,
-      headers: Object.assign(requestHeader)
+      headers: Object.assign(requestHeader),
     })
-      .then(res => {
+      .then((res) => {
         if (text === true) {
           return res.text();
         } else if (res) {
@@ -43,7 +46,7 @@ export async function request(url, method, payload, token, text, form) {
           return res.json();
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(`Request Error ${url}: `, err);
         throw new Error(err);
       });
@@ -51,9 +54,9 @@ export async function request(url, method, payload, token, text, form) {
     return fetch(API_USER_URL + url, {
       method,
       headers: Object.assign(requestHeader),
-      body: form === true ? payload : JSON.stringify(payload)
+      body: form === true ? payload : JSON.stringify(payload),
     })
-      .then(res => {
+      .then((res) => {
         if (text === true) {
           return res.text();
         } else if (res) {
@@ -62,7 +65,7 @@ export async function request(url, method, payload, token, text, form) {
           return res.json();
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(`Request Error ${url}: `, err);
         throw new Error(err);
       });

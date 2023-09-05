@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Image from 'next/image';
-import FileUploadSection from './FileUploadSection';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Image from "next/image";
+import FileUploadSection from "./FileUploadSection";
 import {
   setCopyText,
   setShowLoader,
@@ -9,18 +9,19 @@ import {
   setSummarizeSetting,
   setuploadedText,
   setuploloadedUri,
-} from '@/redux/reducer/summarySlice';
-import LoadingModal from './LoadingModal';
-import SummarizeCopyPasteSetting from '../ModalPopUp/summarizeCopyPasteSetting';
-import CustomModal from '@/components/ui/CustomModal';
+} from "@/redux/reducer/summarySlice";
+import LoadingModal from "./LoadingModal";
+import SummarizeCopyPasteSetting from "../ModalPopUp/summarizeCopyPasteSetting";
+import CustomModal from "@/components/ui/CustomModal";
+import NotificationService from "@/services/notification.service";
 
 function FileUpload() {
   const { summarizeSetting, copyText, showLoader } = useSelector(
-    (store:any) => store.summary
+    (store: any) => store.summary
   );
 
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState('');
+  const [formData, setFormData] = useState("");
   const [file, setFile] = useState(null);
   const [isFileUploaded, setIsFileUploaded] = useState(false);
 
@@ -32,8 +33,6 @@ function FileUpload() {
       dispatch(setSummarizeSetting(true));
     }
   };
-  
-  
 
   const handleDeleteFile = () => {
     setFile(null);
@@ -48,34 +47,42 @@ function FileUpload() {
     if (selectedFile) {
       setIsFileUploaded(true);
       const formData = new FormData();
-      formData.append('files', selectedFile);
+      formData.append("files", selectedFile);
 
       try {
-        const response = await fetch('http://192.81.213.226:89/api/v1/uploads', {
-          method: 'POST',
-          body: formData,
-        });
+        const response = await fetch(
+          "http://192.81.213.226:89/api/v1/uploads",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
 
         if (response.status) {
           const responseData = await response.json();
           dispatch(setuploadedText(responseData.data[0].text));
           dispatch(setuploloadedUri(responseData.data[0].uri));
         } else {
-          console.error('File upload failed.');
+          NotificationService.error({
+            message: "Error!",
+            addedText: <p>something happend. please try again</p>,
+            position: "bottom-right",
+          });
         }
       } catch (error) {
-        console.error('Error uploading file:', error);
+        NotificationService.error({
+          message: "Error!",
+          addedText: <p>something happend. please try again</p>,
+          position: "bottom-right",
+        });
       }
-    } 
+    }
   };
 
   return (
     <div className="m-5">
       {isFileUploaded ? (
-        <FileUploadSection
-          file={file}
-          handleDeleteFile={handleDeleteFile}
-        />
+        <FileUploadSection file={file} handleDeleteFile={handleDeleteFile} />
       ) : (
         <div>
           <form onSubmit={handleTextSummarySubmit}>
@@ -84,7 +91,7 @@ function FileUpload() {
               {/* Input */}
               <span className="flex align-middle justify-center mx-3">
                 <Image
-                  src={require('../../../../../public/icons/link.svg')}
+                  src={require("../../../../../public/icons/link.svg")}
                   alt="upload image"
                   width={20}
                   height={20}
@@ -101,24 +108,22 @@ function FileUpload() {
               <span className="flex align-middle justify-center mx-3">
                 <Image
                   className="flex align-middle justify-center font-light text-[#A1ADB5] cursor-pointer"
-                  src={require('../../../../../public/icons/x.svg')}
+                  src={require("../../../../../public/icons/x.svg")}
                   alt="upload image"
                   width={20}
                   height={20}
-                  onClick={() => setFormData('')}
+                  onClick={() => setFormData("")}
                 />
               </span>
             </div>
           </form>
-           {/* File Upload */}
-           <div
-            className="h-[30vh] mt-5 flex align-middle w-full justify-center border rounded-[30px] border-[#E5E7EB]"
-          >
+          {/* File Upload */}
+          <div className="h-[30vh] mt-5 flex align-middle w-full justify-center border rounded-[30px] border-[#E5E7EB]">
             <div className="flex flex-col align-middle justify-center">
               <span className="flex align-middle justify-center mx-3">
                 <Image
                   className="flex align-middle justify-center"
-                  src={require('../../../../../public/icons/cloud.svg')}
+                  src={require("../../../../../public/icons/cloud.svg")}
                   alt="upload image"
                   width={25}
                   height={25}
