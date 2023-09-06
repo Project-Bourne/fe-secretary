@@ -6,7 +6,9 @@ import {
   setSummaryContentType,
   setSummaryLengthRange,
   setSummarizeSettingUpload,
-  setShowLoaderUpload
+  setShowLoaderUpload,
+  setSummaryTitle,
+  setSummaryContent
 } from '@/redux/reducer/summarySlice';
 import { useTruncate } from '@/components/custom-hooks';
 import { useRouter } from 'next/router';
@@ -51,8 +53,10 @@ function SummarizeCopyPasteSetting() {
         number: summaryNumber
       };
       const response = await homeService.summarizeUpload(uploadData);
+      const { title, summaryArray } = response.data;
+      dispatch(setSummaryTitle(title));
+      dispatch(setSummaryContent(summaryArray[0]?.summary));
       dispatch(setShowLoaderUpload(false));
-      route.push(`/home/${response.data.uuid}`);
     } catch (error) {
       dispatch(setShowLoaderUpload(false));
       console.error(error);

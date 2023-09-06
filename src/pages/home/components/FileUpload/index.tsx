@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Image from 'next/image';
-import FileUploadSection from './FileUploadSection';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Image from "next/image";
+import Button from "@/components/ui/Button";
+import FileUploadSection from "./FileUploadSection";
 import {
   setCopyText,
   setShowLoader,
@@ -9,18 +10,23 @@ import {
   setSummarizeSetting,
   setuploadedText,
   setuploloadedUri,
-} from '@/redux/reducer/summarySlice';
-import LoadingModal from './LoadingModal';
-import SummarizeCopyPasteSetting from '../ModalPopUp/summarizeCopyPasteSetting';
-import CustomModal from '@/components/ui/CustomModal';
+} from "@/redux/reducer/summarySlice";
+import LoadingModal from "./LoadingModal";
+import SummarizeCopyPasteSetting from "../ModalPopUp/summarizeCopyPasteSetting";
+import CustomModal from "@/components/ui/CustomModal";
+import NotificationService from "@/services/notification.service";
+import HomeContent from "../../[homecontent]";
+import { useRouter } from "next/router";
 
 function FileUpload() {
   const { summarizeSetting, copyText, showLoader } = useSelector(
-    (store:any) => store.summary
+    (store: any) => store.summary
   );
+  const router = useRouter();
+  const { summaryTitle } = useSelector((store: any) => store.summary);
 
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState('');
+  const [formData, setFormData] = useState("");
   const [file, setFile] = useState(null);
   const [isFileUploaded, setIsFileUploaded] = useState(false);
 
@@ -32,8 +38,6 @@ function FileUpload() {
       dispatch(setSummarizeSetting(true));
     }
   };
-  
-  
 
   const handleDeleteFile = () => {
     setFile(null);
@@ -48,43 +52,88 @@ function FileUpload() {
     if (selectedFile) {
       setIsFileUploaded(true);
       const formData = new FormData();
-      formData.append('files', selectedFile);
+      formData.append("files", selectedFile);
 
       try {
-        const response = await fetch('http://192.81.213.226:89/api/v1/uploads', {
-          method: 'POST',
-          body: formData,
-        });
+        const response = await fetch(
+          "http://192.81.213.226:89/api/v1/uploads",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
 
         if (response.status) {
           const responseData = await response.json();
           dispatch(setuploadedText(responseData.data[0].text));
           dispatch(setuploloadedUri(responseData.data[0].uri));
         } else {
-          console.error('File upload failed.');
+          NotificationService.error({
+            message: "Error!",
+            addedText: <p>something happend. please try again</p>,
+            position: "bottom-right",
+          });
         }
       } catch (error) {
-        console.error('Error uploading file:', error);
+        NotificationService.error({
+          message: "Error!",
+          addedText: <p>something happend. please try again</p>,
+          position: "bottom-right",
+        });
       }
-    } 
+    }
   };
 
   return (
     <div className="m-5">
       {isFileUploaded ? (
-        <FileUploadSection
-          file={file}
-          handleDeleteFile={handleDeleteFile}
-        />
+        <FileUploadSection file={file} handleDeleteFile={handleDeleteFile} />
       ) : (
         <div>
+          {formData?.length == 0 ? (
+            <section className="flex justify-end wi-full mr-[2rem] mb-[1rem]">
+              <span className="font-normal text-[#383E42]">
+                <input
+                  id="file-upload"
+                  type="file"
+                  accept=".txt,.doc,.docx,.pdf"
+                  className="hidden"
+                  onChange={handleFileUpload}
+                />
+                <label
+                  className="text-blue-400 cursor-pointer"
+                  htmlFor="file-upload"
+                >
+                  <div className="border px-5 py-5 rounded-[1rem] bg-sirp-primary text-white">
+                    Upload File
+                  </div>
+                </label>
+              </span>
+            </section>
+          ) : (
+            <section className="flex justify-end wi-full mr-[2rem] mb-[1rem]">
+              <span className="font-normal text-[#383E42]">
+                <label
+                  className="text-blue-400 cursor-pointer"
+                  htmlFor="file-upload"
+                >
+                  <div
+                    onClick={handleTextSummarySubmit}
+                    className="border px-5 py-5 rounded-[1rem] bg-sirp-primary text-white"
+                  >
+                    Summarize
+                  </div>
+                </label>
+              </span>
+            </section>
+          )}
           <form onSubmit={handleTextSummarySubmit}>
             {/* Text Summary Form */}
             <div className="flex align-middle w-full border-2 rounded-full border-[#E5E7EB]-500 border-dotted">
               {/* Input */}
               <span className="flex align-middle justify-center mx-3">
                 <Image
-                  src={require('../../../../../public/icons/link.svg')}
+                  src={require("../../../../../public/icons/link.svg")}
                   alt="upload image"
                   width={20}
                   height={20}
@@ -101,51 +150,40 @@ function FileUpload() {
               <span className="flex align-middle justify-center mx-3">
                 <Image
                   className="flex align-middle justify-center font-light text-[#A1ADB5] cursor-pointer"
-                  src={require('../../../../../public/icons/x.svg')}
+                  src={require("../../../../../public/icons/x.svg")}
                   alt="upload image"
                   width={20}
                   height={20}
-                  onClick={() => setFormData('')}
+                  onClick={() => setFormData("")}
                 />
               </span>
             </div>
           </form>
-           {/* File Upload */}
-           <div
-            className="h-[30vh] mt-5 flex align-middle w-full justify-center border rounded-[30px] border-[#E5E7EB]"
-          >
-            <div className="flex flex-col align-middle justify-center">
-              <span className="flex align-middle justify-center mx-3">
-                <Image
-                  className="flex align-middle justify-center"
-                  src={require('../../../../../public/icons/cloud.svg')}
-                  alt="upload image"
-                  width={25}
-                  height={25}
-                  priority
-                />
-              </span>
-              <span className="font-normal text-[#383E42]">
-                <input
-                  id="file-upload"
-                  type="file"
-                  accept=".txt,.rtf,.doc,.docx,.pdf,.ppt,.pptx"
-                  className="hidden"
-                  onChange={handleFileUpload}
-                />
-                <label
-                  className="text-blue-400 cursor-pointer"
-                  htmlFor="file-upload"
-                >
-                  Upload a file
-                </label>
-                <span> </span>or drag and drop
-              </span>
-              <span className="font-light text-[#383E42]">
-                TXT, RFT, DOC, PDF up to 5MB
-              </span>
-            </div>
-          </div>
+        </div>
+      )}
+
+      {summaryTitle?.length == 0 ? (
+        <main className="flex items-center justify-center flex-col gap-4 mt-[5rem]">
+        <div className="flex items-center justify-centery w-[50%] font-bold flex-col p-3 rounded-[1rem] gap-3 text-xl ">
+          <span>
+            {' '}
+            <Image
+              src={require(`../../../../../public/icons/no_history.svg`)}
+              alt="upload image"
+              width={150}
+              height={150}
+              priority
+            />
+          </span>
+          <h1 className="font-[700] text-2xl">No Summary yet</h1>
+          <span className="text-gray-400">
+            Your recent Summary will appear here
+          </span>
+        </div>
+      </main>
+      ) : (
+        <div className="mt-5">
+          <HomeContent />
         </div>
       )}
 
