@@ -163,7 +163,24 @@ function FileUpload() {
       )}
 
       {summaryTitle?.length == 0 ? (
-        ""
+        <main className="flex items-center justify-center flex-col gap-4 mt-[5rem]">
+        <div className="flex items-center justify-centery w-[50%] font-bold flex-col p-3 rounded-[1rem] gap-3 text-xl ">
+          <span>
+            {' '}
+            <Image
+              src={require(`../../../../../public/icons/no_history.svg`)}
+              alt="upload image"
+              width={150}
+              height={150}
+              priority
+            />
+          </span>
+          <h1 className="font-[700] text-2xl">No Summary yet</h1>
+          <span className="text-gray-400">
+            Your recent Summary will appear here
+          </span>
+        </div>
+      </main>
       ) : (
         <div className="mt-5">
           <HomeContent />

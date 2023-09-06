@@ -24,8 +24,14 @@ function HomeContent() {
       <div className="flex justify-end w-full pr-5 pt-5 ">
         <ActionIcons />
       </div>
-      <div className="bg-white border my-10 mx-10 rounded-[1rem]">
-        <Min_and_Max_icon maxOnClick={handleMax} minOnClick={handleMin} />
+      <div className="bg-white border my-10 mx-5 rounded-[1rem]">
+      <div className="pl-5 my-5">
+            <p className="text-md text-gray-500">Title</p>
+            <h1 className="md:text-3xl whitespace-nowrap overflow-hidden overflow-ellipsis">
+              {summaryTitle || <h1> No available title</h1>}
+            </h1>
+          </div>
+        {/* <Min_and_Max_icon maxOnClick={handleMax} minOnClick={handleMin} />
         {hideMeta ? (
           <div className="pl-5 my-5">
             <p className="text-md text-gray-500">Title</p>
@@ -37,7 +43,7 @@ function HomeContent() {
           <h1 className="md:text-lg font-bold pl-5 pb-2">
             {summaryTitle || <h1> No available title</h1>}
           </h1>
-        )}
+        )} */}
       </div>
       <div className="my-10 mx-5">
         <div className="text-justify pr-10">
