@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import HomeService from '@/services/home.service';
 import {
@@ -8,25 +8,23 @@ import {
   setSummarizeSettingUpload,
   setShowLoaderUpload,
   setSummaryTitle,
-  setSummaryContent
+  setSummaryContent,
 } from '@/redux/reducer/summarySlice';
 import { useTruncate } from '@/components/custom-hooks';
 import { useRouter } from 'next/router';
+import NotificationService from '@/services/notification.service';
 
 function SummarizeCopyPasteSetting() {
   const {
-    summaryLength,
     summaryContentType,
     fileName,
     uploloadedUri,
     uploadedText,
-    summaryLengthRange,
-  } = useSelector((store: any) => store.summary);
+  } = useSelector((store:any) => store.summary);
 
-  const route = useRouter();
   const dispatch = useDispatch();
   const homeService = new HomeService();
-  const summaryNumber = `${summaryLength} ${summaryContentType}`;
+  const [customSummaryLength, setCustomSummaryLength] = useState('');
 
   const handleContentTypeChange = ({ target: { value: newContentType } }) => {
     dispatch(setSummaryContentType(newContentType));
@@ -41,25 +39,48 @@ function SummarizeCopyPasteSetting() {
     dispatch(setSummaryLengthRange(newSummaryLengthRange));
   };
 
+  const handleCustomLengthChange = (e) => {
+    const newValue = e.target.value;
+    if (newValue >= 0) {
+      setCustomSummaryLength(newValue);
+    }
+  };
+
   const handleDocumentSummary = async (event) => {
     event.preventDefault();
     dispatch(setShowLoaderUpload(true));
     dispatch(setSummarizeSettingUpload(false));
 
+    const summaryNumber = `${customSummaryLength} ${summaryContentType}`;
+    console.log(summaryNumber);
+
     try {
       const uploadData = {
         text: uploadedText,
         uri: uploloadedUri,
-        number: summaryNumber
+        number: summaryNumber,
       };
       const response = await homeService.summarizeUpload(uploadData);
-      const { title, summaryArray } = response.data;
-      dispatch(setSummaryTitle(title));
-      dispatch(setSummaryContent(summaryArray[0]?.summary));
-      dispatch(setShowLoaderUpload(false));
+      if (response.status) {
+        const { title, summaryArray } = response.data;
+        dispatch(setSummaryTitle(title));
+        dispatch(setSummaryContent(summaryArray[0]?.summary));
+        dispatch(setShowLoaderUpload(false));
+      } else {
+        NotificationService.error({
+          message: 'Error!',
+          addedText: <p>Something happened. Please try again</p>,
+          position: 'top-right',
+        });
+        dispatch(setShowLoaderUpload(false));
+      }
     } catch (error) {
+      NotificationService.error({
+        message: 'Error!',
+        addedText: <p>Something happened. Please try again</p>,
+        position: 'top-right',
+      });
       dispatch(setShowLoaderUpload(false));
-      console.error(error);
     }
   };
 
@@ -87,22 +108,17 @@ function SummarizeCopyPasteSetting() {
             <option value="sentence">Sentence(s)</option>
             <option value="paragraph">Paragraph(s)</option>
           </select>
-          <label htmlFor="length" className="text-sm text-gray-500">
+          <label htmlFor="custom-length" className="text-sm text-gray-500">
             Length
           </label>
-          <select
-            name="length"
-            id="length"
-            value={summaryLength}
+          <input
+            type="number"
+            id="custom-length"
+            value={customSummaryLength}
+            onChange={handleCustomLengthChange}
             className="border p-2 my-3 rounded-[.3rem]"
-            onChange={e => dispatch(setSummaryLength(e.target.value))}
-          >
-            {summaryLengthRange?.map(option => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
+            placeholder="Enter custom length"
+          />
 
           <div>
             <button className="p-4 cursor-pointer flex w-[100%] align-middle justify-center bg-sirp-primary text-white rounded-[1rem] text-[15px]">
