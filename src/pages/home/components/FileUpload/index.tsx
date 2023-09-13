@@ -11,6 +11,7 @@ import {
   setuploadedText,
   setuploloadedUri,
 } from "@/redux/reducer/summarySlice";
+import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import LoadingModal from "./LoadingModal";
 import SummarizeCopyPasteSetting from "../ModalPopUp/summarizeCopyPasteSetting";
 import CustomModal from "@/components/ui/CustomModal";
@@ -67,6 +68,11 @@ function FileUpload() {
           const responseData = await response.json();
           dispatch(setuploadedText(responseData.data[0].text));
           dispatch(setuploloadedUri(responseData.data[0].uri));
+          NotificationService.success({
+            message: "Success!",
+            addedText: <p>File uploaded successfully</p>,
+            position: "bottom-right",
+          });
         } else {
           NotificationService.error({
             message: "Error!",
@@ -91,41 +97,50 @@ function FileUpload() {
       ) : (
         <div>
           {formData?.length == 0 ? (
-            <section className="flex justify-end wi-full mr-[2rem] mb-[1rem]">
-              <span className="font-normal text-[#383E42]">
-                <input
-                  id="file-upload"
-                  type="file"
-                  accept=".txt,.doc,.docx,.pdf"
-                  className="hidden"
-                  onChange={handleFileUpload}
+            <div className="flex items-center pb-[2rem] w-[100%] justify-end pr-[3rem]">
+              <span className="text-grey-400 mr-2 text-sm text-sirp-primary">
+                {file?.name}
+              </span>
+              <label
+                htmlFor="file-input"
+                className="px-4 py-1 rounded-lg"
+                style={{
+                  cursor: "pointer",
+                  color: "#4582C4",
+                  backgroundColor: "white",
+                  border: "1px solid #4582C4",
+                }}
+              >
+                <DriveFolderUploadIcon
+                  style={{ color: "#4582C4", cursor: "pointer" }}
                 />
-                <label
-                  className="text-blue-400 cursor-pointer"
-                  htmlFor="file-upload"
-                >
-                  <div className="border px-5 py-5 rounded-[1rem] bg-sirp-primary text-white">
-                    Upload File
-                  </div>
-                </label>
-              </span>
-            </section>
+                Upload File
+              </label>
+
+              <input
+                type="file"
+                id="file-input"
+                style={{ display: "none" }}
+                accept=".pdf,.doc,.docx,.txt"
+                onChange={handleFileUpload}
+              />
+            </div>
           ) : (
-            <section className="flex justify-end wi-full mr-[2rem] mb-[1rem]">
-              <span className="font-normal text-[#383E42]">
-                <label
-                  className="text-blue-400 cursor-pointer"
-                  htmlFor="file-upload"
-                >
-                  <div
-                    onClick={handleTextSummarySubmit}
-                    className="border px-5 py-5 rounded-[1rem] bg-sirp-primary text-white"
-                  >
-                    Summarize
-                  </div>
-                </label>
-              </span>
-            </section>
+            <div className="flex items-center pb-[2rem] w-[100%] justify-end pr-[3rem]"
+            onClick={handleTextSummarySubmit}>
+              <label
+                htmlFor="file-input"
+                className="px-4 py-1 rounded-lg"
+                style={{
+                  cursor: "pointer",
+                  color: "#4582C4",
+                  backgroundColor: "white",
+                  border: "1px solid #4582C4",
+                }}
+              >
+                Summarize
+              </label>
+            </div>
           )}
           <form onSubmit={handleTextSummarySubmit}>
             {/* Text Summary Form */}
@@ -164,23 +179,23 @@ function FileUpload() {
 
       {summaryTitle?.length == 0 ? (
         <main className="flex items-center justify-center flex-col gap-4 mt-[5rem]">
-        <div className="flex items-center justify-centery w-[50%] font-bold flex-col p-3 rounded-[1rem] gap-3 text-xl ">
-          <span>
-            {' '}
-            <Image
-              src={require(`../../../../../public/icons/no_history.svg`)}
-              alt="upload image"
-              width={150}
-              height={150}
-              priority
-            />
-          </span>
-          <h1 className="font-[700] text-2xl">No Summary yet</h1>
-          <span className="text-gray-400">
-            Your recent Summary will appear here
-          </span>
-        </div>
-      </main>
+          <div className="flex items-center justify-centery w-[50%] font-bold flex-col p-3 rounded-[1rem] gap-3 text-xl ">
+            <span>
+              {" "}
+              <Image
+                src={require(`../../../../../public/icons/no_history.svg`)}
+                alt="upload image"
+                width={150}
+                height={150}
+                priority
+              />
+            </span>
+            <h1 className="font-[700] text-2xl">No Summary yet</h1>
+            <span className="text-gray-400">
+              Your recent Summary will appear here
+            </span>
+          </div>
+        </main>
       ) : (
         <div className="mt-5">
           <HomeContent />

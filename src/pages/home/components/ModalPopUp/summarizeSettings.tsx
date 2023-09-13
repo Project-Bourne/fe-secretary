@@ -12,6 +12,7 @@ import {
 } from '@/redux/reducer/summarySlice';
 import { useTruncate } from '@/components/custom-hooks';
 import { useRouter } from 'next/router';
+import NotificationService from '@/services/notification.service';
 
 function SummarizeCopyPasteSetting() {
   const {
@@ -53,13 +54,26 @@ function SummarizeCopyPasteSetting() {
         number: summaryNumber
       };
       const response = await homeService.summarizeUpload(uploadData);
+      if (response.status) {
       const { title, summaryArray } = response.data;
       dispatch(setSummaryTitle(title));
       dispatch(setSummaryContent(summaryArray[0]?.summary));
       dispatch(setShowLoaderUpload(false));
+      } else {
+        NotificationService.error({
+          message: "Error!",
+          addedText: <p>something happened. please try again</p>,
+          position: "top-right",
+        });
+        dispatch(setShowLoaderUpload(false));
+      }
     } catch (error) {
+      NotificationService.error({
+        message: "Error!",
+        addedText: <p>something happened. please try again</p>,
+        position: "top-right",
+      });
       dispatch(setShowLoaderUpload(false));
-      console.error(error);
     }
   };
 

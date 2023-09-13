@@ -52,20 +52,26 @@ function SummarizeCopyPasteSetting() {
       };
       const response = await homeService.summarizeText(dataObj);
       if (response.status) {
-        dispatch(setShowLoader(false));
         const { title, summaryArray } = response.data;
         dispatch(setSummaryTitle(title));
         dispatch(setSummaryContent(summaryArray[0]?.summary));
+        dispatch(setShowLoader(false));
+
       } else {
         NotificationService.error({
           message: "Error!",
           addedText: <p>something happened. please try again</p>,
-          position: "bottom-right",
+          position: "top-right",
         });
+        dispatch(setShowLoader(false));
       }
     } catch (error) {
+      NotificationService.error({
+        message: "Error!",
+        addedText: <p>something happened. please try again</p>,
+        position: "top-right",
+      });
       dispatch(setShowLoader(false));
-      console.error(error);
     }
   };
 

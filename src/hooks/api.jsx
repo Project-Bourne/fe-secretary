@@ -1,12 +1,16 @@
 /**
  * Object Request Header
  */
+let access = "";
+if (typeof window !== "undefined") {
+  access =
+    localStorage.getItem("deep-access") || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGE5ZmIxLTRlMzktNDRiNC1hZjM2LTc2MDNkMjJlMDMzMCIsImlhdCI6MTY5NDYwNjIwOSwiZXhwIjoxNjk0NjkyNjA5fQ.-WvsjWwhbC9USDp0zaho6_1w4bsDJSe97s5-QrOboKM'
+}
 export const requestHeader = {
   Accept: "application/json",
   "Cache-Control": "no-cache",
   "Content-Type": "application/json",
-  "deep-token":
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGE5ZmIxLTRlMzktNDRiNC1hZjM2LTc2MDNkMjJlMDMzMCIsInJvbGUiOiIxIiwiaWF0IjoxNjkzOTEyMjU3LCJleHAiOjE2OTM5OTg2NTd9.KCYRtNWtq9Q-fa4C__JaMwBNeyQzD3fK91baxTV1Vk0",
+  "deep-token": access,
 };
 
 /**
