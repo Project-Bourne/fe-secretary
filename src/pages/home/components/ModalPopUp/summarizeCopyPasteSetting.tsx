@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import HomeService from "@/services/home.service";
 import {
-  setSummaryLength,
   setSummaryContentType,
-  setSummaryLengthRange,
   setSummarizeSetting,
   setShowLoader,
   setSummaryTitle,
@@ -15,52 +13,49 @@ import { useRouter } from "next/router";
 import NotificationService from "@/services/notification.service";
 
 function SummarizeCopyPasteSetting() {
-  const { summaryLength, summaryContentType, copyText, summaryLengthRange } =
-    useSelector((store: any) => store.summary);
-  const route = useRouter();
+  const { copyText, summaryContentType } = useSelector(
+    (store: any) => store.summary
+  );
   const dispatch = useDispatch();
   const homeService = new HomeService();
-
-  const summaryNumber = `${summaryLength} ${summaryContentType}`;
+  const [customSummaryLength, setCustomSummaryLength] = useState(""); // State for custom input
 
   const handleContentTypeChange = (e) => {
     const newContentType = e.target.value;
     dispatch(setSummaryContentType(newContentType));
+  };
 
-    let newSummaryLength;
-    let newSummaryLengthRange;
-
-    if (newContentType === "paragraph") {
-      newSummaryLength = "3";
-      newSummaryLengthRange = ["1", "2", "3"];
-    } else if (newContentType === "sentence") {
-      newSummaryLength = "5";
-      newSummaryLengthRange = ["1", "2", "3", "4", "5"];
+  const handleCustomLengthChange = (e) => {
+    const newValue = e.target.value;
+    if (newValue >= 0) {
+      setCustomSummaryLength(newValue);
     }
-    dispatch(setSummaryLength(newSummaryLength));
-    dispatch(setSummaryLengthRange(newSummaryLengthRange));
   };
 
   const handleCopyText = async (event) => {
     event.preventDefault();
     dispatch(setShowLoader(true));
     dispatch(setSummarizeSetting(false));
+
+    const summaryNumber = `${customSummaryLength} ${summaryContentType}`;
+
     try {
       const dataObj = {
         text: copyText,
-        number: summaryNumber,
+        number: summaryNumber, // Use the custom input
       };
+
       const response = await homeService.summarizeText(dataObj);
+
       if (response.status) {
         const { title, summaryArray } = response.data;
         dispatch(setSummaryTitle(title));
         dispatch(setSummaryContent(summaryArray[0]?.summary));
         dispatch(setShowLoader(false));
-
       } else {
         NotificationService.error({
           message: "Error!",
-          addedText: <p>something happened. please try again</p>,
+          addedText: <p>Something happened. Please try again.</p>,
           position: "top-right",
         });
         dispatch(setShowLoader(false));
@@ -68,7 +63,7 @@ function SummarizeCopyPasteSetting() {
     } catch (error) {
       NotificationService.error({
         message: "Error!",
-        addedText: <p>something happened. please try again</p>,
+        addedText: <p>Something happened. Please try again.</p>,
         position: "top-right",
       });
       dispatch(setShowLoader(false));
@@ -96,29 +91,24 @@ function SummarizeCopyPasteSetting() {
           <select
             name="content-type"
             id="content-type"
-            value={summaryContentType}
             onChange={handleContentTypeChange}
             className="border p-2 my-3 rounded-[.3rem]"
+            value={summaryContentType}
           >
             <option value="sentence">Sentence(s)</option>
             <option value="paragraph">Paragraph(s)</option>
           </select>
-          <label htmlFor="length" className="text-sm text-gray-500">
+          <label htmlFor="custom-length" className="text-sm text-gray-500">
             Length
           </label>
-          <select
-            name="length"
-            id="length"
-            value={summaryLength}
+          <input
+            type="number"
+            id="custom-length"
+            value={customSummaryLength}
+            onChange={handleCustomLengthChange}
             className="border p-2 my-3 rounded-[.3rem]"
-            onChange={(e) => dispatch(setSummaryLength(e.target.value))}
-          >
-            {summaryLengthRange?.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
+            placeholder="Enter custom length"
+          />
 
           <div>
             <button className="p-4 cursor-pointer flex w-[100%] align-middle justify-center bg-sirp-primary text-white rounded-[1rem] text-[15px]">
