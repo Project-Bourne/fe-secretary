@@ -4,7 +4,7 @@
 let access = "";
 if (typeof window !== "undefined") {
   access =
-    localStorage.getItem("deep-access") || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGE5ZmIxLTRlMzktNDRiNC1hZjM2LTc2MDNkMjJlMDMzMCIsImlhdCI6MTY5NDYwNjIwOSwiZXhwIjoxNjk0NjkyNjA5fQ.-WvsjWwhbC9USDp0zaho6_1w4bsDJSe97s5-QrOboKM'
+    localStorage.getItem("deep-access") || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI0OWIyNzc3LWNjZjUtNDhhNy05NmRjLTM0M2VkZWYxYmJlMyIsImlhdCI6MTY5NTM3OTI4NCwiZXhwIjoxNjk1NDY1Njg0fQ.2h0YkAjyGC6UblNi5AIQYfJ4J-yUs08LE4YYs66v7Gw"
 }
 export const requestHeader = {
   Accept: "application/json",
@@ -24,7 +24,7 @@ export const requestHeader = {
  * @returns Response Data;
  */
 
-let API_USER_URL = "http://192.81.213.226:82";
+let API_USER_URL = "http://192.81.213.226:81/82";
 
 export async function request(url, method, payload, token, text, form) {
   if (form === true) {
