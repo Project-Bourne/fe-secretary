@@ -9,7 +9,6 @@ import {
   setSummaryContent,
 } from "@/redux/reducer/summarySlice";
 import { useTruncate } from "@/components/custom-hooks";
-import { useRouter } from "next/router";
 import NotificationService from "@/services/notification.service";
 
 function SummarizeCopyPasteSetting() {

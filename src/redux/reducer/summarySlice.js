@@ -1,26 +1,23 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const summarySlice = createSlice({
-  name: 'Summary',
+  name: "Summary",
   initialState: {
-    summaryId: '',
-    summaryContent: '',
-    summaryTitle: '', // Added summaryTitle field
-    summaryLength: 0,
-    summaryContentType: 'sentence', // Added summaryContentType field
-    copyText: '',
-    uploadedText: '',
-    uploloadedUri: '',
-    summaryLengthRange: ['1', '2', '3', '4', '5'],
+    summaryId: "",
+    summaryContent: "",
+    summaryTitle: "", // Added summaryTitle field
+    summaryContentType: "sentence", // Added summaryContentType field
+    copyText: "",
+    uploadedText: "",
+    uploloadedUri: "",
     history: [],
     bookMark: [],
-    fileName: '',
+    fileName: "",
     summarizeSetting: false,
     summarizeSettingUpload: false,
     showLoader: false,
     showLoaderUpload: false,
-    showSummary: false
-
+    showSummary: false,
   },
   reducers: {
     setCopyText: (state, action) => {
@@ -32,9 +29,7 @@ const summarySlice = createSlice({
     setSummaryId: (state, action) => {
       state.summaryId = action.payload;
     },
-    setSummaryLengthRange: (state, action) => {
-      state.summaryLengthRange = action.payload;
-    },
+
     setSummaryContent: (state, action) => {
       state.summaryContent = action.payload;
     },
@@ -56,11 +51,8 @@ const summarySlice = createSlice({
     setHistory: (state, action) => {
       state.history = action.payload;
     },
-    setBookMark: state => {
-      state.bookMark = state.history.filter(item => item.bookmark);
-    },
-    setSummaryLength: (state, action) => {
-      state.summaryLength = action.payload;
+    setBookMark: (state) => {
+      state.bookMark = state.history.filter((item) => item.bookmark);
     },
     setSummaryContentType: (state, action) => {
       state.summaryContentType = action.payload;
@@ -70,9 +62,8 @@ const summarySlice = createSlice({
     },
     setuploloadedUri: (state, action) => {
       state.uploloadedUri = action.payload;
-    }
-
-  }
+    },
+  },
 });
 
 export const {
@@ -84,14 +75,12 @@ export const {
   setSummaryTitle, // Export the new action
   setSummarizeSetting,
   setHistory,
-  setSummaryLength,
   setSummaryContentType,
   setBookMark,
   setFileUpLoadName,
-  setSummaryLengthRange,
   setShowLoader,
   setShowLoaderUpload,
-  setSummarizeSettingUpload
+  setSummarizeSettingUpload,
 } = summarySlice.actions;
 
 export default summarySlice.reducer;

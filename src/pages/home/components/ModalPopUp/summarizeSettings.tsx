@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import HomeService from '@/services/home.service';
 import {
-  setSummaryLength,
   setSummaryContentType,
-  setSummaryLengthRange,
+
   setSummarizeSettingUpload,
   setShowLoaderUpload,
   setSummaryTitle,
@@ -28,15 +27,6 @@ function SummarizeCopyPasteSetting() {
 
   const handleContentTypeChange = ({ target: { value: newContentType } }) => {
     dispatch(setSummaryContentType(newContentType));
-
-    const newSummaryLength = newContentType === 'paragraph' ? '3' : '5';
-    const newSummaryLengthRange =
-      newContentType === 'paragraph'
-        ? ['1', '2', '3']
-        : ['1', '2', '3', '4', '5'];
-
-    dispatch(setSummaryLength(newSummaryLength));
-    dispatch(setSummaryLengthRange(newSummaryLengthRange));
   };
 
   const handleCustomLengthChange = (e) => {
