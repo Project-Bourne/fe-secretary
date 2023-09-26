@@ -126,8 +126,10 @@ function FileUpload() {
               />
             </div>
           ) : (
-            <div className="flex items-center pb-[2rem] w-[100%] justify-end pr-[3rem]"
-            onClick={handleTextSummarySubmit}>
+            <div
+              className="flex items-center pb-[2rem] w-[100%] justify-end pr-[3rem]"
+              onClick={handleTextSummarySubmit}
+            >
               <label
                 htmlFor="file-input"
                 className="px-4 py-1 rounded-lg"
@@ -144,7 +146,7 @@ function FileUpload() {
           )}
           <form onSubmit={handleTextSummarySubmit}>
             {/* Text Summary Form */}
-            <div className="flex align-middle w-full border-2 rounded-full border-[#E5E7EB]-500 border-dotted">
+            <div className="flex align-middle w-full border-2 rounded-[1rem] border-[#E5E7EB]-500 border-dotted">
               {/* Input */}
               <span className="flex align-middle justify-center mx-3">
                 <Image
@@ -155,10 +157,11 @@ function FileUpload() {
                   priority
                 />
               </span>
-              <input
-                type="text"
+              <textarea
                 placeholder="Copy and paste content text here"
-                className="w-[95%] h-[4rem] outline-none focus:ring-0"
+                className={`w-[95%] outline-none focus:ring-0 py-[2rem] ${
+                  formData.length > 0 ? "h-[20rem]" : "h-[6rem]"
+                }`}
                 onChange={(e) => setFormData(e.target.value)}
                 value={formData}
               />

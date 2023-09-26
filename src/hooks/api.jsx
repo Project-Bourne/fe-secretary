@@ -4,7 +4,8 @@
 let access = "";
 if (typeof window !== "undefined") {
   access =
-    localStorage.getItem("deep-access") || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI0OWIyNzc3LWNjZjUtNDhhNy05NmRjLTM0M2VkZWYxYmJlMyIsImlhdCI6MTY5NTY1MDc4NCwiZXhwIjoxNjk1NzM3MTg0fQ.2fyUQdHl8uwuX1FMydhXMDK_oQdVEes-0fZyZ3uMXS0"
+    localStorage.getItem("deep-access") ||
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI0OWIyNzc3LWNjZjUtNDhhNy05NmRjLTM0M2VkZWYxYmJlMyIsImlhdCI6MTY5NTcyNzUzMywiZXhwIjoxNjk1ODEzOTMzfQ.8b5JYEQuMOAuwxLt05zqCtH-c8pbM8xiQ67gYyaMlPw";
 }
 export const requestHeader = {
   Accept: "application/json",
