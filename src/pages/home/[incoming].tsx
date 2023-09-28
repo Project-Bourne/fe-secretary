@@ -15,8 +15,6 @@ function HomeContent() {
 
   useEffect(() => {
     const getSummaryText = async () => {
-      console.log("id", incoming);
-
       setLoading(true); // Set loading state to true
       if (incoming) {
         try {
@@ -27,17 +25,17 @@ function HomeContent() {
             setSummaryContent(summaryArray[0]?.summary);
             setLoading(false); // Update loading state regardless of success or error
           } else {
-            console.error(request.message);
             NotificationService.error({
               message: "Error!",
-              addedText: <p>{request.message}. Please try again.</p>,
+              addedText: <p>{`${request?.message}, please try again`}</p>,
+              position: "top-center",
             });
           }
-        } catch (error) {
-          console.error(error);
+        } catch (error:any) {
           NotificationService.error({
             message: "Error!",
-            addedText: <p>Something went wrong. Please try again.</p>,
+            addedText: <p>{`${error?.message}, please try again`}</p>,
+            position: "top-center",
           });
         } finally {
           setLoading(false); // Update loading state regardless of success or error
@@ -46,10 +44,6 @@ function HomeContent() {
     };
     getSummaryText();
   }, [incoming]);
-
-  //   if (loading) {
-  //     return <div>Loading...</div>; // Add loading indicator
-  //   }
 
   return (
     <div className="bg-sirp-secondary2 h-[100%] mx-5 rounded-[1rem]">

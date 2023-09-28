@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import React, { useState } from "react";
 import ActionIcons from "../home/components/actionIcons/ActionIcon";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 function HomeContent() {
   const [hideMeta, setHideMeta] = useState(true);

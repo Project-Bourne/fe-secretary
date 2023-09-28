@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
-import Button from "@/components/ui/Button";
 import FileUploadSection from "./FileUploadSection";
 import {
   setCopyText,
@@ -17,14 +16,12 @@ import SummarizeCopyPasteSetting from "../ModalPopUp/summarizeCopyPasteSetting";
 import CustomModal from "@/components/ui/CustomModal";
 import NotificationService from "@/services/notification.service";
 import HomeContent from "./[homecontent]";
-import { useRouter } from "next/router";
 import { Tooltip } from "@mui/material";
 
 function FileUpload() {
   const { summarizeSetting, copyText, showLoader } = useSelector(
     (store: any) => store.summary
   );
-  const router = useRouter();
   const { summaryTitle } = useSelector((store: any) => store.summary);
 
   const dispatch = useDispatch();
@@ -93,7 +90,7 @@ function FileUpload() {
           NotificationService.success({
             message: "Success!",
             addedText: <p>File uploaded successfully</p>,
-            position: "bottom-right",
+            position: "top-center",
           });
         } else {
           NotificationService.error({
@@ -102,11 +99,11 @@ function FileUpload() {
             position: "bottom-right",
           });
         }
-      } catch (error) {
+      } catch (error:any) {
         NotificationService.error({
           message: "Error!",
-          addedText: <p>something happend. please try again</p>,
-          position: "bottom-right",
+          addedText: <p>{`${error?.message}, please try again`}</p>,
+          position: "top-center",
         });
       }
     }

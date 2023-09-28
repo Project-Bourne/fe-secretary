@@ -18,19 +18,17 @@ const index = () => {
         .then((response) => {
           setLoading(false);
           if (response?.status) {
-            // console.log("user data via login", res);
             dispatch(setUserInfo(response?.data));
           }
         })
         .catch((err) => {
           NotificationService.error({
             message: "Error!",
-            addedText: <p>something happened. please try again</p>,
+            addedText: <p>{`${err?.message}, please try again`}</p>,
             position: "top-center",
           });
         });
     } catch (err) {
-      console.log(err);
     }
   }, []);
   return (
