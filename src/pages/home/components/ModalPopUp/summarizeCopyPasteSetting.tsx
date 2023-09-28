@@ -60,9 +60,10 @@ function SummarizeCopyPasteSetting() {
         dispatch(setShowLoader(false));
       }
     } catch (error) {
+      console.log(error);
       NotificationService.error({
         message: "Error!",
-        addedText: <p>Something happened. Please try again.</p>,
+        addedText: <p>Error. Please try again</p>,
         position: "top-right",
       });
       dispatch(setShowLoader(false));

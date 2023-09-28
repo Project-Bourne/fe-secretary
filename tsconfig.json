@@ -64,7 +64,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "src/pages/dashboard/components/data.js"  ],
+, "src/pages/dashboard/components/data.js", "src/redux/reducer/authReducer.js"  ],
   "exclude": [
     "node_modules"
   ]

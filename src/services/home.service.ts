@@ -51,7 +51,7 @@ class HomeService {
    * @returns {Promise<Object>} - The response data from the server.
    */
 
-  async getSummaryText(id) {
+  static async getSummaryText(id) {
     try {
       const response = await request(
         `/summary/${id}`,
@@ -130,6 +130,22 @@ class HomeService {
       throw error;
     }
   }
+
+  // static async getUserViaAccessToken() {
+  //   try {
+  //     const response = await request(
+  //       `/token/user`,
+  //       "GET",
+  //       {},
+  //       true,
+  //       false,
+  //       false,
+  //     );
+  //     return response;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
 }
 
 // Export the Service class.

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Min_and_Max_icon from "./components/Min_Max_icon";
-import ActionIcons from "./components/actionIcons/ActionIcon";
+import Min_and_Max_icon from "../Min_Max_icon";
+import ActionIcons from "../actionIcons/ActionIcon";
 
 import { useDispatch, useSelector } from "react-redux";
 
