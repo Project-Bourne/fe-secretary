@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import React from 'react'
 import RightComp from './RightComp'
 import LeftComp from './LeftComp'
@@ -10,7 +9,6 @@ function Header() {
         <div>
           <LeftComp />
         </div>
-
         {/* Right component */}
         <div>
           <RightComp />

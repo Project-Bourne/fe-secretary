@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
-import Button from "@/components/ui/Button";
 import FileUploadSection from "./FileUploadSection";
 import {
   setCopyText,
@@ -16,14 +15,13 @@ import LoadingModal from "./LoadingModal";
 import SummarizeCopyPasteSetting from "../ModalPopUp/summarizeCopyPasteSetting";
 import CustomModal from "@/components/ui/CustomModal";
 import NotificationService from "@/services/notification.service";
-import HomeContent from "../../[homecontent]";
-import { useRouter } from "next/router";
+import HomeContent from "./[homecontent]";
+import { Tooltip } from "@mui/material";
 
 function FileUpload() {
   const { summarizeSetting, copyText, showLoader } = useSelector(
     (store: any) => store.summary
   );
-  const router = useRouter();
   const { summaryTitle } = useSelector((store: any) => store.summary);
 
   const dispatch = useDispatch();
@@ -31,12 +29,33 @@ function FileUpload() {
   const [file, setFile] = useState(null);
   const [isFileUploaded, setIsFileUploaded] = useState(false);
 
+  // function to set text
+  const handleTextareaChange = (e) => {
+    setFormData(e.target.value);
+    // Automatically adjust the textarea's height
+    e.target.style.height = "auto";
+    e.target.style.height = e.target.scrollHeight + "px";
+  };
+
+  //function to cleare text
+  const handleClearTextarea = () => {
+    setFormData("");
+  };
+
   const handleTextSummarySubmit = (event) => {
     event.preventDefault();
     const cleanedFormData = formData.trim();
-    if (cleanedFormData.length > 0) {
+    const minLength = 50; // Change this to your desired minimum length
+
+    if (cleanedFormData.length >= minLength) {
       dispatch(setCopyText(cleanedFormData));
       dispatch(setSummarizeSetting(true));
+    } else {
+      NotificationService.error({
+        message: "Error!",
+        addedText: <p>Text is too short. Minimum length requirement 50</p>, // Add a closing </p> tag
+        position: "top-center",
+      });
     }
   };
 
@@ -71,7 +90,7 @@ function FileUpload() {
           NotificationService.success({
             message: "Success!",
             addedText: <p>File uploaded successfully</p>,
-            position: "bottom-right",
+            position: "top-center",
           });
         } else {
           NotificationService.error({
@@ -80,16 +99,15 @@ function FileUpload() {
             position: "bottom-right",
           });
         }
-      } catch (error) {
+      } catch (error:any) {
         NotificationService.error({
           message: "Error!",
-          addedText: <p>something happend. please try again</p>,
-          position: "bottom-right",
+          addedText: <p>{`${error?.message}, please try again`}</p>,
+          position: "top-center",
         });
       }
     }
   };
-
   return (
     <div className="m-5">
       {isFileUploaded ? (
@@ -159,21 +177,21 @@ function FileUpload() {
               </span>
               <textarea
                 placeholder="Copy and paste content text here"
-                className={`w-[95%] outline-none focus:ring-0 py-[2rem] ${
-                  formData.length > 0 ? "h-[20rem]" : "h-[6rem]"
-                }`}
-                onChange={(e) => setFormData(e.target.value)}
+                className={`w-[95%] outline-none text-justify focus:ring-0 pt-[0.5rem] my-[2rem] resize-y min-h-[2rem] max-h-[15rem] overflow-auto`}
                 value={formData}
+                onChange={handleTextareaChange}
               />
               <span className="flex align-middle justify-center mx-3">
-                <Image
-                  className="flex align-middle justify-center font-light text-[#A1ADB5] cursor-pointer"
-                  src={require("../../../../../public/icons/x.svg")}
-                  alt="upload image"
-                  width={20}
-                  height={20}
-                  onClick={() => setFormData("")}
-                />
+                <Tooltip title="Clear TextArea">
+                  <Image
+                    className="flex align-middle justify-center font-light text-[#A1ADB5] cursor-pointer"
+                    src={require("../../../../../public/icons/x.svg")}
+                    alt="upload image"
+                    width={20}
+                    height={20}
+                    onClick={handleClearTextarea}
+                  />
+                </Tooltip>
               </span>
             </div>
           </form>

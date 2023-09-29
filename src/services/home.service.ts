@@ -51,7 +51,7 @@ class HomeService {
    * @returns {Promise<Object>} - The response data from the server.
    */
 
-  async getSummaryText(id) {
+  static async getSummaryText(id) {
     try {
       const response = await request(
         `/summary/${id}`,

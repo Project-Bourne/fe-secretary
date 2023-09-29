@@ -10,7 +10,6 @@ import {
   setSummaryContent,
 } from '@/redux/reducer/summarySlice';
 import { useTruncate } from '@/components/custom-hooks';
-import { useRouter } from 'next/router';
 import NotificationService from '@/services/notification.service';
 
 function SummarizeCopyPasteSetting() {
@@ -23,7 +22,7 @@ function SummarizeCopyPasteSetting() {
 
   const dispatch = useDispatch();
   const homeService = new HomeService();
-  const [customSummaryLength, setCustomSummaryLength] = useState('');
+  const [customSummaryLength, setCustomSummaryLength] = useState('1');
 
   const handleContentTypeChange = ({ target: { value: newContentType } }) => {
     dispatch(setSummaryContentType(newContentType));
@@ -59,16 +58,16 @@ function SummarizeCopyPasteSetting() {
       } else {
         NotificationService.error({
           message: 'Error!',
-          addedText: <p>Something happened. Please try again</p>,
-          position: 'top-right',
+          addedText: <p>{`${response?.message}, please try again`}</p>,
+          position: 'top-center',
         });
         dispatch(setShowLoaderUpload(false));
       }
-    } catch (error) {
+    } catch (error:any) {
       NotificationService.error({
         message: 'Error!',
-        addedText: <p>Something happened. Please try again</p>,
-        position: 'top-right',
+        addedText: <p>{`${error?.message}, please try again`}</p>,
+        position: 'top-center',
       });
       dispatch(setShowLoaderUpload(false));
     }

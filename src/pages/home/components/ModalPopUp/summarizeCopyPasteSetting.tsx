@@ -17,7 +17,7 @@ function SummarizeCopyPasteSetting() {
   );
   const dispatch = useDispatch();
   const homeService = new HomeService();
-  const [customSummaryLength, setCustomSummaryLength] = useState(""); // State for custom input
+  const [customSummaryLength, setCustomSummaryLength] = useState("1"); // State for custom input
 
   const handleContentTypeChange = (e) => {
     const newContentType = e.target.value;
@@ -54,16 +54,17 @@ function SummarizeCopyPasteSetting() {
       } else {
         NotificationService.error({
           message: "Error!",
-          addedText: <p>Something happened. Please try again.</p>,
-          position: "top-right",
+          addedText: <p>{`${response?.error}, please try again`}</p>,
+          position: "top-center",
         });
         dispatch(setShowLoader(false));
       }
-    } catch (error) {
+    } catch (error: any) {
+      console.log(error);
       NotificationService.error({
         message: "Error!",
-        addedText: <p>Something happened. Please try again.</p>,
-        position: "top-right",
+        addedText: <p>{`${error?.message}, please try again`}</p>,
+        position: "top-center",
       });
       dispatch(setShowLoader(false));
     }

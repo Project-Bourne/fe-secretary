@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useTruncate } from "@/components/custom-hooks";
 import Image from "next/image";
 import ListItemModels from "../../../utils/model/home.models";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { DateTime } from "luxon";
 import HomeService from "@/services/home.service";
 import { fetchData } from "@/hooks/FetchData";
@@ -14,6 +14,9 @@ import {
   setSummaryContent,
   setSummaryTitle,
 } from "@/redux/reducer/summarySlice";
+import CustomModal from "@/components/ui/CustomModal";
+import Loader from "./Loader";
+import { Tooltip } from "@mui/material";
 
 function ListItem({
   uuid,
@@ -41,11 +44,9 @@ function ListItem({
   const handleItemClick = async () => {
     dispatch(setShowLoader(false));
     dispatch(setSummarizeSetting(false));
-
     try {
       setLoading(true);
-      const homeService = new HomeService();
-      const response = await homeService.getSummaryText(summaryUuid);
+      const response = await HomeService.getSummaryText(summaryUuid);
       if (response.status) {
         const { title, summaryArray } = response.data;
         dispatch(setSummaryTitle(title));
@@ -57,7 +58,7 @@ function ListItem({
         NotificationService.error({
           message: "Error!",
           addedText: <p>something happened. please try again</p>,
-          position: "bottom-right",
+          position: "top-center",
         });
         dispatch(setSummaryTitle(""));
         dispatch(setSummaryContent(""));
@@ -67,11 +68,11 @@ function ListItem({
       NotificationService.error({
         message: "Error!",
         addedText: <p>something happened. please try again</p>,
-        position: "bottom-right",
+        position: "top-center",
       });
     }
 
-    router.push(`/home/`);
+    router.push(`/history/${summaryUuid}`);
   };
 
   const handleBookMark = async (e, uuid) => {
@@ -84,6 +85,7 @@ function ListItem({
         NotificationService.error({
           message: "Error!",
           addedText: <p>{err?.message}. Please try again</p>, // Add a closing </p> tag
+          position: "top-center",
         });
       });
   };
@@ -96,12 +98,14 @@ function ListItem({
         NotificationService.success({
           message: "success!",
           addedText: <p>{res?.message} History deleted</p>, // Add a closing </p> tag
+          position: "top-center",
         });
       })
       .catch((err) => {
         NotificationService.error({
           message: "Error!",
           addedText: <p>{err?.message} Please try again</p>, // Add a closing </p> tag
+          position: "top-center",
         });
       });
   };
@@ -119,13 +123,6 @@ function ListItem({
 
   return (
     <>
-      {loading && 
-      NotificationService.success({
-        message: "Loading...",
-        addedText: <p>Loading please wait</p>,
-        position: 'top-right'
-    })
-      }
       <div
         onClick={handleItemClick}
         onMouseOut={handleHoverOut}
@@ -136,6 +133,7 @@ function ListItem({
       >
         <div className="flex gap-3 items-center  hover:text-gray-400">
           {/* Save icon */}
+          <Tooltip title={isBookmarked ? "Remove from bookmark" : "Save to bookmark"}>
           <Image
             src={
               isBookmarked
@@ -148,6 +146,7 @@ function ListItem({
             height={30}
             onClick={(e) => handleBookMark(e, uuid)}
           />
+          </Tooltip>
           {/* name */}
           <p className="text-sirp-black-500 ml-2 md:w-[12rem] hover:text-gray-400">
             {useTruncate(title, 20)}
@@ -174,6 +173,16 @@ function ListItem({
           </div>
         )}
       </div>
+      {loading && (
+        <CustomModal
+          style="md:w-[30%] w-[90%] relative top-[20%] rounded-xl mx-auto pt-3 px-3 pb-5"
+          closeModal={() => setLoading(false)}
+        >
+          <div className="flex justify-center items-center mt-[10rem]">
+            <Loader />
+          </div>
+        </CustomModal>
+      )}
     </>
   );
 }
