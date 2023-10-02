@@ -14,12 +14,12 @@ import Image from "next/image";
 const BASE_URL = "http://192.81.213.226/";
 
 const dropdownItems = [
-  {
-    name: "Admin",
-    to: `${BASE_URL}:30/home`,
-    key: "admin",
-    icon: admin,
-  },
+  // {
+  //   name: "Admin",
+  //   to: `${BASE_URL}:30/home`,
+  //   key: "admin",
+  //   icon: admin,
+  // },
   {
     name: "IRP",
     to: `${BASE_URL}:30/home`,
