@@ -73,10 +73,11 @@ function FileUpload() {
       setIsFileUploaded(true);
       const formData = new FormData();
       formData.append("files", selectedFile);
+      console.log(formData);
 
       try {
         const response = await fetch(
-          "http://192.81.213.226:89/api/v1/uploads",
+          "http://192.81.213.226:81/89/api/v1/uploads",
           {
             method: "POST",
             body: formData,

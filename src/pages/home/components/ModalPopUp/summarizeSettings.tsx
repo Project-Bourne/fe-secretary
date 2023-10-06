@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import HomeService from '@/services/home.service';
 import {
   setSummaryContentType,
-
   setSummarizeSettingUpload,
   setShowLoaderUpload,
   setSummaryTitle,
   setSummaryContent,
+  setSummaryId
 } from '@/redux/reducer/summarySlice';
 import { useTruncate } from '@/components/custom-hooks';
 import NotificationService from '@/services/notification.service';
@@ -51,8 +51,9 @@ function SummarizeCopyPasteSetting() {
       };
       const response = await homeService.summarizeUpload(uploadData);
       if (response.status) {
-        const { title, summaryArray } = response.data;
+        const { title, summaryArray, uuid } = response.data;
         dispatch(setSummaryTitle(title));
+        dispatch(setSummaryId(uuid));
         dispatch(setSummaryContent(summaryArray[0]?.summary));
         dispatch(setShowLoaderUpload(false));
       } else {

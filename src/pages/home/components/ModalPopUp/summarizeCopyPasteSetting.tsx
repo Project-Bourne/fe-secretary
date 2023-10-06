@@ -7,9 +7,11 @@ import {
   setShowLoader,
   setSummaryTitle,
   setSummaryContent,
+  setSummaryId,
 } from "@/redux/reducer/summarySlice";
 import { useTruncate } from "@/components/custom-hooks";
 import NotificationService from "@/services/notification.service";
+import { unstable_useId } from "@mui/material";
 
 function SummarizeCopyPasteSetting() {
   const { copyText, summaryContentType } = useSelector(
@@ -47,8 +49,9 @@ function SummarizeCopyPasteSetting() {
       const response = await homeService.summarizeText(dataObj);
 
       if (response.status) {
-        const { title, summaryArray } = response.data;
+        const { title, summaryArray, uuid } = response.data;
         dispatch(setSummaryTitle(title));
+        dispatch(setSummaryId(uuid));
         dispatch(setSummaryContent(summaryArray[0]?.summary));
         dispatch(setShowLoader(false));
       } else {

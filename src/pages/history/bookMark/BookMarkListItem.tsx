@@ -8,6 +8,7 @@ import {
   setSummarizeSetting,
   setSummaryContent,
   setSummaryTitle,
+  setSummaryId,
 } from "@/redux/reducer/summarySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { DateTime } from "luxon";
@@ -52,6 +53,7 @@ function ListItem({
       if (response.status) {
         const { title, summaryArray } = response.data;
         dispatch(setSummaryTitle(title));
+        dispatch(setSummaryId(summaryUuid));
         dispatch(setSummaryContent(summaryArray[0]?.summary));
         setLoading(false);
       } else {
