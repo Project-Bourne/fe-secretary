@@ -19,6 +19,7 @@ import HomeContent from "./components/FileUpload/[homecontent]";
 import { Tooltip } from "@mui/material";
 import { useRouter } from "next/router";
 import { Cookies } from "react-cookie";
+import Loader from "../history/history/Loader";
 
 function FileUpload() {
   const { summarizeSetting, copyText, showLoader } = useSelector(
@@ -198,6 +199,16 @@ function FileUpload() {
   };
   return (
     <div className="m-5">
+        {loading && (
+        <CustomModal
+          style="md:w-[30%] w-[90%] relative top-[20%] rounded-xl mx-auto pt-3 px-3 pb-5"
+          closeModal={() => setLoading(false)}
+        >
+          <div className="flex justify-center items-center mt-[10rem]">
+            <Loader />
+          </div>
+        </CustomModal>
+      )}
       {isFileUploaded ? (
         <FileUploadSection file={file} handleDeleteFile={handleDeleteFile} />
       ) : (
