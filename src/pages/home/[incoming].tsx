@@ -89,7 +89,7 @@ function FileUpload() {
               setFormData(data?.data?.textTranslation);
               break;
             case "factcheck":
-              setFormData(data?.data?.confidence?.content5wh);
+              setFormData(data?.data?.confidence?.content);
               break;
             case "deepchat":
             case "analyzer":
