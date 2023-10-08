@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 function HomeContent() {
   const [hideMeta, setHideMeta] = useState(true);
-  const { summaryContent, summaryTitle } = useSelector(
+  const { summaryContent, summaryTitle, summaryId } = useSelector(
     (store: any) => store.summary
   );
 
@@ -20,7 +20,7 @@ function HomeContent() {
   return (
     <div className="bg-sirp-secondary2 h-[100%] mx-5 rounded-[1rem]">
       <div className="flex justify-end w-full pr-5 pt-5 ">
-        <ActionIcons />
+        <ActionIcons docId={summaryId} />
       </div>
       <div className="bg-white border my-10 mx-5 rounded-[1rem]">
         <div className="pl-5 my-5">

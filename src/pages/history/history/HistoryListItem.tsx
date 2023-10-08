@@ -13,6 +13,7 @@ import {
   setSummarizeSetting,
   setSummaryContent,
   setSummaryTitle,
+  setSummaryId
 } from "@/redux/reducer/summarySlice";
 import CustomModal from "@/components/ui/CustomModal";
 import Loader from "./Loader";
@@ -50,6 +51,7 @@ function ListItem({
       if (response.status) {
         const { title, summaryArray } = response.data;
         dispatch(setSummaryTitle(title));
+        dispatch(setSummaryId(summaryUuid));
         dispatch(setSummaryContent(summaryArray[0]?.summary));
         setLoading(false);
       } else {
