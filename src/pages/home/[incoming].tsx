@@ -13,13 +13,14 @@ import {
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import LoadingModal from "./components/FileUpload/LoadingModal";
 import SummarizeCopyPasteSetting from "./components/ModalPopUp/summarizeCopyPasteSetting";
-import CustomModal from "@/components/ui/CustomModal";
+
 import NotificationService from "@/services/notification.service";
 import HomeContent from "./components/FileUpload/[homecontent]";
 import { Tooltip } from "@mui/material";
 import { useRouter } from "next/router";
 import { Cookies } from "react-cookie";
 import Loader from "../history/history/Loader";
+import CustomModal from "@/components/ui/CustomModal";
 
 function FileUpload() {
   const { summarizeSetting, copyText, showLoader } = useSelector(
