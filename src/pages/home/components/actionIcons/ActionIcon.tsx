@@ -60,13 +60,13 @@ const ActionIcons = ({ docId }) => {
         )}
 
         {/* analyzer */}
-        {permissions?.includes("summarizer") && (
-          <Tooltip title="Export to Summarizer">
+        {permissions?.includes("analyzer") && (
+          <Tooltip title="Export to Analyzer">
             <Image
-              src={require("../../../../../public/icons/action_summarizer.svg")}
+              src={require("../../../../../public/icons/action_analyzer.svg")}
               alt="documents"
               className=" cursor-pointer"
-              onClick={() => handleExport(docId, "summarizer")}
+              onClick={() => handleExport(docId, "analyzer")}
               width={60}
             />
           </Tooltip>
