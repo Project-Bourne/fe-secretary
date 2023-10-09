@@ -82,9 +82,8 @@ function FileUpload() {
 
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
-            setLoading(false);
           }
-          const data = await response.json();
+          const data = await response?.json();
           switch (routeName) {
             case "translator":
               setFormData(data?.data?.textTranslation);
@@ -103,7 +102,6 @@ function FileUpload() {
           }
           setLoading(false);
         } catch (error: any) {
-          console.error("Error:", error);
           NotificationService.error({
             message: "Error!",
             addedText: <p>{`${error.message}, please try again`}</p>,
@@ -132,7 +130,7 @@ function FileUpload() {
   };
 
   const handleTextSummarySubmit = (event) => {
-    event.preventDefault();
+    event?.preventDefault();
     const cleanedFormData = formData.trim();
     const minLength = 50; // Change this to your desired minimum length
 
