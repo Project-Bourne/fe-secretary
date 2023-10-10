@@ -11,7 +11,7 @@ import analyzer from "../../../../public/icons/analyzer.svg";
 import deep_chat from "../../../../public/icons/deep.svg";
 import Image from "next/image";
 
-const BASE_URL = "http://192.81.213.226/";
+const BASE_URL = "http://192.81.213.226";
 
 const dropdownItems = [
   // {
