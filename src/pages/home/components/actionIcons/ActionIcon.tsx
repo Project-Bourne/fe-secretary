@@ -14,7 +14,7 @@ const ActionIcons = ({ docId }) => {
     if (to === "collab") {
       router?.push(`http://192.81.213.226:36/documents/${id}&summarizer`);
     }
-    if (to === "analyzer") {
+    if (to === "analyser") {
       router?.push(`http://192.81.213.226:31/home/${id}&summarizer`);
     }
     if (to === "factcheck") {
@@ -60,7 +60,7 @@ const ActionIcons = ({ docId }) => {
         )}
 
         {/* analyzer */}
-        {permissions?.includes("analyzer") && (
+        {permissions?.includes("analyser") && (
           <Tooltip title="Export to Analyzer">
             <Image
               src={require("../../../../../public/icons/action_analyzer.svg")}

@@ -97,11 +97,12 @@ function FileUpload() {
             case "irp":
               setFormData(data?.data?.confidence?.content);
               break;
-            case "deepchat":
             case "analyzer":
               setFormData(data?.data?.text);
+              break;
             case "interrogator":
             case "collab":
+            case "deepchat":
               break;
             default:
               break;
@@ -204,7 +205,7 @@ function FileUpload() {
   };
   return (
     <div className="m-5">
-        {loading && (
+      {loading && (
         <CustomModal
           style="md:w-[30%] w-[90%] relative top-[20%] rounded-xl mx-auto pt-3 px-3 pb-5"
           closeModal={() => setLoading(false)}
