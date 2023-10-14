@@ -6,7 +6,7 @@ const cookies = new Cookies();
 let access = "";
 if (typeof window !== "undefined") {
   access =
-    cookies.get("deep-access") || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyNjUwZDJiLTU4YTgtNDU4Yi05N2VlLTcxNDZlNjU0YThmYiIsImlhdCI6MTY5NjMyNjc0NywiZXhwIjoxNjk2NDEzMTQ3fQ.95biJCQIkYL4IiVa5g0wegCN3ip5Ir9U1Eqd4XiP5qo'}
+    cookies.get("deep-access") || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyMzFiOTVjLWRkOWUtNGNkYS04ZTg3LWFkOGIyZWVjYTg5YSIsImlhdCI6MTY5NzMwODYxNCwiZXhwIjoxNjk3Mzk1MDE0fQ.ZqRmTdwQYuYYJKRBYVRvO_l5nUtuUoZHEvy9Gs9cO8M"}
 
 export const requestHeader = {
   Accept: "application/json",
@@ -74,7 +74,6 @@ export async function request(url, method, payload, token, text, form) {
       });
   }
 }
-
 
 let API_USER_URL2 = "http://192.81.213.226:81/80/";
 

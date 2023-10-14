@@ -1,4 +1,3 @@
-
 import { useTruncate } from "@/components/custom-hooks";
 import AuthService from "@/services/auth.service";
 import NotificationService from "@/services/notification.service";
@@ -30,7 +29,7 @@ function RightComp() {
     localStorage.clear();
 
     removeCookie("deep-access", { path: "/" });
-    router.push("/auth/login");
+    router.push(":30/auth/login");
 
     NotificationService.success({
       message: "Logout operation successful!",
@@ -85,7 +84,10 @@ function RightComp() {
       </div>
 
       <div className="relative bg-sirp-lightGrey flex flex-row mr-2 py-2 px-2 md:px-5 h-[45px] rounded-[12px] items-center justify-center cursor-pointer">
-        <div className="flex flex-row items-center justify-center">
+        <div
+          className="flex flex-row items-center justify-center"
+          onClick={handleLogoutToggle}
+        >
           <img
             src={userInfo?.image ?? userInitials()}
             alt="userImage"
@@ -101,7 +103,6 @@ function RightComp() {
             height={18}
             className="mx-3 object-contain hidden md:block"
             priority
-            onClick={handleLogoutToggle}
           />
         </div>
 
@@ -116,6 +117,7 @@ function RightComp() {
             {userInfo?.role?.roleName}
           </h2>
         </div>
+
         <Image
           src={down}
           alt="ellipsis"
