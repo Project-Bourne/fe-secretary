@@ -21,6 +21,8 @@ import { useRouter } from "next/router";
 import { Cookies } from "react-cookie";
 import Loader from "../history/history/Loader";
 import CustomModal from "@/components/ui/CustomModal";
+import { setUserInfo } from "@/redux/reducer/authReducer";
+import Auth from "../../services/auth.service"
 
 function FileUpload() {
   const { summarizeSetting, copyText, showLoader } = useSelector(
@@ -36,10 +38,31 @@ function FileUpload() {
   const { incoming } = router.query;
   const cookies = new Cookies();
   const token = cookies.get("deep-access");
-
   const headers = {
     "deep-token": token,
   };
+
+  useEffect(() => {
+    setLoading(true);
+    try {
+      Auth
+        .getUserViaAccessToken()
+        .then((response) => {
+          setLoading(false);
+          if (response?.status) {
+            dispatch(setUserInfo(response?.data));
+          }
+        })
+        .catch((err) => {
+          NotificationService.error({
+            message: "Error!",
+            addedText: <p>{`${err?.message}, please try again`}</p>,
+            position: "top-center",
+          });
+        });
+    } catch (err) {
+    }
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
