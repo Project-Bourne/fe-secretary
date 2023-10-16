@@ -114,10 +114,10 @@ function FileUpload() {
               setFormData(data?.data?.textTranslation);
               break;
             case "factcheck":
-              setFormData(data?.data?.confidence?.content);
+              setFormData(data?.data?.confidence?.content5wh);
               break;
             case "irp":
-              setFormData(data?.data?.confidence?.content);
+              setFormData(data?.data?.confidence?.content5wh);
               break;
             case "analyser":
               setFormData(data?.data?.text);
