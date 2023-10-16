@@ -9,7 +9,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import LoadingModal from './LoadingModalUpload';
 
-function FileUploadSection({ file, handleDeleteFile }) {
+function FileUploadSection({ file, handleDeleteFile, uploadDisabled }) {
   const {
     fileName,
     summarizeSettingUpload,
@@ -59,11 +59,19 @@ function FileUploadSection({ file, handleDeleteFile }) {
         </div>
         {/* Summarize Button */}
         <div className="flex md:w-[50%] w-[100%] align-middle justify-end mt-4">
+         {uploadDisabled ? (
+           <div className="p-5 cursor-pointer flex md:w-[30%] w-[50%] align-middle justify-center bg-gray-500 border-2 text-white rounded-[15px] font-extrabold">
+           <span>
+             Summarize
+           </span>
+         </div>
+         ):(
           <div className="p-5 cursor-pointer flex md:w-[30%] w-[50%] align-middle justify-center bg-[#4582C4] border-2 text-white rounded-[15px] font-extrabold">
-            <span className="" onClick={handleModal}>
-              Summarize
-            </span>
-          </div>
+          <span className="" onClick={handleModal}>
+            Summarize
+          </span>
+        </div>
+         )}
         </div>
       </div>
       {/* Summarize Settings Modal */}

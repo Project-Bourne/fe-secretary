@@ -27,6 +27,7 @@ function FileUpload() {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState("");
   const [file, setFile] = useState(null);
+  const [uploadDisabled, setUploadDisabled] = useState(true);
   const [isFileUploaded, setIsFileUploaded] = useState(false);
 
   // function to set text
@@ -88,6 +89,7 @@ function FileUpload() {
           const responseData = await response.json();
           dispatch(setuploadedText(responseData.data[0].text));
           dispatch(setuploloadedUri(responseData.data[0].uri));
+          setUploadDisabled(false);
           NotificationService.success({
             message: "Success!",
             addedText: <p>File uploaded successfully</p>,
@@ -112,7 +114,7 @@ function FileUpload() {
   return (
     <div className="m-5">
       {isFileUploaded ? (
-        <FileUploadSection file={file} handleDeleteFile={handleDeleteFile} />
+        <FileUploadSection file={file} handleDeleteFile={handleDeleteFile} uploadDisabled={uploadDisabled}  />
       ) : (
         <div>
           {formData?.length == 0 ? (

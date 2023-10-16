@@ -17,7 +17,6 @@ function RightComp() {
   const [, removeCookie] = useCookies(["deep-access"]);
   const dispatch = useDispatch();
   const router = useRouter();
-  const authService = new AuthService();
   const { userInfo } = useSelector((state: any) => state?.auth);
   const [dropdown, setDropdown] = useState(false);
   const [toggleDashboard, setToggleDashboard] = useState(false);
@@ -29,7 +28,7 @@ function RightComp() {
     localStorage.clear();
 
     removeCookie("deep-access", { path: "/" });
-    router.push(":30/auth/login");
+    router.push("http://192.81.213.226:30/auth/login");
 
     NotificationService.success({
       message: "Logout operation successful!",
@@ -53,7 +52,7 @@ function RightComp() {
   };
 
   const userName = () => userInfo?.firstName + " " + userInfo?.lastName;
-  const userInitials = () => userInfo?.firstName[0] + userInfo?.lastName[0];
+  const userInitials = () => (userInfo?.firstName?.[0] ?? '') + (userInfo?.lastName?.[0] ?? '');
 
   return (
     <div className="flex flex-row items-center self-start">

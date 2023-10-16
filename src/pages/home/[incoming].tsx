@@ -34,6 +34,7 @@ function FileUpload() {
   const [file, setFile] = useState(null);
   const [isFileUploaded, setIsFileUploaded] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [uploadDisabled, setUploadDisabled] = useState(true);
   const router = useRouter();
   const { incoming } = router.query;
   const cookies = new Cookies();
@@ -88,7 +89,7 @@ function FileUpload() {
             case "deepchat":
               url = `http://192.81.213.226:81/85/deepchat/${routeId}`;
               break;
-            case "analyzer":
+            case "analyser":
               url = `http://192.81.213.226:81/81/analysis/${routeId}`;
               break;
             case "interrogator":
@@ -120,7 +121,7 @@ function FileUpload() {
             case "irp":
               setFormData(data?.data?.confidence?.content);
               break;
-            case "analyzer":
+            case "analyser":
               setFormData(data?.data?.text);
               break;
             case "interrogator":
@@ -185,7 +186,6 @@ function FileUpload() {
     event.preventDefault();
     const selectedFile = event.target.files[0];
     dispatch(setFileUpLoadName(selectedFile.name));
-
     if (selectedFile) {
       setIsFileUploaded(true);
       const formData = new FormData();
@@ -205,6 +205,7 @@ function FileUpload() {
           const responseData = await response.json();
           dispatch(setuploadedText(responseData.data[0].text));
           dispatch(setuploloadedUri(responseData.data[0].uri));
+          setUploadDisabled(false);
           NotificationService.success({
             message: "Success!",
             addedText: <p>File uploaded successfully</p>,
@@ -239,7 +240,7 @@ function FileUpload() {
         </CustomModal>
       )}
       {isFileUploaded ? (
-        <FileUploadSection file={file} handleDeleteFile={handleDeleteFile} />
+        <FileUploadSection file={file} handleDeleteFile={handleDeleteFile} uploadDisabled={uploadDisabled} />
       ) : (
         <div>
           {formData?.length == 0 ? (
@@ -305,7 +306,7 @@ function FileUpload() {
               </span>
               <textarea
                 placeholder="Copy and paste content text here"
-                className={`w-[95%] outline-none text-justify focus:ring-0 pt-[0.5rem] my-[2rem] resize-y min-h-[2rem] max-h-[15rem] overflow-auto`}
+                className={`w-[95%] outline-none text-justify focus:ring-0 pt-[0.5rem] my-[2rem] resize-y min-h-[6rem] max-h-[15rem] overflow-auto`}
                 value={formData}
                 onChange={handleTextareaChange}
               />
