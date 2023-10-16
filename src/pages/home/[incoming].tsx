@@ -22,7 +22,7 @@ import { Cookies } from "react-cookie";
 import Loader from "../history/history/Loader";
 import CustomModal from "@/components/ui/CustomModal";
 import { setUserInfo } from "@/redux/reducer/authReducer";
-import Auth from "../../services/auth.service"
+import Auth from "../../services/auth.service";
 
 function FileUpload() {
   const { summarizeSetting, copyText, showLoader } = useSelector(
@@ -46,8 +46,7 @@ function FileUpload() {
   useEffect(() => {
     setLoading(true);
     try {
-      Auth
-        .getUserViaAccessToken()
+      Auth.getUserViaAccessToken()
         .then((response) => {
           setLoading(false);
           if (response?.status) {
@@ -61,8 +60,7 @@ function FileUpload() {
             position: "top-center",
           });
         });
-    } catch (err) {
-    }
+    } catch (err) {}
   }, []);
 
   useEffect(() => {
@@ -96,7 +94,7 @@ function FileUpload() {
               url = `http://192.81.213.226:81/837/interrogator/${routeId}`;
               break;
             case "collab":
-              url = `http://192.81.213.226:81/86/api/v1/${routeId}`;
+              url = `http://192.81.213.226:81/86/api/v1/doc/${routeId}`;
               break;
             default:
               throw new Error("Invalid routeName");
@@ -124,8 +122,13 @@ function FileUpload() {
             case "analyser":
               setFormData(data?.data?.text);
               break;
-            case "interrogator":
             case "collab":
+              const collabData: string[] = data?.data?.data?.ops.map((el) => {
+                return el.insert;
+              });
+              setFormData(collabData.join(" "));
+              break;
+            case "interrogator":
             case "deepchat":
               break;
             default:
@@ -240,7 +243,11 @@ function FileUpload() {
         </CustomModal>
       )}
       {isFileUploaded ? (
-        <FileUploadSection file={file} handleDeleteFile={handleDeleteFile} uploadDisabled={uploadDisabled} />
+        <FileUploadSection
+          file={file}
+          handleDeleteFile={handleDeleteFile}
+          uploadDisabled={uploadDisabled}
+        />
       ) : (
         <div>
           {formData?.length == 0 ? (
