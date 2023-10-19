@@ -12,7 +12,7 @@ const ActionIcons = ({ docId }) => {
 
   const handleExport = (id: string, to: string) => {
     if (to === "collab") {
-      router?.push(`http://192.81.213.226:36/documents/${id}&summarizer`);
+      router?.push(`http://192.81.213.226:36/document/${id}&summarizer`);
     }
     if (to === "analyser") {
       router?.push(`http://192.81.213.226:31/home/${id}&summarizer`);
