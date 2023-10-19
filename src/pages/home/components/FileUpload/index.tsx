@@ -102,7 +102,7 @@ function FileUpload() {
             position: "bottom-right",
           });
         }
-      } catch (error:any) {
+      } catch (error: any) {
         NotificationService.error({
           message: "Error!",
           addedText: <p>{`${error?.message}, please try again`}</p>,
@@ -114,7 +114,11 @@ function FileUpload() {
   return (
     <div className="m-5">
       {isFileUploaded ? (
-        <FileUploadSection file={file} handleDeleteFile={handleDeleteFile} uploadDisabled={uploadDisabled}  />
+        <FileUploadSection
+          file={file}
+          handleDeleteFile={handleDeleteFile}
+          uploadDisabled={uploadDisabled}
+        />
       ) : (
         <div>
           {formData?.length == 0 ? (
@@ -144,6 +148,9 @@ function FileUpload() {
                 style={{ display: "none" }}
                 accept=".pdf,.doc,.docx,.txt"
                 onChange={handleFileUpload}
+                onClick={() => {
+                  setUploadDisabled(true);
+                }}
               />
             </div>
           ) : (

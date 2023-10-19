@@ -1,18 +1,19 @@
-import React from 'react';
-import DeleteIcon from './deleteIcon';
-import ListItem from './HistoryListItem';
-import NoHistory from './NoHistroy';
-import { useSelector } from 'react-redux';
+import React from "react";
+import DeleteIcon from "./deleteIcon";
+import ListItem from "./HistoryListItem";
+import NoHistory from "./NoHistroy";
+import { useSelector } from "react-redux";
+import HistoryTableHeader from "./HistoryTableHeader";
 
 function HistoryContent() {
-  const {history} = useSelector((store:any) => store.summary); // Get the data from Redux store
-  
+  const { history } = useSelector((store: any) => store.summary); // Get the data from Redux store
 
   return (
     <>
       {history.length > 0 ? (
         <>
-          {history?.map(item => {
+          <HistoryTableHeader />
+          {history?.map((item) => {
             return (
               <div key={item.uuid}>
                 <ListItem
@@ -30,7 +31,7 @@ function HistoryContent() {
           })}
         </>
       ) : (
-       <NoHistory />
+        <NoHistory />
       )}
     </>
   );

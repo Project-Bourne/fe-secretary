@@ -1,8 +1,9 @@
-import React from 'react';
-import DeleteIcon from './deleteIcon';
-import ListItem from './BookMarkListItem';
-import NoBookMark from './NoBookMark';
-import { useSelector } from 'react-redux';
+import React from "react";
+import DeleteIcon from "./deleteIcon";
+import ListItem from "./BookMarkListItem";
+import NoBookMark from "./NoBookMark";
+import { useSelector } from "react-redux";
+import HistoryTableHeader from "../history/HistoryTableHeader";
 
 function HistoryContent() {
   const { bookMark } = useSelector((store: any) => store.summary); // Get the data from Redux store
@@ -10,7 +11,8 @@ function HistoryContent() {
     <>
       {bookMark.length > 0 ? (
         <>
-          {bookMark?.map(item => (
+          <HistoryTableHeader />
+          {bookMark?.map((item) => (
             <div key={item.uuid}>
               <ListItem
                 uuid={item.uuid}

@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchData } from '@/hooks/FetchData';
-import HistoryContent from './HistroyContent';
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchData } from "@/hooks/FetchData";
+import HistoryContent from "./HistroyContent";
 
 function History() {
   const dispatch = useDispatch();

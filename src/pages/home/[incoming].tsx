@@ -70,7 +70,6 @@ function FileUpload() {
         try {
           const [routeId, routeName] = incoming.split("&");
           let url;
-
           switch (routeName) {
             case "summarizer":
               url = `http://192.81.213.226:81/82/summary/${routeId}`;
@@ -109,6 +108,7 @@ function FileUpload() {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
           const data = await response?.json();
+          console.log(data);
           switch (routeName) {
             case "translator":
               setFormData(data?.data?.textTranslation);

@@ -74,7 +74,7 @@ const ActionIcons = ({ docId }) => {
 
         {/* translator */}
         {permissions?.includes("translator") && (
-          <Tooltip title="Export to translator">
+          <Tooltip title="Export to Translator">
             <Image
               src={require("../../../../../public/icons/action_translator.svg")}
               alt="documents"
@@ -87,7 +87,7 @@ const ActionIcons = ({ docId }) => {
 
         {/* deepchat */}
         {permissions?.includes("deep chat") && (
-          <Tooltip title="Export to Deep chat">
+          <Tooltip title="Export to Deep Chat">
             <Image
               src={require("../../../../../public/icons/action_deepchat.svg")}
               alt="documents"

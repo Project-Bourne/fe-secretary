@@ -22,7 +22,7 @@ function HomeContent() {
       <div className="my-10 mx-5">
         <div className="text-justify pr-10">
           <p className="py-5 text-[14px] mb-10">
-            <p className="text-md text-gray-500 py-">Content</p>
+            <p className="text-md text-gray-500 py-">Result</p>
             {summaryContent ? (
               summaryContent.split("\n").map((paragraph, index) => (
                 <p key={index} className="py-1 text-[1rem] leading-8 mb-1">
