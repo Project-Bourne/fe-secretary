@@ -14,7 +14,7 @@ import CustomModal from "@/components/ui/CustomModal";
 import { logout } from "@/redux/reducer/authReducer";
 
 function RightComp() {
-  const [, removeCookie] = useCookies(["deep-access"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["deep-access"]);
   const dispatch = useDispatch();
   const router = useRouter();
   const { userInfo } = useSelector((state: any) => state?.auth);

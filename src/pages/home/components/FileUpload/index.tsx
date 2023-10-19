@@ -19,10 +19,13 @@ import HomeContent from "./[homecontent]";
 import { Tooltip } from "@mui/material";
 
 function FileUpload() {
-  const { summarizeSetting, copyText, showLoader } = useSelector(
+  const { summarizeSetting, copyText, showLoader, summaryTitle } = useSelector(
     (store: any) => store.summary
   );
-  const { summaryTitle } = useSelector((store: any) => store.summary);
+  const { userInfo } = useSelector((state: any) => state?.auth);
+  const fullName = `${userInfo.firstName} ${userInfo.lastName}`;
+  const userId = userInfo.uuid
+
 
   const dispatch = useDispatch();
   const [formData, setFormData] = useState("");
@@ -74,6 +77,8 @@ function FileUpload() {
       setIsFileUploaded(true);
       const formData = new FormData();
       formData.append("files", selectedFile);
+      formData.append("userId", userId);
+      formData.append("userName", fullName);
       console.log(formData);
 
       try {
