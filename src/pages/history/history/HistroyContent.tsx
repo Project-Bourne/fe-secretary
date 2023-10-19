@@ -15,16 +15,16 @@ function HistoryContent() {
           <HistoryTableHeader />
           {history?.map((item) => {
             return (
-              <div key={item.uuid}>
+              <div key={item?.uuid}>
                 <ListItem
-                  uuid={item.uuid}
-                  summaryUuid={item.summaryUuid}
-                  title={item.summary.title} // Pass the title
-                  summary={item.summary.summaryArray} // Pass the summary
-                  time={item.createdAt}
-                  isBookmarked={item.bookmark} // Pass the isArchived value
+                  uuid={item?.uuid}
+                  summaryUuid={item?.summaryUuid}
+                  title={item.summary?.title} // Pass the title
+                  summary={item.summary?.summaryArray} // Pass the summary
+                  time={item?.createdAt}
+                  isBookmarked={item?.bookmark} // Pass the isArchived value
                   buttonType="action"
-                  actionButtons={<DeleteIcon doc={item.title} />}
+                  actionButtons={<DeleteIcon doc={item?.title} />}
                 />
               </div>
             );

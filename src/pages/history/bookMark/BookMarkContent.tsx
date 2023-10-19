@@ -13,16 +13,16 @@ function HistoryContent() {
         <>
           <HistoryTableHeader />
           {bookMark?.map((item) => (
-            <div key={item.uuid}>
+            <div key={item?.uuid}>
               <ListItem
-                uuid={item.uuid}
-                summaryUuid={item.summaryUuid}
-                title={item.summary.title}
-                summary={item.summary.summaryArray}
-                time={item.createdAt}
-                isBookmarked={item.bookmark}
+                uuid={item?.uuid}
+                summaryUuid={item?.summaryUuid}
+                title={item?.summary?.title}
+                summary={item?.summary?.summaryArray}
+                time={item?.createdAt}
+                isBookmarked={item?.bookmark}
                 buttonType="action"
-                actionButtons={<DeleteIcon doc={item.title} />}
+                actionButtons={<DeleteIcon doc={item?.title} />}
               />
             </div>
           ))}
