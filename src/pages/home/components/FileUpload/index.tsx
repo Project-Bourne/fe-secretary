@@ -23,8 +23,8 @@ function FileUpload() {
     (store: any) => store.summary
   );
   const { userInfo } = useSelector((state: any) => state?.auth);
-  const fullName = `${userInfo.firstName} ${userInfo.lastName}`;
-  const userId = userInfo.uuid
+  const fullName = `${userInfo?.firstName} ${userInfo?.lastName}`;
+  const userId = userInfo?.uuid
 
 
   const dispatch = useDispatch();
@@ -76,10 +76,10 @@ function FileUpload() {
     if (selectedFile) {
       setIsFileUploaded(true);
       const formData = new FormData();
-      formData.append("files", selectedFile);
-      formData.append("userId", userId);
-      formData.append("userName", fullName);
-      console.log(formData);
+      formData?.append("files", selectedFile);
+      formData?.append("userId", userId);
+      formData?.append("userName", fullName);
+      console?.log(formData);
 
       try {
         const response = await fetch(

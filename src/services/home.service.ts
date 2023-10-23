@@ -70,10 +70,10 @@ class HomeService {
     }
   }
 
-  async getSummaryHistory() {
+  async getSummaryHistory(page=1) {
     try {
       const response = await request(
-        '/summary/user',
+        `/summary/user?page=${page}`,
         'GET',
         {},
         true,

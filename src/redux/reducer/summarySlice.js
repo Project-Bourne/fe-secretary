@@ -10,7 +10,7 @@ const summarySlice = createSlice({
     copyText: "",
     uploadedText: "",
     uploloadedUri: "",
-    history: [],
+    history: null,
     bookMark: [],
     fileName: "",
     summarizeSetting: false,
@@ -52,7 +52,7 @@ const summarySlice = createSlice({
       state.history = action.payload;
     },
     setBookMark: (state) => {
-      state.bookMark = state.history.filter((item) => item.bookmark);
+      state.bookMark = state?.history?.summary?.filter((item) => item.bookmark);
     },
     setSummaryContentType: (state, action) => {
       state.summaryContentType = action.payload;
@@ -62,6 +62,12 @@ const summarySlice = createSlice({
     },
     setuploloadedUri: (state, action) => {
       state.uploloadedUri = action.payload;
+    },
+    updatePagination: (state, action) => {
+      state.history = {
+        ...state.history,
+        ...action.payload,
+      };
     },
   },
 });
@@ -81,6 +87,7 @@ export const {
   setShowLoader,
   setShowLoaderUpload,
   setSummarizeSettingUpload,
+  updatePagination,
 } = summarySlice.actions;
 
 export default summarySlice.reducer;
