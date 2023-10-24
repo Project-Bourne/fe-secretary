@@ -24,7 +24,7 @@ const ActionIcons = ({ docId }) => {
       router?.push(`http://192.81.213.226:35/home/${id}&summarizer`);
     }
     if (to === "interrogator") {
-      router?.push(`http://192.81.213.226:37/home/${id}&summarizer`);
+      router?.push(`http://192.81.213.226:82/home/query/${id}&summarizer`);
     }
     if (to === "translator") {
       router?.push(`http://192.81.213.226:33/home/${id}&summarizer`);

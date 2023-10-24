@@ -90,7 +90,7 @@ function FileUpload() {
               url = `http://192.81.213.226:81/81/analysis/${routeId}`;
               break;
             case "interrogator":
-              url = ` http://192.81.213.226:82/home/query/${routeId}`;
+              url = ` http://192.81.213.226:81/87/interrogation/message/${routeId}`;
               break;
             case "collab":
               url = `http://192.81.213.226:81/86/api/v1/doc/${routeId}`;
