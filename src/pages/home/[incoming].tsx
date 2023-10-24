@@ -90,7 +90,7 @@ function FileUpload() {
               url = `http://192.81.213.226:81/81/analysis/${routeId}`;
               break;
             case "interrogator":
-              url = ` http://192.81.213.226:81/87/interrogation/message/${routeId}`;
+              url = `http://192.81.213.226:81/87/interrogation/message/${routeId}`;
               break;
             case "collab":
               url = `http://192.81.213.226:81/86/api/v1/doc/${routeId}`;
@@ -134,7 +134,7 @@ function FileUpload() {
               const collabData: string[] = data?.data?.data?.ops.map((el) => {
                 return el.insert;
               });
-              setFormData(collabData.join(" "));
+              setFormData(collabData?.join(" "));
               break;
             case "interrogator":
             case "deepchat":
@@ -144,7 +144,7 @@ function FileUpload() {
           }
           setLoading(false);
         } catch (error: any) {
-          NotificationService.error({
+          NotificationService?.error({
             message: "Error!",
             addedText: <p>{`${error.message}, please try again`}</p>,
             position: "top-center",
