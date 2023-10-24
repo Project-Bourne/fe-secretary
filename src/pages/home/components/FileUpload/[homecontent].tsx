@@ -1,14 +1,21 @@
 import React from "react";
 import ActionIcons from "../actionIcons/ActionIcon";
 import { useSelector } from "react-redux";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { useRouter } from "next/router";
+import { Tooltip } from "@mui/material";
 
 function HomeContent() {
+  const router = useRouter();
   const { summaryContent, summaryTitle, summaryId } = useSelector(
     (store: any) => store.summary
   );
   return (
     <div className="bg-sirp-secondary2 h-[100%] mx-5 rounded-[1rem]">
-      <div className="flex justify-end w-full pr-5 pt-5 ">
+      <div className="flex flex-row justify-between items-center w-full pl-5 py-4">
+        <Tooltip title="Back" placement="top">
+          <KeyboardBackspaceIcon onClick={() => router.back()} />
+        </Tooltip>
         <ActionIcons docId={summaryId} />
       </div>
       <div className="bg-white border my-10 mx-5 rounded-[1rem]">

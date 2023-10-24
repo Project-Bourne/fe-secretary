@@ -6,7 +6,7 @@ const cookies = new Cookies();
 let access = "";
 if (typeof window !== "undefined") {
   access =
-    cookies.get("deep-access") || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyMzFiOTVjLWRkOWUtNGNkYS04ZTg3LWFkOGIyZWVjYTg5YSIsImlhdCI6MTY5ODA2NjQ3NCwiZXhwIjoxNjk4MDcwMDc0fQ.eaHiycvnfLvICwLPCgJ910ibEfdJfaGF1PQ0qugCReo"}
+    cookies.get("deep-access") ||"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyMzFiOTVjLWRkOWUtNGNkYS04ZTg3LWFkOGIyZWVjYTg5YSIsImlhdCI6MTY5ODE0MzM3MCwiZXhwIjoxNjk4MTQ2OTcwfQ.PFeBF7yGhLPBCl5I2Mp7wiGNb7zrgDhfTMS0u4jrt9k"}
 
 export const requestHeader = {
   Accept: "application/json",
@@ -40,11 +40,14 @@ export async function request(url, method, payload, token, text, form) {
       method,
       headers: Object.assign(requestHeader),
     })
-      .then((res) => {
-        if (text === true) {
+      .then(async (res) => {
+        if (res.status === 403) {
+          console.error("403 Forbidden: Redirecting to login page");
+          // Redirect to the login page
+          window.location.href = "http://192.81.213.226:30/auth/login";
+          throw new Error("Access forbidden. Redirecting to login page.");
+        } else if (text === true) {
           return res.text();
-        } else if (res) {
-          return res.json();
         } else {
           return res.json();
         }
@@ -89,11 +92,14 @@ export async function request2(url, method, payload, token, text, form) {
       method,
       headers: Object.assign(requestHeader),
     })
-      .then((res) => {
-        if (text === true) {
+      .then(async (res) => {
+        if (res.status === 403) {
+          console.error("403 Forbidden: Redirecting to login page");
+          // Redirect to the login page
+          window.location.href = "http://192.81.213.226:30/auth/login";
+          throw new Error("Access forbidden. Redirecting to login page.");
+        } else if (text === true) {
           return res.text();
-        } else if (res) {
-          return res.json();
         } else {
           return res.json();
         }
@@ -108,11 +114,14 @@ export async function request2(url, method, payload, token, text, form) {
       headers: Object.assign(requestHeader),
       body: form === true ? payload : JSON.stringify(payload),
     })
-      .then((res) => {
-        if (text === true) {
+      .then(async (res) => {
+        if (res.status === 403) {
+          console.error("403 Forbidden: Redirecting to login page");
+          // Redirect to the login page
+          window.location.href = "http://192.81.213.226:30/auth/login";
+          throw new Error("Access forbidden. Redirecting to login page.");
+        } else if (text === true) {
           return res.text();
-        } else if (res) {
-          return res.json();
         } else {
           return res.json();
         }

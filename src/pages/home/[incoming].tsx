@@ -13,6 +13,7 @@ import {
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import LoadingModal from "./components/FileUpload/LoadingModal";
 import SummarizeCopyPasteSetting from "./components/ModalPopUp/summarizeCopyPasteSetting";
+import TextareaAutosize from "react-textarea-autosize";
 
 import NotificationService from "@/services/notification.service";
 import HomeContent from "./components/FileUpload/[homecontent]";
@@ -45,22 +46,21 @@ function FileUpload() {
 
   useEffect(() => {
     setLoading(true);
-    try {
-      Auth.getUserViaAccessToken()
-        .then((response) => {
-          setLoading(false);
-          if (response?.status) {
-            dispatch(setUserInfo(response?.data));
-          }
-        })
-        .catch((err) => {
-          NotificationService.error({
-            message: "Error!",
-            addedText: <p>{`${err?.message}, please try again`}</p>,
-            position: "top-center",
-          });
+    Auth.getUserViaAccessToken()
+      .then((response) => {
+        setLoading(false);
+        if (response.status) {
+          dispatch(setUserInfo(response.data));
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        NotificationService.error({
+          message: "Error!",
+          addedText: <p>Access forbidden. Redirecting to login page.</p>,
+          position: "top-center",
         });
-    } catch (err) {}
+      });
   }, []);
 
   useEffect(() => {
@@ -107,8 +107,16 @@ function FileUpload() {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
+
+          if (response.status === 403) {
+            console.error("403 Forbidden: Redirecting to the login page");
+            // Redirect to the login page
+            window.location.href = "http://192.81.213.226:30/auth/login";
+            throw new Error("Access forbidden. Redirecting to login page.");
+          }
+
           const data = await response?.json();
-          console.log(data);
+          
           switch (routeName) {
             case "translator":
               setFormData(data?.data?.textTranslation);
@@ -150,14 +158,6 @@ function FileUpload() {
     fetchData();
   }, [incoming]);
 
-  // function to set text
-  const handleTextareaChange = (e) => {
-    setFormData(e.target.value);
-    // Automatically adjust the textarea's height
-    e.target.style.height = "auto";
-    e.target.style.height = e.target.scrollHeight + "px";
-  };
-
   //function to cleare text
   const handleClearTextarea = () => {
     setFormData("");
@@ -171,6 +171,7 @@ function FileUpload() {
     if (cleanedFormData.length >= minLength) {
       dispatch(setCopyText(cleanedFormData));
       dispatch(setSummarizeSetting(true));
+      setFormData("");
     } else {
       NotificationService.error({
         message: "Error!",
@@ -311,11 +312,14 @@ function FileUpload() {
                   priority
                 />
               </span>
-              <textarea
+              <TextareaAutosize
+                minRows={1}
                 placeholder="Copy and paste content text here"
-                className={`w-[95%] outline-none text-justify focus:ring-0 pt-[0.5rem] my-[2rem] resize-y min-h-[6rem] max-h-[15rem] overflow-auto`}
+                onChange={(e) => setFormData(e.target.value)}
+                className={`w-[95%] p-5 text-justify`}
                 value={formData}
-                onChange={handleTextareaChange}
+                maxRows={20}
+                style={{ border: "none", outline: "none" }} // Add this inline style
               />
               <span className="flex align-middle justify-center mx-3">
                 <Tooltip title="Clear TextArea">

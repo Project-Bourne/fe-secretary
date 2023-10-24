@@ -17,6 +17,7 @@ import CustomModal from "@/components/ui/CustomModal";
 import NotificationService from "@/services/notification.service";
 import HomeContent from "./[homecontent]";
 import { Tooltip } from "@mui/material";
+import TextareaAutosize from "react-textarea-autosize";
 
 function FileUpload() {
   const { summarizeSetting, copyText, showLoader, summaryTitle } = useSelector(
@@ -24,22 +25,13 @@ function FileUpload() {
   );
   const { userInfo } = useSelector((state: any) => state?.auth);
   const fullName = `${userInfo?.firstName} ${userInfo?.lastName}`;
-  const userId = userInfo?.uuid
-
+  const userId = userInfo?.uuid;
 
   const dispatch = useDispatch();
   const [formData, setFormData] = useState("");
   const [file, setFile] = useState(null);
   const [uploadDisabled, setUploadDisabled] = useState(true);
   const [isFileUploaded, setIsFileUploaded] = useState(false);
-
-  // function to set text
-  const handleTextareaChange = (e) => {
-    setFormData(e.target.value);
-    // Automatically adjust the textarea's height
-    e.target.style.height = "auto";
-    e.target.style.height = e.target.scrollHeight + "px";
-  };
 
   //function to cleare text
   const handleClearTextarea = () => {
@@ -54,6 +46,7 @@ function FileUpload() {
     if (cleanedFormData.length >= minLength) {
       dispatch(setCopyText(cleanedFormData));
       dispatch(setSummarizeSetting(true));
+      setFormData("");
     } else {
       NotificationService.error({
         message: "Error!",
@@ -190,11 +183,15 @@ function FileUpload() {
                   priority
                 />
               </span>
-              <textarea
+
+              <TextareaAutosize
+                minRows={1}
                 placeholder="Copy and paste content text here"
-                className={`w-[95%] outline-none text-justify focus:ring-0 pt-[0.5rem] my-[2rem] resize-y min-h-[2rem] max-h-[15rem] overflow-auto`}
+                onChange={(e) => setFormData(e.target.value)}
+                className={`w-[95%] p-5`}
                 value={formData}
-                onChange={handleTextareaChange}
+                maxRows={20}
+                style={{ border: "none", outline: "none" }} // Add this inline style
               />
               <span className="flex align-middle justify-center mx-3">
                 <Tooltip title="Clear TextArea">

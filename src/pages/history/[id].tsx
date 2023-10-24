@@ -1,25 +1,23 @@
 import React, { useState } from "react";
 import ActionIcons from "../home/components/actionIcons/ActionIcon";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 import { useSelector } from "react-redux";
+import { Tooltip } from "@mui/material";
+import { useRouter } from "next/router";
 
 function HomeContent() {
-  const [hideMeta, setHideMeta] = useState(true);
+  const router = useRouter();
   const { summaryContent, summaryTitle, summaryId } = useSelector(
     (store: any) => store.summary
   );
 
-  const handleMax = () => {
-    setHideMeta(true);
-  };
-
-  const handleMin = () => {
-    setHideMeta(false);
-  };
-
   return (
     <div className="bg-sirp-secondary2 h-[100%] mx-5 rounded-[1rem]">
-      <div className="flex justify-end w-full pr-5 pt-5 ">
+      <div className="flex flex-row justify-between items-center w-full pl-5 py-4">
+        <Tooltip title="Back" placement="top">
+          <KeyboardBackspaceIcon onClick={() => router.back()} />
+        </Tooltip>
         <ActionIcons docId={summaryId} />
       </div>
       <div className="bg-white border my-10 mx-5 rounded-[1rem]">
