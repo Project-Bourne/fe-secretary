@@ -137,6 +137,7 @@ function FileUpload() {
               setFormData(collabData?.join(" "));
               break;
             case "interrogator":
+              setFormData(data?.data?.answer);
             case "deepchat":
               break;
             default:
