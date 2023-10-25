@@ -1,67 +1,66 @@
-import Link from 'next/link';
-import { useSelector } from 'react-redux';
-import interrogator from '../../../../public/icons/interrogator.svg';
-import irp from '../../../../public/icons/irp.svg';
-import translator from '../../../../public/icons/translator.svg';
-import collab from '../../../../public/icons/collab.svg';
-import admin from "../../../../public/icons/admin.svg"
+import Link from "next/link";
+import { useSelector } from "react-redux";
+import interrogator from "../../../../public/icons/interrogator.svg";
+import irp from "../../../../public/icons/irp.svg";
+import translator from "../../../../public/icons/translator.svg";
+import collab from "../../../../public/icons/collab.svg";
+import admin from "../../../../public/icons/admin.svg";
 import fact from "../../../../public/icons/fact.svg";
-import analyzer from '../../../../public/icons/analyzer.svg';
-import deep_chat from '../../../../public/icons/deep.svg';
-import Image from 'next/image';
+import analyzer from "../../../../public/icons/analyzer.svg";
+import deep_chat from "../../../../public/icons/deep.svg";
+import Image from "next/image";
 
-const BASE_URL = 'http://192.81.213.226:';
+const BASE_URL = "http://192.81.213.226:";
 
 const dropdownItems = [
   {
-    name: 'Admin',
+    name: "Admin",
     to: `${BASE_URL}38/home`,
-    key: 'admin',
-    icon: admin
+    key: "admin",
+    icon: admin,
   },
   {
-    name: 'IRP',
+    name: "IRP",
     to: `${BASE_URL}30/home`,
-    key: 'irp',
-    icon: irp
+    key: "irp",
+    icon: irp,
   },
   {
-    name: 'Collab',
+    name: "Collab",
     to: `${BASE_URL}36/home`,
-    key: 'collab',
-    icon: collab
+    key: "collab",
+    icon: collab,
   },
   {
-    name: 'Analyzer',
+    name: "Analyzer",
     to: `${BASE_URL}31/home`,
-    key: 'analyser',
-    icon: analyzer
+    key: "analyser",
+    icon: analyzer,
   },
   {
-    name: 'Fact checker',
+    name: "Fact checker",
     to: `${BASE_URL}34/home`,
-    key: 'fact checker',
-    icon: fact
+    key: "fact checker",
+    icon: fact,
   },
   {
-    name: 'Translator',
+    name: "Translator",
     to: `${BASE_URL}33/home`,
-    key: 'translator',
-    icon: translator
+    key: "translator",
+    icon: translator,
   },
   {
-    name: 'Deep Chat',
+    name: "Deep Chat",
     to: `${BASE_URL}35/home`,
-    key: 'deep chat',
-    icon: deep_chat
+    key: "deep chat",
+    icon: deep_chat,
   },
-
   {
-    name: 'Interrogator',
-    to: `${BASE_URL}37/home`, // change route
-    key: 'interrogator',
-    icon: interrogator
-  }
+    name: "Interrogator",
+    to: `${BASE_URL}:82/home`, // change route
+    key: "interrogator",
+    icon: interrogator,
+  },
 ];
 
 function DashboardDropdown() {
@@ -73,8 +72,9 @@ function DashboardDropdown() {
   return (
     <ul className="bg-sirp-lightGrey shadow absolute top-[4rem] -right-[6.7rem] pt-1 flex md:grid grid-cols-3 rounded z-30 w-[130px] md:w-[300px]">
       {dropdownItems.map((item, index) => {
-        const shouldRender = item.key === 'irp' || permissions.includes(item.key);
-        
+        const shouldRender =
+          item.key === "irp" || permissions.includes(item.key);
+
         return (
           shouldRender && (
             <li
@@ -102,4 +102,3 @@ function DashboardDropdown() {
 }
 
 export default DashboardDropdown;
-
