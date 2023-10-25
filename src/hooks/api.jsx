@@ -15,6 +15,21 @@ export const requestHeader = {
   "deep-token": access,
 };
 
+const logout = () => {
+  const access = cookies.get("deep-access");
+  fetch("http://192.81.213.226:81/80/logout", {
+    method: "POST",
+    body: {
+      refreshToken: access,
+    },
+  }).then((res) => {
+    cookies.remove("deep-access");
+    localStorage.clear();
+    window.location.href = "http://192.81.213.226:30/auth/login";
+  });
+};
+
+
 /**
  *
  * @param {string} url
@@ -42,15 +57,13 @@ export async function request(url, method, payload, token, text, form) {
     })
       .then((res) => {
         if (res.status === 403) {
-          console.error("403 Forbidden: Redirecting to login page");
           // Redirect to the login page
-          window.location.href = "http://192.81.213.226:30/auth/login";
+          // window.location.href = "http://192.81.213.226:30/auth/login";
+          logout();
           throw new Error("Access forbidden. Redirecting to login page.");
         }
-        if (text === true) {
+        else if (text === true) {
           return res.text();
-        } else if (res) {
-          return res.json();
         } else {
           return res.json();
         }
@@ -97,15 +110,13 @@ export async function request2(url, method, payload, token, text, form) {
     })
       .then((res) => {
         if (res.status === 403) {
-          console.error("403 Forbidden: Redirecting to login page");
           // Redirect to the login page
-          window.location.href = "http://192.81.213.226:30/auth/login";
+          // window.location.href = "http://192.81.213.226:30/auth/login";
+          logout();
           throw new Error("Access forbidden. Redirecting to login page.");
         }
-        if (text === true) {
+        else if (text === true) {
           return res.text();
-        } else if (res) {
-          return res.json();
         } else {
           return res.json();
         }

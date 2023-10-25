@@ -21,7 +21,7 @@ function NavBar() {
           }}
         />
         <h1 className="text-sirp-primary font-semibold text-[30px] hidden md:block">
-          Summarizer
+          Deep Soul
         </h1>
       </div>
 
