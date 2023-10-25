@@ -14,7 +14,7 @@ import CustomModal from "@/components/ui/CustomModal";
 import { logout } from "@/redux/reducer/authReducer";
 
 function RightComp() {
-  const [cookies, setCookie, removeCookie] = useCookies(["deep-access"]);
+  const [, removeCookie] = useCookies(['deep-access']);
   const dispatch = useDispatch();
   const router = useRouter();
   const { userInfo } = useSelector((state: any) => state?.auth);
@@ -27,11 +27,11 @@ function RightComp() {
     dispatch(logout());
     localStorage.clear();
 
-    removeCookie("deep-access", { path: "/" });
-    router.push("http://192.81.213.226:30/auth/login");
+    removeCookie('deep-access', { path: '/' });
+    router.push('http://192.81.213.226:30/auth/login');
 
     NotificationService.success({
-      message: "Logout operation successful!",
+      message: 'Logout operation successful!'
     });
     setDropdown(false);
   };
@@ -42,18 +42,18 @@ function RightComp() {
   };
 
   const handleLogoutToggle = () => {
-    setDropdown((prevState) => !prevState);
+    setDropdown(prevState => !prevState);
     setToggleDashboard(false);
   };
 
   const handleDashboardToggle = () => {
-    setToggleDashboard((prevState) => !prevState);
+    setToggleDashboard(prevState => !prevState);
     setDropdown(false);
   };
 
-  const userName = () => userInfo?.firstName + " " + userInfo?.lastName;
+  const userName = () => userInfo?.firstName + ' ' + userInfo?.lastName;
   const userInitials = () =>
-    (userInfo?.firstName?.[0] ?? "") + (userInfo?.lastName?.[0] ?? "");
+    (userInfo?.firstName?.[0] ?? '') + (userInfo?.lastName?.[0] ?? '');
 
   return (
     <div className="flex flex-row items-center self-start">
@@ -69,7 +69,34 @@ function RightComp() {
         />
       </div> */}
 
-      <div
+      <div className="relative">
+        <div
+          className="grid justify-center mt-3.5"
+          onClick={handleDashboardToggle}
+        >
+          <div className={`${styles.view1} hidden md:flex`}>
+            <Image
+              src={dashboard}
+              alt="dashboard"
+              width={20}
+              height={20}
+              className="self-center"
+              style={{ alignSelf: 'center' }}
+              id="dashboard"
+              priority
+            />
+          </div>
+          <label
+            className="text-[12px] mx-2 hover:cursor-pointer"
+            htmlFor="dashboard"
+          >
+            Menu
+          </label>
+        </div>
+        {toggleDashboard && <DropdownItems />}
+      </div>
+
+      {/* <div
         className={`${styles.view1} hidden md:flex relative`}
         onClick={handleDashboardToggle}
       >
@@ -79,11 +106,11 @@ function RightComp() {
           width={20}
           height={20}
           className="self-center"
-          style={{ alignSelf: "center" }}
+          style={{ alignSelf: 'center' }}
           priority
         />
         {toggleDashboard && <DropdownItems />}
-      </div>
+      </div> */}
 
       <div className="relative bg-sirp-lightGrey flex flex-row mr-2 py-2 px-2 md:px-5 h-[45px] rounded-[12px] items-center justify-center cursor-pointer">
         <div
@@ -114,7 +141,7 @@ function RightComp() {
         <div
           className="ml-3 bg-sirp-lightGrey w-full self-center hidden md:block"
           onClick={() => {
-            router.push("http://192.81.213.226:30/settings/profile");
+            router.push('http://192.81.213.226:30/settings/profile');
           }}
         >
           <h2 className="text-sirp-grey text-[13px] capitalize">
@@ -174,7 +201,6 @@ function RightComp() {
 
 const styles = {
   view1:
-    "bg-sirp-lightGrey cursor-pointer flex py-2 px-2 rounded-[15px] w-[45px] h-[45px] items-center justify-center content-center mr-4",
+    'bg-sirp-lightGrey cursor-pointer flex py-1 px-1 rounded-[15px] w-[45px] h-[40px] items-center justify-center content-center mr-4'
 };
-
 export default RightComp;

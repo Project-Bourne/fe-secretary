@@ -20,7 +20,7 @@ function NavBar() {
             router.push("http://192.81.213.226:30");
           }}
         />
-        <h1 className="text-sirp-primary font-semibold text-[30px] hidden md:block">
+        <h1 className="text-sirp-primary font-semibold text-[22px] hidden md:block">
           Deep Soul
         </h1>
       </div>
