@@ -41,7 +41,7 @@ const ActionIcons = ({ docId }) => {
               src={require("../../../../../public/icons/action_collab.svg")}
               alt="documents"
               className=" cursor-pointer"
-              width={60}
+               width={80}
               onClick={() => handleExport(docId, "collab")}
             />
           </Tooltip>
@@ -54,7 +54,7 @@ const ActionIcons = ({ docId }) => {
               alt="documents"
               className="cursor-pointer"
               onClick={() => handleExport(docId, "factcheck")}
-              width={60}
+               width={80}
             />
           </Tooltip>
         )}
@@ -67,7 +67,7 @@ const ActionIcons = ({ docId }) => {
               alt="documents"
               className=" cursor-pointer"
               onClick={() => handleExport(docId, "analyser")}
-              width={60}
+               width={80}
             />
           </Tooltip>
         )}
@@ -80,7 +80,7 @@ const ActionIcons = ({ docId }) => {
               alt="documents"
               className="cursor-pointer"
               onClick={() => handleExport(docId, "translator")}
-              width={60}
+               width={80}
             />
           </Tooltip>
         )}
@@ -93,7 +93,7 @@ const ActionIcons = ({ docId }) => {
               alt="documents"
               className="cursor-pointer"
               onClick={() => handleExport(docId, "deepchat")}
-              width={60}
+               width={80}
             />
           </Tooltip>
         )}
@@ -106,7 +106,7 @@ const ActionIcons = ({ docId }) => {
               alt="documents"
               className="cursor-pointer"
               onClick={() => handleExport(docId, "interrogator")}
-              width={60}
+               width={80}
             />
           </Tooltip>
         )}

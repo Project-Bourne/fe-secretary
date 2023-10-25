@@ -62,7 +62,7 @@ function FileUploadSection({ file, handleDeleteFile, uploadDisabled }) {
          {uploadDisabled ? (
            <div className="p-5 cursor-pointer flex md:w-[30%] w-[50%] align-middle justify-center bg-gray-500 border-2 text-white rounded-[15px] font-extrabold">
            <span>
-             Summarize
+             Uploading ...
            </span>
          </div>
          ):(
