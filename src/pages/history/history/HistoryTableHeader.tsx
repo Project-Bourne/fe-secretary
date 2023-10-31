@@ -10,7 +10,7 @@ function HistoryTableHeader() {
         <p className="font-bold">Summary Snippet</p>
       </div>
       <div className="">
-        <p className="font-bold hidden md:block  md:pr-[8.5rem]  border border-red-500">Summary Content</p>
+        <p className="font-bold hidden md:block  md:pr-[8.5rem]">Summary Content</p>
       </div>
       <div className="">
         <p className="font-bold mr-[5rem] md:mr-0">Time Stamp</p>
