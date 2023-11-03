@@ -29,6 +29,9 @@ function FileUpload() {
   const { summarizeSetting, copyText, showLoader } = useSelector(
     (store: any) => store.summary
   );
+  const { userInfo } = useSelector((state: any) => state?.auth);
+  const fullName = `${userInfo?.firstName} ${userInfo?.lastName}`;
+  const userId = userInfo?.uuid;
   const { summaryTitle } = useSelector((store: any) => store.summary);
   const dispatch = useDispatch();
   const [formData, setFormData] = useState("");
@@ -62,7 +65,6 @@ function FileUpload() {
         });
       });
   }, []);
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -117,7 +119,7 @@ function FileUpload() {
           }
 
           const data = await response?.json();
-          
+
           switch (routeName) {
             case "translator":
               setFormData(data?.data?.textTranslation);
@@ -196,7 +198,8 @@ function FileUpload() {
       setIsFileUploaded(true);
       const formData = new FormData();
       formData.append("files", selectedFile);
-      console.log(formData);
+      formData?.append("userId", userId);
+      formData?.append("userName", fullName);
 
       try {
         const response = await fetch(

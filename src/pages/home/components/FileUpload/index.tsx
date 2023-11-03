@@ -72,7 +72,6 @@ function FileUpload() {
       formData?.append("files", selectedFile);
       formData?.append("userId", userId);
       formData?.append("userName", fullName);
-      console?.log(formData);
 
       try {
         const response = await fetch(
