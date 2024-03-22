@@ -5,8 +5,8 @@ import { Cookies } from "react-cookie";
 const cookies = new Cookies();
 let access = "";
 if (typeof window !== "undefined") {
-  access =
-    cookies.get("deep-access") ||""}
+  access = cookies.get("deep-access") || "";
+}
 
 export const requestHeader = {
   Accept: "application/json",
@@ -25,10 +25,9 @@ const logout = () => {
   }).then((res) => {
     cookies.remove("deep-access");
     localStorage.clear();
-    window.location.href = "http://192.81.213.226:30/auth/login";
+    window.location.replace("http://192.81.213.226:30/auth/login");
   });
 };
-
 
 /**
  *
@@ -58,11 +57,10 @@ export async function request(url, method, payload, token, text, form) {
       .then((res) => {
         if (res.status === 403) {
           // Redirect to the login page
-          window.location.href = "http://192.81.213.226:30/auth/login";
+          window.location.replace("http://192.81.213.226:30/auth/login");
           logout();
           throw new Error("Access forbidden. Redirecting to login page.");
-        }
-        else if (text === true) {
+        } else if (text === true) {
           return res.text();
         } else {
           return res.json();
@@ -114,8 +112,7 @@ export async function request2(url, method, payload, token, text, form) {
           // window.location.href = "http://192.81.213.226:30/auth/login";
           logout();
           throw new Error("Access forbidden. Redirecting to login page.");
-        }
-        else if (text === true) {
+        } else if (text === true) {
           return res.text();
         } else {
           return res.json();

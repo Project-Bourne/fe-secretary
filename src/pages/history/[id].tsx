@@ -15,9 +15,12 @@ function HomeContent() {
   return (
     <div className="bg-sirp-secondary2 h-[100%] mx-5 rounded-[1rem]">
       <div className="flex flex-row justify-between items-center w-full pl-5 py-4">
-        <Tooltip title="Back" placement="top">
+      <div>
+          {" "}
+        </div>
+        {/* <Tooltip title="Back" placement="top">
           <KeyboardBackspaceIcon onClick={() => router.back()} />
-        </Tooltip>
+        </Tooltip> */}
         <ActionIcons docId={summaryId} />
       </div>
       <div className="bg-white border my-10 mx-5 rounded-[1rem]">

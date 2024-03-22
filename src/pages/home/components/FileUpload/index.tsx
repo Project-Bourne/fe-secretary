@@ -98,7 +98,7 @@ function FileUpload() {
             addedText: <p>something happend. please try again</p>,
             position: "bottom-right",
           });
-          handleDeleteFile()
+          handleDeleteFile();
         }
       } catch (error: any) {
         NotificationService.error({
@@ -106,7 +106,7 @@ function FileUpload() {
           addedText: <p>{`${error?.message}, please try again`}</p>,
           position: "top-center",
         });
-        handleDeleteFile()
+        handleDeleteFile();
       }
     }
   };

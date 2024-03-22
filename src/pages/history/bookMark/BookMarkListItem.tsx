@@ -76,7 +76,7 @@ function ListItem({
       });
     }
 
-    router.push(`/history/${summaryUuid}`);
+    router.replace(`/history/${summaryUuid}`);
   };
 
   const handleBookMark = async (e, uuid) => {
