@@ -75,28 +75,36 @@ function FileUpload() {
           let url;
           switch (routeName) {
             case "summarizer":
-              url = `http://192.81.213.226:81/82/summary/${routeId}`;
+              // url = `http://192.81.213.226:81/82/summary/${routeId}`;
+              url = `http://${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}:81/${process.env.NEXT_PUBLIC_SUMMARIZER_API_ROUTE}/summary/${routeId}`;
               break;
             case "translator":
-              url = `http://192.81.213.226:81/83/translation/${routeId}`;
+              // url = `http://192.81.213.226:81/83/translation/${routeId}`;
+              url = `http://${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}:81/${process.env.NEXT_PUBLIC_TRANSLATOR_API_ROUTE}/translation/${routeId}`;
               break;
             case "irp":
-              url = `http://192.81.213.226:81/84/fact/${routeId}`;
+              // url = `http://192.81.213.226:81/84/fact/${routeId}`;
+              url = `http://${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}:81/${process.env.NEXT_PUBLIC_IRP_API_ROUTE}/fact/${routeId}`;
               break;
             case "factcheck":
-              url = `http://192.81.213.226:81/84/fact/${routeId}`;
+              // url = `http://192.81.213.226:81/84/fact/${routeId}`;
+              url = `http://${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}:81/${process.env.NEXT_PUBLIC_FACT_CHECKER_API_ROUTE}/fact/${routeId}`;
               break;
             case "deepchat":
-              url = `http://192.81.213.226:81/85/deepchat/${routeId}`;
+              // url = `http://192.81.213.226:81/85/deepchat/${routeId}`;
+              url = `http://${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}:81/${process.env.NEXT_PUBLIC_DEEP_CHAT_API_ROUTE}/deepchat/${routeId}`;
               break;
             case "analyser":
-              url = `http://192.81.213.226:81/81/analysis/${routeId}`;
+              // url = `http://192.81.213.226:81/81/analysis/${routeId}`;
+              url = `http://${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}:81/${process.env.NEXT_PUBLIC_ANALYZER_API_ROUTE}/analysis/${routeId}`;
               break;
             case "interrogator":
-              url = `http://192.81.213.226:81/87/interrogation/message/${routeId}`;
+              // url = `http://192.81.213.226:81/87/interrogation/message/${routeId}`;
+              url = `http://${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}:81/${process.env.NEXT_PUBLIC_INTERROGATOR_API_ROUTE}/interrogation/message/${routeId}`;
               break;
             case "collab":
-              url = `http://192.81.213.226:81/86/api/v1/doc/${routeId}`;
+              // url = `http://192.81.213.226:81/86/api/v1/doc/${routeId}`;
+              url = `http://${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}:81/${process.env.NEXT_PUBLIC_COLLAB_API_PORT}/api/v1/doc/${routeId}`;
               break;
             default:
               throw new Error("Invalid routeName");
@@ -114,7 +122,8 @@ function FileUpload() {
           if (response.status === 403) {
             console.error("403 Forbidden: Redirecting to the login page");
             // Redirect to the login page
-            window.location.href = "http://192.81.213.226:30/auth/login";
+            // window.location.href = "http://192.81.213.226:30/auth/login";
+            window.location.href = `http://${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}:${process.env.NEXT_PUBLIC_IRP_PORT}/auth/login`;
             throw new Error("Access forbidden. Redirecting to login page.");
           }
 
