@@ -34,7 +34,7 @@ const dropdownItems = [
   },
   {
     name: "Analyzer",
-    to: `${BASE_URL}:${process.env.NEXT_PUBLIC_ANALYSER_PORT}/home`,
+    to: `${BASE_URL}:${process.env.NEXT_PUBLIC_ANALYZER_PORT}/home`,
     key: "analyser",
     icon: analyzer,
   },
@@ -52,7 +52,7 @@ const dropdownItems = [
   },
   {
     name: "Deep Chat",
-    to: `${BASE_URL}:${process.env.NEXT_PUBLIC_DEEPCHAT_PORT}/home`,
+    to: `${BASE_URL}:${process.env.NEXT_PUBLIC_DEEP_CHAT_PORT}/home`,
     key: "deep chat",
     icon: deep_chat,
   },
