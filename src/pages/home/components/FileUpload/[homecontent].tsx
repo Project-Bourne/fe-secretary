@@ -30,7 +30,13 @@ function HomeContent() {
         <div className="pl-5 my-5">
           <p className="text-md text-gray-500">Title</p>
           <h1 className="md:text-3xl whitespace-nowrap overflow-hidden overflow-ellipsis">
-            {summaryTitle || "No available title"}
+            <ReactMarkdown
+              components={{
+                p: ({ children }) => <p className="mb-b">{ children }</p> 
+              }}
+            >
+              {summaryTitle || "No available title"}
+            </ReactMarkdown>
           </h1>
         </div>
       </div>

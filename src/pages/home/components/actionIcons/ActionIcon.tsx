@@ -17,15 +17,15 @@ const ActionIcons = ({ docId }) => {
     }
     if (to === "analyser") {
       // router?.push(`http://192.81.213.226:31/home/${id}&summarizer`);
-      router?.push(`http://${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}:${process.env.NEXT_PUBLIC_ANALYSER_PORT}/home/${id}&summarizer`);
+      router?.push(`http://${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}:${process.env.NEXT_PUBLIC_ANALYZER_PORT}/home/${id}&summarizer`);
     }
     if (to === "factcheck") {
       // router?.push(`http://192.81.213.226:34/home/${id}&summarizer`);
-      router?.push(`http://${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}:${process.env.NEXT_PUBLIC_FACTCHECKER_PORT}/home/${id}&summarizer`);
+      router?.push(`http://${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}:${process.env.NEXT_PUBLIC_FACT_CHECKER_PORT}/home/${id}&summarizer`);
     }
     if (to === "deepchat") {
       // router?.push(`http://192.81.213.226:35/home/${id}&summarizer`);
-      router?.push(`http://${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}:${process.env.NEXT_PUBLIC_DEEPCHAT_PORT}/home/${id}&summarizer`);
+      router?.push(`http://${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}:${process.env.NEXT_PUBLIC_DEEP_CHAT_PORT}/home/${id}&summarizer`);
     }
     if (to === "interrogator") {
       // router?.push(`http://192.81.213.226:82/home/query/${id}&summarizer`);
