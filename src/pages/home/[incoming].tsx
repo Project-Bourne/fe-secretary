@@ -24,6 +24,7 @@ import Loader from "../history/history/Loader";
 import CustomModal from "@/components/ui/CustomModal";
 import { setUserInfo } from "@/redux/reducer/authReducer";
 import Auth from "../../services/auth.service";
+import ReactMarkdown from 'react-markdown';
 
 function FileUpload() {
   const { summarizeSetting, copyText, showLoader } = useSelector(
@@ -318,38 +319,55 @@ function FileUpload() {
           )}
           <form onSubmit={handleTextSummarySubmit}>
             {/* Text Summary Form */}
-            <div className="flex align-middle w-full border-2 rounded-[1rem] border-[#E5E7EB]-500 border-dotted">
-              {/* Input */}
-              <span className="flex align-middle justify-center mx-3">
-                <Image
-                  src={require("../../../public/icons/link.svg")}
-                  alt="upload image"
-                  width={20}
-                  height={20}
-                  priority
-                />
-              </span>
-              <TextareaAutosize
-                minRows={1}
-                placeholder="Copy and paste content text here"
-                onChange={(e) => setFormData(e.target.value)}
-                className={`w-[95%] p-5 text-justify`}
-                value={formData}
-                maxRows={20}
-                style={{ border: "none", outline: "none" }} // Add this inline style
-              />
-              <span className="flex align-middle justify-center mx-3">
-                <Tooltip title="Clear TextArea">
+            <div className="flex flex-col w-full">
+              <div className="flex align-middle w-full border-2 rounded-t-[1rem] border-[#E5E7EB]-500 border-dotted">
+                <span className="flex align-middle justify-center mx-3">
                   <Image
-                    className="flex align-middle justify-center font-light text-[#A1ADB5] cursor-pointer"
-                    src={require("../../../public/icons/x.svg")}
+                    src={require("../../../public/icons/link.svg")}
                     alt="upload image"
                     width={20}
                     height={20}
-                    onClick={handleClearTextarea}
+                    priority
                   />
-                </Tooltip>
-              </span>
+                </span>
+                <TextareaAutosize
+                  minRows={1}
+                  placeholder="Copy and paste content text here"
+                  onChange={(e) => setFormData(e.target.value)}
+                  className={`w-[95%] p-5 text-justify`}
+                  value={formData}
+                  maxRows={20}
+                  style={{ border: "none", outline: "none" }}
+                />
+                <span className="flex align-middle justify-center mx-3">
+                  <Tooltip title="Clear TextArea">
+                    <Image
+                      className="flex align-middle justify-center font-light text-[#A1ADB5] cursor-pointer"
+                      src={require("../../../public/icons/x.svg")}
+                      alt="upload image"
+                      width={20}
+                      height={20}
+                      onClick={handleClearTextarea}
+                    />
+                  </Tooltip>
+                </span>
+              </div>
+              
+              {/* Add markdown preview section */}
+              {formData && (
+                <div className="border-2 border-t-0 rounded-b-[1rem] border-[#E5E7EB]-500 border-dotted p-5 prose max-w-none">
+                  <p className="text-gray-500 mb-2">Preview:</p>
+                  {/* <ReactMarkdown>{formData}</ReactMarkdown> */}
+                  <ReactMarkdown
+                    // className="first-letter:capitalize text-justify leading-6 text-[1rem] mb-10"
+                    components={{
+                      p: ({ children }) => <p className="mb-4">{children}</p>,
+                    }}
+                  >
+                    {formData}
+                  </ReactMarkdown>
+                </div>
+              )}
             </div>
           </form>
         </div>
