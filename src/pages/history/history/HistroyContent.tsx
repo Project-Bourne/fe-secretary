@@ -9,29 +9,83 @@ import { setHistory, updatePagination } from "@/redux/reducer/summarySlice";
 import HomeService from "@/services/home.service";
 import CustomModal from "@/components/ui/CustomModal";
 import Loader from "./Loader";
+import Table from "@/components/ui/Table";
+import { dummyHistoryData } from "@/utils/dummyData";
+import NotificationService from "@/services/notification.service";
+import { fetchData } from "@/hooks/FetchData";
 
 function HistoryContent() {
-  const { history } = useSelector((store: any) => store.summary);
+  // Use dummy data for testing
+  const history = dummyHistoryData;
   const itemsPerPage = history?.itemsPerPage || 10;
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(history?.currentPage || 1);
   const dispatch = useDispatch();
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
+  const homeService = new HomeService();
 
-  const handlePageChange = async (event, page) => {
+  const handlePageChange = async (page) => {
     setLoading(true);
     setCurrentPage(page);
-    const homeService = new HomeService();
     try {
       dispatch(updatePagination({ currentPage: page }));
       const data = await homeService.getSummaryHistory(page);
       dispatch(setHistory(data?.data));
+            // Simulate API call delay
+      // await new Promise(resolve => setTimeout(resolve, 1000));
+      // dispatch(setHistory(dummyHistoryData));
     } catch (error) {
       console.log(error);
     }
     setLoading(false);
   };
+
+  const handleBookMark = async (e, uuid) => {
+    e.stopPropagation();
+    HomeService.bookMarkSummary(uuid)
+      .then((res: any) => {
+        fetchData(dispatch); // Pass the fetch the updated data
+      })
+      .catch((err) => {
+        NotificationService.error({
+          message: "Error!",
+          addedText: <p>{err?.message}. Please try again</p>, // Add a closing </p> tag
+          position: "top-center",
+        });
+      });
+  };
+
+  const handleDelete = async (e, uuid) => {
+    e.stopPropagation();
+    HomeService.deleteSummary(uuid)
+      .then((res: any) => {
+        fetchData(dispatch); // Pass the fetch the updated data
+        NotificationService.success({
+          message: "success!",
+          addedText: <p>{res?.message} History deleted</p>, // Add a closing </p> tag
+          position: "top-center",
+        });
+      })
+      .catch((err) => {
+        NotificationService.error({
+          message: "Error!",
+          addedText: <p>{err?.message} Please try again</p>, // Add a closing </p> tag
+          position: "top-center",
+        });
+      });
+  };
+
+  // Transform history data to match Table component requirements
+  const tableData = history?.summary?.map(item => ({
+    uuid: item.uuid,
+    title: item.summary?.title || 'No title',
+    summary: item.summary?.summaryArray || [],
+    createdAt: item.createdAt,
+    isBookmarked: item.bookmark,
+    onBookmark: (uuid: string) => handleBookMark(null, uuid),
+    onDelete: (uuid: string) => handleDelete(null, uuid)
+  })) || [];
 
   return (
     <>
@@ -47,6 +101,21 @@ function HistoryContent() {
       )}
 
       {history?.summary?.length > 0 ? (
+        // <div className="bg-sirp-listBg border h-[100%] w-100full my-2 md:mx-5 mx-2 pt-5 pb-5 rounded-[1rem]">
+          <Table
+            data={tableData}
+            totalItems={history.totalItems}
+            page={currentPage - 1} // Table component uses 0-based pagination
+            loading={loading}
+            onPageChange={handlePageChange}
+          />
+        // </div>
+      ) : (
+        <NoHistory />
+      )}
+
+      {/* Legacy implementation - commented out for reference
+      {history?.summary?.length > 0 ? (
         <>
           <HistoryTableHeader />
           {history?.summary?.map((item) => {
@@ -55,10 +124,10 @@ function HistoryContent() {
                 <ListItem
                   uuid={item?.uuid}
                   summaryUuid={item?.summaryUuid}
-                  title={item.summary?.title} // Pass the title
-                  summary={item.summary?.summaryArray} // Pass the summary
+                  title={item.summary?.title}
+                  summary={item.summary?.summaryArray}
                   time={item?.createdAt}
-                  isBookmarked={item?.bookmark} // Pass the isArchived value
+                  isBookmarked={item?.bookmark}
                   buttonType="action"
                   actionButtons={<DeleteIcon doc={item?.title} />}
                 />
@@ -78,6 +147,7 @@ function HistoryContent() {
       ) : (
         <NoHistory />
       )}
+      */}
     </>
   );
 }

@@ -23,6 +23,7 @@ function BasicTabs() {
         value={activeTab}
         onChange={handleChange}
         aria-label="tab"
+        // className="bg-white fixed w-full"
       >
         <Tab
           label={

@@ -23,12 +23,12 @@ export const NavBarContents = [
     //     id: 3,
     //     route: "/training"
     // },
-    {
-        name: "Settings",
-        icon: "settings.svg",
-        id: 4,
-        route: `http://${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}:${process.env.NEXT_PUBLIC_IRP_PORT}/settings/profile`
-    },
+    // {
+    //     name: "Settings",
+    //     icon: "settings.svg",
+    //     id: 4,
+    //     route: `http://${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}:${process.env.NEXT_PUBLIC_IRP_PORT}/settings/profile`
+    // },
 ]
 
 export const SettingsData = [
