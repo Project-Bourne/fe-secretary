@@ -16,7 +16,10 @@ import { fetchData } from "@/hooks/FetchData";
 
 function HistoryContent() {
   // Use dummy data for testing
-  const history = dummyHistoryData;
+  const { history } = useSelector((state: any) => {
+    console.log("State: ", state);
+    return state?.summary
+  });
   const itemsPerPage = history?.itemsPerPage || 10;
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(history?.currentPage || 1);
@@ -24,6 +27,8 @@ function HistoryContent() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const homeService = new HomeService();
+
+  console.log('Histories: ', history)
 
   const handlePageChange = async (page) => {
     setLoading(true);
@@ -41,8 +46,8 @@ function HistoryContent() {
     setLoading(false);
   };
 
-  const handleBookMark = async (e, uuid) => {
-    e.stopPropagation();
+  const handleBookMark = async (uuid) => {
+    // e.stopPropagation();
     HomeService.bookMarkSummary(uuid)
       .then((res: any) => {
         fetchData(dispatch); // Pass the fetch the updated data
@@ -80,12 +85,12 @@ function HistoryContent() {
   const tableData = history?.summary?.map(item => ({
     uuid: item.uuid,
     title: item.summary?.title || 'No title',
-    summary: item.summary?.summaryArray || [],
+    summary: (item.summary?.text) || 'No text',
     createdAt: item.createdAt,
     isBookmarked: item.bookmark,
-    onBookmark: (uuid: string) => handleBookMark(null, uuid),
+    onBookmark: (uuid: string) => handleBookMark(uuid),
     onDelete: (uuid: string) => handleDelete(null, uuid)
-  })) || [];
+  }));
 
   return (
     <>

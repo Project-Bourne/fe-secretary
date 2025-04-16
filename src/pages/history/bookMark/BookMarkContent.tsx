@@ -13,7 +13,7 @@ import { fetchData } from "@/hooks/FetchData";
 
 function BookMarkContent() {
   // Use dummy data for testing
-  const bookMark = dummyBookmarkData;
+  const { bookMark } = useSelector((state: any) => state.summary);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const homeService = new HomeService();
@@ -67,7 +67,7 @@ function BookMarkContent() {
   const tableData = bookMark?.map(item => ({
     uuid: item.uuid,
     title: item.summary?.title || 'No title',
-    summary: item.summary?.summaryArray || [],
+    summary: item.summary?.text || 'No text',
     createdAt: item.createdAt,
     isBookmarked: item.bookmark,
     onBookmark: (uuid: string) => handleBookMark(null, uuid),

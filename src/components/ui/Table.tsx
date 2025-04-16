@@ -89,7 +89,7 @@ const Table: React.FC<TableProps> = ({
             render: (row: TableData) => (
                 <div className="text-[#383E42] truncate hover-bold">
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                        {row.title || 'No title'}
+                        { useTruncate(row.title || 'No title', 40) }
                     </ReactMarkdown>
                 </div>
             )
@@ -101,7 +101,9 @@ const Table: React.FC<TableProps> = ({
             hideOnMobile: true,
             render: (row: TableData) => (
                 <div className="text-[#545C62] truncate hover-bold">
-                    {useTruncate(row.summary?.join(' ') || 'No summary available', 40)}
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {useTruncate(row.summary || 'No summary available', 40)}
+                    </ReactMarkdown>
                 </div>
             )
         },
@@ -130,7 +132,7 @@ const Table: React.FC<TableProps> = ({
                             size="small"
                             onClick={(e) => {
                                 e.stopPropagation();
-                                row.onBookmark?.(row.uuid);
+                                row.onBookmark(row.uuid);
                             }}
                         >
                             {row.isBookmarked ? (
